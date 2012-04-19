@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="mqm_shop.save_previous_state.listener.params" type="collection">
+            <parameter type="string">TKShopFrontendSecurityLogin</parameter>
+            <parameter type="string">TKShopBackendSecurityLogin</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <service id="mqm_shop.save_previous_state.listener" class="MQM\ShopBundle\EventListener\SavePreviousPage">
+              <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+              <argument type="service" id="router" />
+              <!--argument type="collection">
+                  <argument type="string">foo</argument>
+                  <argument type="string">bar</argument>
+              </argument-->
+              <argument>%mqm_shop.save_previous_state.listener.params%</argument>
+          </service>
+    </services>
+
+</container>

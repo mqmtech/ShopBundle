@@ -1,0 +1,27 @@
+{#Requires:
+    sortManager
+#}
+<div class="organizar_container">
+    <div id="organizar">
+        <ul>
+        {%if sortManager is defined %}
+                {% set current = sortManager.currentSort %}
+                {% for order in sortManager.sorts%}
+                {% if order.id  == 'price' %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li><a href="{{ order.getUrl }}" class="{% if(order == current) %}current{% endif %}">{{ order.name }}</a></li>
+                    {% else %}        
+                        {#<li><a href="">Precio</a></li>#}
+                    {% endif %}
+                {% else %}        
+                        <li><a href="{{ order.getUrl }}" class="{% if(order == current) %}current{% endif %}">{{ order.name }}</a></li>
+                {% endif %}
+                {% endfor %}
+            {% else %}
+
+            <li><a href="">Producto</a></li>
+            <li><a href="">Precio</a></li>
+            {% endif %}
+            </ul>
+    </div>
+</div>

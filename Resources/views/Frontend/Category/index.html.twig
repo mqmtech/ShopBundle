@@ -1,0 +1,81 @@
+{% extends 'MQMShopBundle:Frontend:layout.html.twig' %}
+
+{#Requires:
+#}
+
+{% block title %}| Tecnokey | Productos |{% endblock %}
+
+{% block menu %}<!--start header-->
+        {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'productos'} %}
+{% endblock %}
+
+{% block contextualThree %}<a href="{{ path('TKShopFrontendIndex') }}">Inicio</a> \ Nuestros productos...{% endblock %}
+
+{% block jsfunctions %}
+    {% set TITLE_MAX_LENGTH = 25 %}
+    <script>
+    jQuery(window).load(function(){
+         
+        var tooltipTimeout;
+        
+
+        $(".category_title > a").hover(
+        function(){
+           var target = $(this);
+           tooltipTimeout = setTimeout(function(){
+               showTooltip(target);
+           }, 50);
+        }, function(){
+            var target = $(this);
+            hideTooltip(target);
+          }
+        );
+
+        function showTooltip(target)
+        {
+            var title = $(target).parent().parent().find(".category_tooltip").find("a").html();
+            if(title && title.length > {{ TITLE_MAX_LENGTH }}){
+                
+                $(target).parent().parent().find(".category_tooltip").fadeIn().show();
+            }
+        }
+
+        function hideTooltip(target)
+        {
+            clearTimeout(tooltipTimeout);
+            $(target).parent().parent().find(".category_tooltip").fadeIn().hide();
+        }
+
+    });
+
+    </script>
+{% endblock jsfunctions %}
+
+{% block right %}
+    <div class="bodyprod">
+    {% for col in 0..3 %}
+        {% if(col > 2) %}
+            <div class="prodcol2"> 
+        {% else %}
+            <div class="prodcol1"> 
+        {% endif %}
+            {% for row in 0..3 %}
+                {% set aCat = col * 4 + row %}
+                {% if(categories[aCat]) is defined %}
+                {% set category = categories[aCat] %}
+                    <div class="prod">
+                        <div class="tituloprodbox">
+                            <h2 class="category_title"><a href="{{ path('TKShopFrontendCategoriesShowAllCategories',{'id' : category.id}) }}">{{ category.name | upper | mqm_tools_truncate(25)}}</a></h2>
+                            <h2 class="category_tooltip" style="display: none"><a href="{{ path('TKShopFrontendCategoriesShowAllCategories',{'id' : category.id}) }}">{{ category.name | upper }}</a></h2>
+                            {#<div class="category_tooltip" style="display: none">{{ category.name }}</div>#}
+                        </div>
+                            <div class="foto_prodbox"><a href="{{ path('TKShopFrontendCategoriesShowAllCategories',{'id' : category.id}) }}"><img class="foto_prodbox" src="{{ asset(category.image.webPath) }}" alt="buzones" /></a></div>
+                    </div>
+                    <div class="sombraprod"></div>
+                {% else %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+{% endblock right %}

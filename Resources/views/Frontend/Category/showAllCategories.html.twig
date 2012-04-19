@@ -1,0 +1,44 @@
+{% extends 'MQMShopBundle:Frontend:layout.html.twig' %}
+
+{% block title %}| Tecnokey | Productos |{% endblock %}
+
+{% block menu %}
+        {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'productos'} %}
+{% endblock %}
+
+{% block contextualThree %}<a href="{{ path('TKShopFrontendIndex') }}">Inicio</a> \ {{ parentCategory.name | mqm_tools_first_letter_capital }} \
+{% endblock %}
+
+{% block left %}
+    {% render path('TKShopFrontendCategoriesShowAllFamilies', {'_format': 'partialhtml'}) | mqm_shop_to_app_path %}
+{% endblock %}
+
+{% block right_content %}
+{#<div class="right">#}
+    {% for category in categories %}
+    <!--start lista individual -->
+    <div class="listbox_container">    
+
+        <!--div class="fotoprod">¡FOTO!</div-->
+        {#<a href="{{ path('TKShopFrontendCategoriesShowAllCategories', {'id': category.id}) }}"><img class="fotoprod" src="{{ asset(category.image.webPath) }}" /></a>#}
+        <div class="fotoprodcontainer">
+            <!--div class="fotoprod">¡FOTO!</div-->
+            {% set imageSizeInfo =  category.image.getImageSize("68", "68") %}
+            <a href="{{ path('TKShopFrontendCategoriesShowAllCategories', {'id': category.id}) }}"><img class="fotoprod" src="{{ asset(category.image.webPath) }}" style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};" /></a>
+        </div> <!-- end fotoprod -->
+        <div class="listbox">
+            {# modded:  again try to show the inner categories, if there is NO more categories then it will redirect to the ProductsByCategory #}
+            <div class="titulo_box">
+                {#<h1><a href="{{ path('TKShopFrontendProductsShowByCategory', {'categoryId': category.id}) }}">{{ category.name }}</a></h1>#}
+                <h1><a href="{{ path('TKShopFrontendCategoriesShowAllCategories', {'id': category.id}) }}">{{ category.name }}</a></h1>
+            </div>
+
+            <div class="text_list_box">
+                {#<h1><a href="{{ path('TKShopFrontendProductsShowByCategory', {'categoryId': category.id}) }}">{{ category.name }}</a></h1>#}
+                <h3><a href="{{ path('TKShopFrontendCategoriesShowAllCategories', {'id': category.id}) }}">{{ category.description}}</a></h3>
+            </div>
+        </div>
+    </div><!--end lista individual -->
+    {% endfor %}
+{#</div>#}
+{% endblock right_content %}

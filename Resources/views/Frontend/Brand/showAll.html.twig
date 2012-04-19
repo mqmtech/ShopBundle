@@ -1,0 +1,48 @@
+{% extends 'MQMShopBundle:Frontend:layout.html.twig' %}
+
+{% block title %}| Tecnokey | Marcas |{% endblock %}
+
+{% block menu %}
+        {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'productos'} %}
+{% endblock %}
+
+{% block contextualThree %}<a href="{{ path('TKShopFrontendIndex') }}">Inicio</a> \ Nuestras Marcas \
+{% endblock %}
+
+{% block left %}
+    {% render path('TKShopFrontendCategoriesShowAllFamilies', {'_format': 'partialhtml'}) | mqm_shop_to_app_path %}
+{% endblock %}
+
+{% block right_content %}
+
+    <div class="titulo_naranja">Nuestros Proveedores:</div>
+    
+    {% set columns = 7 %}
+    {% if brands is defined and brands != null %}
+        {% set rows = ((brands | length)/columns) -1 %}
+        {% set rows = (rows + 0.999) | mqm_tools_floor %} {# +0.5 to guarantee that we'll have enough rows even though it's not a full row#}
+
+        {% if rows < 0 %}
+        {% set rows = 0 %}
+        {% endif %}
+        {% set count = 0 %}
+        
+        {% for i in 0..rows  %} {# group of 7 #}
+            <div class="marcas_fila">
+            {% for j in 0..6  %} {# every brand #}
+                {% if brands[count] is defined %}
+                    {% set brand = brands[count] %}
+                    <div class="marcas">
+                        <a href="{{ path('TKShopFrontendSearchProductsByBrand', {'id' : brand.id}) }}"><img src="{{ asset(brand.image.webPath) }}" /></a></h1>                        
+                    </div>                    
+                {% endif %}
+                {% set count = count +1 %}
+            {% endfor %}
+
+            {% set count = count + 1 %}
+            </div>
+        {% endfor %} {# end group of 7 #}
+        
+    {% endif %}
+
+{% endblock right_content %}

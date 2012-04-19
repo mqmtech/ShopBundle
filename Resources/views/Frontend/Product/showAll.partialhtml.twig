@@ -1,0 +1,90 @@
+{# src/Acme/BlogBundle/Resources/views/Frontend/Product/sideList.html.twig #}
+
+{#Requires:
+    -productState: state of the product with the price
+        -value
+        -discountRule
+     -product
+#}
+
+{% block jsfunctions %}
+    <script>
+    jQuery(window).load(function(){
+         
+        var tooltipTimeout;
+
+        $(".fotoprodcontainer").hover(function()
+        {
+           var target = $(this);
+           tooltipTimeout = setTimeout(function(){
+               showTooltip(target);
+           }, 50);
+        }, function(){
+            hideTooltip();
+          }
+        );
+
+        function showTooltip(target)
+        {
+            var img_src = $(target).find(".fotoprod").attr("src");
+            var tooltip = $("<div id='tooltip' class='zoom_lista'><img src='" + img_src + "'></img></div>");
+            tooltip.appendTo($(target));
+            //alert($(target).attr("name"));
+            //alert(img_src);
+        }
+
+        function hideTooltip()
+        {
+            clearTimeout(tooltipTimeout);
+            $("#tooltip").fadeOut().remove();
+        }
+
+    });
+
+    </script>
+{% endblock jsfunctions %}
+
+<!--start lista individual -->
+{% for product in products %}
+        {% set productPrice = productsPrice[product.id]  %}
+        <div class="listbox_container" name="test">    
+            
+            <div class="fotoprodcontainer">
+                <!--div class="fotoprod">¡FOTO!</div-->
+                {% set imageSizeInfo =  product.image.getImageSize("68", "68") %}
+                <a href="{{ path('TKShopFrontendProductShow', {'productId': product.id}) }}"><img class="fotoprod" src="{{ asset(product.image.webPath) }}" style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};" /></a>
+            </div> <!-- end fotoprod -->
+            
+            <div class="listbox">
+
+                <div class="titulo_box">
+                    <h1><a href="{{ path('TKShopFrontendProductShow', {'productId': product.id}) }}">{{ product.name }}</a></h1>
+                </div>
+
+                <div class="text_list_box">
+                    <h3><a href="{{ path('TKShopFrontendProductShow', {'productId': product.id})}}">{{ product.description |mqm_tools_truncate}}</a></h3>
+                </div>
+                <div class="ref_lista">
+                    <div class="ref">REF: {{ product.sku }}</div>
+                    {#<div class="ref">Rojo</div>
+                    <div class="ref">23cm X 4cm</div>
+                    <div class="ref">Madera</div>#}
+                </div>
+
+            </div>
+             <div class="precio_box">
+                    {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+                        {% if(productPrice.isDiscountRule is defined and productPrice.isDiscountRule) %}
+                        <div class="precio">{{ productPrice.value | roundoff | toPrettyPrice  | default("n/a")}} {% if(productPrice.value) %} {{ currencySymbol() }} {% endif %}</div>
+                        <div class="iva">Sin IVA</div>
+                        <div class="descuento">{{ product.discountRule.discount ~ "%"}}</div>
+                        {% else %} {# else discountRule #}
+                            <div class="precio">{{ productPrice.value | roundoff | toPrettyPrice  | default("n/a")}} {% if(productPrice.value) %} {{ currencySymbol() }} {% endif %}</div>
+                            <div class="iva">Sin IVA</div>
+                        {% endif %} {# endig discountRule #}
+                    {% else %} {# else is_granted #}
+                            <div class="no_price_access">{{ noPriceAccess() }}</div>
+                    {% endif %} {# endif is_granted #}
+                </div>
+        </div><!--end lista individual -->
+{% endfor %}

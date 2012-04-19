@@ -1,0 +1,84 @@
+{# app/Resources/views/layout.html.twig #}
+{# 
+TODO:
+    - Create controller for shopping cart and render it instead including it
+    - Implement user login controller
+#}
+
+{% extends '::base.html.twig' %}
+
+{% block title %}| Tecnokey |{% endblock %}
+
+{% block stylesheets %}
+            {{ parent() }}
+<link href="{{ asset('bundles/mqmshop/css/site.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %} <!--start page-->
+<div class="container">
+
+    {% block header %}<!--start header-->
+        {#{% include 'MQMShopBundle:Frontend:header.partialhtml.twig' %}#}
+    <div class="headercontainer">
+
+        <div class="logologincontainer">
+            {% image '@MQMShopBundle/Resources/public/images/logo.png' output='bundles/mqmshop/images/logo.png' %}
+            {# asset('bundles/mqmshop/images/logo.png') #}
+            <div class="logo"><img src="{{ asset_url }}" alt="logo" /></div>
+            {% endimage %}
+            <div class="cestalogin"><!--start cesta login-->
+                    {% block login %}
+                        {% render path('TKShopFrontendUserShow', {'_format': 'partialhtml'}) | mqm_shop_to_app_path %}
+                    {% endblock %}
+                    {% block cesta %}
+                        {% render path('TKShopFrontendUserShoppingCartShow', {'_format': 'partialhtml'}) | mqm_shop_to_app_path %}
+                    {% endblock %}
+                </div><!--end cesta login-->
+            </div><!--end logo login container-->	
+            <div class="menucontainer"> <!--start menucontainer-->
+        {% block menu %}     
+            {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig'%}
+        {% endblock %}
+        {% block busqueda %}
+                 {% include 'MQMShopBundle:Default:buscar.partialhtml.twig' with {'targetController' : 'TKShopFrontendSearchProductsByMultiQuery'} %}            
+        {% endblock busqueda%}<!--end menu--> 
+            </div>
+    </div>
+    {% endblock %} <!--end header-->
+
+    {% block content %}
+        {% block treeContainer %}
+            <!--start arbol-->
+            <div class="arbol_container">
+                <div class="arbol">
+                    <div class="arboltext">{% block contextualThree %}<a href="#">Inicio</a> \{% endblock %}</div>
+                </div>
+            </div>
+            <!--end arbol-->
+        {% endblock treeContainer %}
+
+        <div class="bodycontainer">
+        {% block left %}
+        {% endblock left %}
+        
+        {% block right %}
+        <div class="right">
+            {% block right_content %}
+            {% endblock right_content %}
+            
+            {% block right_pagination %}
+                {#{% include 'MQMPaginationBundle:Pagination:pagination_bar.partialhtml.twig' with {'pagination' : mqm_pagination.pagination_manager} %}#}
+                {{ mqm_pagination_paginate('MQMPaginationBundle:Pagination:pagination_bar.partialhtml.twig') }}
+            {% endblock right_pagination %}
+        </div>
+        {% endblock right %}
+        </div> {# end bodycontainer#}
+
+    {% endblock %} {# end content #}
+
+    {% block footer %}<!--start footer-->
+        {% render path('TKShopFrontendBrandsShowRandom', {'_format': 'footer_partialhtml'}) | mqm_shop_to_app_path %}
+    {% endblock %}<!--end footer-->
+        </div><!--end page-->
+{% endblock %} {#end body#}
+

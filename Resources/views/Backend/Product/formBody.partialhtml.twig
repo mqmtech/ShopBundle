@@ -1,0 +1,165 @@
+{% form_theme form 'MQMShopBundle:Backend/Form:product.html.twig' %}
+
+    <div class="div_border">
+
+    <!--categorias y marcas-->	
+        <div class="div_categ_marca_container">
+            <div class="categorias_list">
+                <!--label for="select"></label>
+                <select name="select" id="select">
+                    <option>Categorías...</option>
+                </select-->
+                {{ form_errors(form.category) }}
+                {{ form_widget(form.category) }}
+            </div>
+            
+
+            <div class="marcas_list">
+            <!--label for="select"></label><select name="select" id="select"><option>Marcas...</option></select-->
+                {{ form_errors(form.brand) }}
+                {{ form_widget(form.brand) }}
+            </div>
+        </div>
+
+    <!--titulo y referencia--> 
+
+            <div class="titulo_ref_container">
+
+            <div class=" float-left">
+                    <div class="legend"><span class="text_bold">Titulo:</span></div>
+                    <!--input name="Empresa" type="Empresa" class="add_titulo"/-->
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name) }}
+            </div>    
+
+            <div class="float-right">    
+                <div class="legend"><span class="text_bold">Referencia:</span></div>
+                <!--input name="Empresa" type="Empresa" class="add_ref"/-->
+                {{ form_errors(form.sku) }}
+                {{ form_widget(form.sku) }}
+            </div>
+
+        </div>
+    
+    <!--start tags-->   
+    <div class="titulo_ref_container">
+       
+    	<div class=" float-left">
+            <div class="legend"><span class="text_bold">Palabras clave:</span></div>
+            {{ form_errors(form.tag) }}
+            {{ form_widget(form.tag) }}
+            
+            {{ form_errors(form.secondTag) }}
+            {{ form_widget(form.secondTag) }}
+            
+            {{ form_errors(form.thirdTag) }}
+            {{ form_widget(form.thirdTag) }}
+            
+            {{ form_errors(form.fourthTag) }}
+            {{ form_widget(form.fourthTag) }} 
+        </div>
+    </div>
+<!--end tags-->  
+
+    <!--description e imagenes-->    
+        <div class="div_desc_imagenes_container">
+
+            <div class="div_descripcion">
+                    <div class="legend"> <span class="text_bold">Descripción del producto:</span></div>
+                    <!--textarea name="descripcion" class="descripcion_form" cols="descripcion"></textarea-->
+                    {{ form_errors(form.description) }}
+                    {{ form_widget(form.description) }}
+            </div>
+            
+            <div class="div_imagenes">
+            <div class="titulo_imagenes">Añadir Imágenes:</div>
+            
+                <div class="div_imagenes_loader_test"><span class="text_bold">#1 </span>
+                    <!--input type="submit" name="load" id="load" value="Imágen 1" />
+                    <span class=" text_general">Archivo cargado...</span-->
+                    <span>
+                    {{ form_errors(form.image.data) }}
+                    {{ form_widget(form.image.data) }}
+                    </span>
+                    
+                    {{ form_errors(form.image.name) }}
+                    {{ form_widget(form.image.name) }}
+                    
+                </div>
+
+                <div class="div_imagenes_loader_test"><span class="text_bold">#2 </span>
+                    <!--input type="submit" name="load" id="load" value="Imágen 2" />
+                        <span class=" text_general">Archivo cargado...</span-->
+                     <span>
+                     {{ form_errors(form.secondImage.data) }}
+                     {{ form_widget(form.secondImage.data) }}
+                     </span>
+                    
+                    {{ form_errors(form.secondImage.name) }}
+                    {{ form_widget(form.secondImage.name) }}
+                    
+                </div>
+
+                <div class="div_imagenes_loader_test"><span class="text_bold">#3 </span>
+                    <!--input type="submit" name="load" id="load" value="Imágen 3" />
+                            <span class=" text_general">Archivo cargado...</span-->
+                    <span>
+                    {{ form_errors(form.thirdImage.data) }}
+                    {{ form_widget(form.thirdImage.data) }}
+                    </span>
+                    
+                    {{ form_errors(form.thirdImage.name) }}
+                    {{ form_widget(form.thirdImage.name) }}
+                    
+                </div>
+
+                <div class="div_imagenes_loader_test"><span class="text_bold">#4 </span>
+                    <!--input type="submit" name="load" id="load" value="Imágen 4" />
+                                <span class=" text_general">Archivo cargado...</span-->
+                    <span>
+                    {{ form_errors(form.fourthImage.data) }}
+                    {{ form_widget(form.fourthImage.data) }}
+                    </span>
+                    
+                    {{ form_errors(form.fourthImage.name) }}
+                    {{ form_widget(form.fourthImage.name) }}
+                    
+                </div>
+
+            </div>
+
+        </div>
+        <!--precios y promociones-->    
+        <div class="promociones_container">
+
+              <div class="titulo_promo">Precios y  promociones:</div>
+
+              <div class="promo_container">
+                  <div class="legend"><span class="text_bold">Precio €</span></div>
+                  <!--input name="Empresa" onclick="this.value='';" type="Empresa" class="add_precio" value="00,00"/-->
+                  {{ form_errors(form.priceRule.price) }}
+                  {{ form_widget(form.priceRule.price) }}
+              </div>
+
+              <div class="promo_container">
+                  <div class="legend"><span class="text_bold">Descuento %</span></div>
+                  <!--input name="Empresa" onclick="this.value='';" type="Empresa" class="add_descuento" value="00"/-->
+                  {{ form_errors(form.discountRule.discount) }}
+                  {{ form_widget(form.discountRule.discount) }}
+              </div>
+
+              <div class="promo_container">
+                  <div class="legend"><span class="text_bold">Fecha: Alta promoción</span></div>
+                  <!--input name="Empresa" onclick="this.value='';" type="Empresa" class="add_fecha" value="DD/MM/AAAA"/-->
+                  {{ form_errors(form.discountRule.startDate) }}
+                  {{ form_widget(form.discountRule.startDate) }}
+              </div>
+
+              <div class="promo_container">
+                  <div class="legend"><span class="text_bold">Fecha: Baja promoción</span></div>
+                  <!--input name="Empresa" onclick="this.value='';" type="Empresa" class="add_fecha" value="DD/MM/AAAA"/-->
+                  {{ form_errors(form.discountRule.deadline) }}
+                  {{ form_widget(form.discountRule.deadline) }}
+              </div>
+        </div>
+    

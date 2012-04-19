@@ -1,0 +1,97 @@
+{% extends 'MQMShopBundle:Frontend:layout.html.twig' %}
+
+{% block title %}| Tecnokey | Previsualizacón de pedido |{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+<link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+{% endblock stylesheets %}
+
+{% block menu %}
+        {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'productos'} %}
+{% endblock %}
+
+{% block contextualThree %}<a href="{{ path('TKShopFrontendIndex') }}">Inicio</a> \ <a href="{{ path('TKShopFrontendUserShow', {'_format': 'html'}) }}">Mi cuenta</a> \ Previsualizacón de pedido \
+{% endblock %}
+
+{% block left %}
+    {% render path('TKShopFrontendCategoriesShowAllFamilies', {'_format': 'partialhtml'}) | mqm_shop_to_app_path %}
+{% endblock %}
+
+{% block jsfunctions %}
+    {{ parent() }}
+    <script>
+    jQuery(document).ready(function(){
+    
+        var $dialog = $('<div></div>')
+                    .html('La confirmación de pedidos aún no se encuentra activada')
+                    .dialog({
+                            autoOpen: false,
+                            title: 'Función deshabilitada',
+                            resizable: false,
+                            height:240,
+                            modal: true,
+                            buttons: {
+				"Abortar pedido": function() {
+					$( this ).dialog( "close" );
+				}
+			}
+                    });
+
+    
+        jQuery(".confirmar_pedido_deshabilitado").click(function(event){
+        
+            event.preventDefault(); // now js will take full control of the product delection
+            delform = $( this ).parents("form");
+            
+            $dialog.bind( "dialogbeforeclose", function(e, ui) {
+               //alert( $(e.target)[0].tittle );
+            });
+            
+           $dialog.dialog("open");
+
+        });
+        
+     })
+     </script>
+     
+         <script>
+    jQuery(document).ready(function(){
+        jQuery('.input_cantidad_cesta').click(function(event){
+            var value = jQuery(this).attr('value');
+        if(value < 1){
+            value = 1;
+        }
+        jQuery(this).attr('value', value);
+        })
+     })
+     </script>
+{% endblock jsfunctions %}
+
+{% block right_content %}
+
+{% include 'MQMShopBundle:Frontend/User:menu.partialhtml.twig' with {'nothing' : 'null'} %}            
+
+  <!--start cuerpo--> 
+<div class="right_cuerpo_user">
+    <div class="titulo_current">Previsualización del pedido:</div>
+
+    <div class="lista_pedidos_container">
+        {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item_fields.partialhtml.twig'%}                
+        {% for dataItem in order.items %}
+            {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item.partialhtml.twig' with {'isEditable' : false} %}
+        {% endfor %}
+        {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_summary.partialhtml.twig' with {'entity' : order} %}
+
+        <div class="btn_accion_container">
+        <div><a class="btn_guardar_pedido" href="{{ path('TKShopFrontendUserShoppingCartEdit') }}">Volver a Cesta</a></div>                
+        <div><a class="confirmar_pedido" href="{{ path('TKShopFrontendOrderCreateFromShoppingCart') }}">Confirmar Pedido</a></div>                
+        </div>                
+                
+    </div>
+
+        </div><!--end cuerpo--> 
+{% endblock right_content %}
+
+
+

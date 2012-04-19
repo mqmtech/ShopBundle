@@ -1,0 +1,32 @@
+{% extends 'MQMShopBundle:Frontend:layout.html.twig' %}
+
+{% block title %}| Tecnokey | Registro de cliente |{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+<link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+{% endblock stylesheets %}
+
+{% block menu %}
+        {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'productos'} %}
+{% endblock %}
+
+{% block contextualThree %}<a href="{{ path('TKShopFrontendIndex') }}">Inicio</a> \ Lista de la compra \
+{% endblock %}
+
+{% block left %}
+    {% render path('TKShopFrontendCategoriesShowAllFamilies', {'_format': 'partialhtml'}) | mqm_shop_to_app_path %}
+{% endblock %}
+
+{% block right_content %}
+
+<form action="{{ path('TKShopFrontendUserCreate') }}" method="post" {{ form_enctype(form) }}>
+    {% include 'MQMShopBundle:Frontend/User/Register:formBody.partialhtml.twig' %}
+</form>
+
+{% endblock right_content %}
+
+
+
+
+

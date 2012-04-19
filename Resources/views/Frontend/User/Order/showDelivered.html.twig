@@ -1,0 +1,38 @@
+{% extends 'MQMShopBundle:Frontend:layout.html.twig' %}
+
+{% block title %}| Tecnokey | Pedidos realizados |{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+{% endblock stylesheets %}
+
+{% block menu %}
+        {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'productos'} %}
+{% endblock %}
+
+{% block contextualThree %}<a href="{{ path('TKShopFrontendIndex') }}">Inicio</a> \ <a href="{{ path('TKShopFrontendUserShow', {'_format': 'html'}) }}">Mi cuenta</a> \Pedidos realizados \
+{% endblock %}
+
+{% block left %}
+    {% render path('TKShopFrontendCategoriesShowAllFamilies', {'_format': 'partialhtml'}) | mqm_shop_to_app_path %}
+{% endblock %}
+
+{% block right %}
+<!--start right-->
+    <div class="right">
+    	<!--start menu user-->
+        {% include 'MQMShopBundle:Frontend/User:menu.partialhtml.twig' with {'nothing' : 'null'} %}            
+        <!--end menu user--> 
+        
+        <!--start cuerpo--> 
+        <div class="right_cuerpo_user">
+        	<div class="titulo_current">Pedidos realizados:
+            <span class="text_bold">Consulte el historial de sus pedidos realizados.</span></div>
+               <div class="lista_pedidos_container">
+                    {% include 'MQMShopBundle:Frontend/User/Order:showAll.partialhtml.twig' with {'entities' : entities} %}            
+               </div>
+        </div>
+        <!--end cuerpo--> 
+    </div><!--end right-->
+{% endblock right %}

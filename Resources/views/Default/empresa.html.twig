@@ -1,0 +1,90 @@
+{% extends 'MQMShopBundle:Frontend:layout.html.twig' %}
+
+{#Requires:
+#}
+
+{% block title %}| Tecnokey | Nuestra Empresa |{% endblock %}
+
+{% block menu %}<!--start header-->
+        {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'empresa'} %}
+{% endblock %}
+
+{% block contextualThree %}<a href="{{ path('TKShopFrontendIndex') }}">Inicio</a> \ Nuestra Empresa{% endblock %}
+
+{% block left %}
+    {% render path('TKShopFrontendCategoriesShowAllFamilies', {'_format' : 'partialhtml'}) | mqm_shop_to_app_path %}
+{% endblock %}
+
+{% block right %}
+    <div class="right">
+    
+	  <div class="titulo_naranja">Nuestra empresa:</div>
+      
+      <div style="margin-bottom:10px"><img src="{{ asset('bundles/mqmshop/images/Empresa_timeLine.png') }}" alt="barcelona" /></div>
+      
+      
+		<div class="timeline_fondo"><!--start time line fondo-->
+        <div class="div_fecha_empresa"><img src="{{ asset('bundles/mqmshop/images/1985.png') }}" alt="barcelona" /></div>
+        
+        <div style=" padding-left:75px">
+        <p class="georgia_gris_14">
+        En 1985 José Ibáñez inicia este proyecto empresarial junto a su esposa Montse Berdun bajo el nombre de ROID MaQ, siendo pionero en la fabricación y estampación de llaves de gorjas en Catalunya, acompañado de la venta de maquinas duplicadoras y productos de menaje para ferreterías.<br />
+   		  <br />
+        </p></div>
+        
+     <div class="div_fecha_empresa"><img src="{{ asset('bundles/mqmshop/images/1991.png') }}" alt="barcelona" /></div>   
+     <img src="{{ asset('bundles/mqmshop/images/llave_s.png') }}" alt="barcelona" align="left" style="margin-left:10px"/>
+     <div style=" padding-left:75px"> 
+     	<p class="text_general">
+       En <strong>1991</strong> constituyen la mercantil <strong>TECNO-KEY, SL</strong> dedicada a la distribución de productos JMA siendo la llave el producto líder en la planificación de la venta. Con una estrategia rediseñada y actualizada de venta al mayor y al detalle, formaron un equipo técnico, que a su vez formó parte de una plantilla cualificada y motivada, dispuesta a aportar soluciones y asesorar a sus clientes.<br />
+       <br /><br />
+
+Desde los inicios, <strong>TECNO-KEY</strong> ha estado a la vanguardia en el sector, disponiendo de las maquinas más avanzadas y novedosas para duplicar todo tipo de llave y mandos, teniendo en su disposición un abanico de más de 6300 referencias entre cerraduras, mandos, buzones, cajas fuertes, manetas, llaves y cierrapuertas entre otros… El desarrollo continuo de sus conocimientos, procesos, organización y catalogo de productos han garantizado el cumplimiento de las exigencias de sus clientes.<br /><br />
+
+      </p></div>
+      
+      <div  class="flash_container_empresa">
+        <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="720" height="155">
+          <param name="movie" value="{{ asset('bundles/mqmshop/images/scroll_imagenes_empresa.swf') }}" />
+          <param name="quality" value="high" />
+          <param name="wmode" value="opaque" />
+          <param name="swfversion" value="8.0.35.0" />
+          <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you don’t want users to see the prompt. -->
+          <param name="expressinstall" value="Scripts/expressInstall.swf" />
+          <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
+          <!--[if !IE]>-->
+          <object type="application/x-shockwave-flash" data="{{ asset('bundles/mqmshop/images/scroll_imagenes_empresa.swf') }}" width="720" height="155">
+            <!--<![endif]-->
+            <param name="quality" value="high" />
+            <param name="wmode" value="opaque" />
+            <param name="swfversion" value="8.0.35.0" />
+            <param name="expressinstall" value="Scripts/expressInstall.swf" />
+            <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
+            <div>
+              <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
+              <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" width="112" height="33" /></a></p>
+            </div>
+            <!--[if !IE]>-->
+          </object>
+          <!--<![endif]-->
+        </object>
+      </div>
+      
+      <div style=" padding-left:75px">
+      	<p class="text_bold">En <strong>2005</strong> y <strong>2009</strong>, como éxito derivado de su espíritu emprendedor y resultado del desarrollo continuo, inauguran dos nuevos puntos de venta en Sant Adrià del Besòs y en Sant Gervasi, para seguir ofreciendo un mejor servicio. El éxito logrado en estos puntos de venta es la consecuencia de un proceso orientado a las exigencias y necesidades de sus clientes. <br /><br />
+       </p>
+       </div>
+      <div class="div_fecha_empresa"><img src="{{ asset('bundles/mqmshop/images/2010.png') }}" alt="barcelona" /></div>
+      
+      <div style=" padding-left:75px"> <p class="text_general">En el año <strong>2010</strong> entra a formar parte del negocio familiar el hijo de este matrimonio, Iván Ibáñez Berdun, constituyendo la empresa  <strong>POBLE9KEY, SA.</strong> Lleva a cabo la actualización de la identidad y los aspectos visuales, síntesis de la imagen corporativa de <strong>TECNO-KEY</strong> con una perspectiva elegante e innovadora, logrando una imagen positiva y bien definida. Sigue alcanzando la mayor satisfacción de sus clientes mas exigentes añadiendo en su catalogo una amplia gama de productos relacionados con la domótica, la biometría y la apertura de puertas mediante sistemas electrónicos. Es el inicio de un cambio de rumbo hacia un futuro satisfactorio bajo la tutela de una base consolidada por la experiencia de un pasado exitoso. <br />
+        <br />
+El logro conseguido a día de hoy es fruto de un esfuerzo, una dedicación y un capital humano formado por un equipo joven, impetuoso, luchador y con una permanente ambición por superarse día tras día. Este buen hacer se refleja en el contacto diario con el público, con el que mantenemos una relación estrecha y de amistad.<br /><br />
+
+      </p></div>
+      
+      </div><!--end time line fondo-->
+
+        
+    </div><!--end right-->
+{% endblock right %}
+
