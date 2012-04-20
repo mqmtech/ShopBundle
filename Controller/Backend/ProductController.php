@@ -364,8 +364,8 @@ class ProductController extends Controller {
         $pagination = $this->get('mqm_pagination.pagination_manager');
         if($products != null){
             $totalItems = count($products);
-            $pagination->paginate($totalItems);
-            $products = $pagination->getPaginatedElements($products);
+            $pagination->init($totalItems);
+            $products = $pagination->paginateArray($products);
         }
         
         $deleteForms = array();

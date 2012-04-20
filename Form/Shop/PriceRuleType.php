@@ -21,7 +21,7 @@ class PriceRuleType extends AbstractType
         return 'mqm_pricing_form_type_price_rule_default';
     }
     
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'data_class' => 'MQM\PricingBundle\Entity\PriceRule\PriceRule',

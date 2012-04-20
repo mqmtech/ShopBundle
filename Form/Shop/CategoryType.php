@@ -5,11 +5,11 @@ namespace MQM\ShopBundle\Form\Shop;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 use Doctrine\ORM\PersistentCollection;
-use Symfony\Bundle\DoctrineBundle\Registry;
+use MQM\CategoryBundle\Model\CategoryManagerInterface;
 
 class CategoryType extends AbstractType
 {
-    private $doctrine;
+    private $categoryManager;
     
     public function buildForm(FormBuilder $builder, array $options)
     {
@@ -28,59 +28,50 @@ class CategoryType extends AbstractType
              'empty_value' => 'Categorias...',
              'required' => false,
              'label' => 'Categoria',
-             'choices' => $this->buildOrdenedCategoriesChoiceArray()
+             'choices' => $this->buildOrdenedCategoriesChoice()
               ));
     }
 
     public function getName()
     {
-        return 'tecnokey_shopbundle_shop_categorytype';
+        return 'mqm_shop_form_category';
     }
     
-    /**
-     *
-     * @param array $categories
-     * @param array $categoriesChoice
-     * @return type 
-     */
-    public function buildOrdenedCategoriesChoiceArray(PersistentCollection $categories=null, array &$categoriesChoice = null){
-        
-        if($categoriesChoice == null){
+    public function buildOrdenedCategoriesChoice(PersistentCollection $categories=null, array &$categoriesChoice = null)
+    {        
+        if($categoriesChoice == null) {
             $categoriesChoice = array();
         }
         
-        if($this->doctrine == null){
-            throw new \Symfony\Component\Config\Definition\Exception\Exception
-            ("Custom Exception: No Doctrine passed throught the CategoryType constructor", null, null);
-        }
-        
-        if($categories == null){
-            $categories = (array) $this->doctrine->getEntityManager()->getRepository('MQMCategoryBundle:Category')->findAllFamilies();
+        if ($categories == null) {
+            $categories = (array) $this->categoryManager->findAllFamilies();
         }
         
         foreach ($categories as $category) {
             $categoriesChoice[$category->getId()] = $category;
             $subCategories = $category->getCategories();
             if($subCategories != null){
-               $this->buildOrdenedCategoriesChoiceArray($subCategories, $categoriesChoice);
+               $this->buildOrdenedCategoriesChoice($subCategories, $categoriesChoice);
             }
         }
         
         return $categoriesChoice;
     }
     
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'data_class' => 'MQM\CategoryBundle\Entity\Category',
         );
     }
     
-    public function __construct(Registry $doctrine) {
-        $this->doctrine = $doctrine;
+    public function __construct(CategoryManagerInterface $categoryManager)
+    {
+        $this->categoryManager = $categoryManager;
     }
     
-    public function setDoctrine(Registry $doctrine){
-        $this->doctrine = $doctrine;
+    public function setCategoryManager(CategoryManagerInterface $categoryManager)
+    {
+        $this->categoryManager = $categoryManager;
     }
 }

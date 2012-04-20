@@ -14,12 +14,12 @@
     <services>
         <service id="mqm_shop.form.product" class="%mqm_shop.form.product.class%" public="true">
             <tag name="form.type" alias="mqm_shop.form.product" />
-            <argument type="service" id="doctrine"/>
+            <argument type="service" id="mqm_category.category_manager"/>
         </service>
         
         <service id="mqm_shop.form.category" class="%mqm_shop.form.category.class%" public="true">
             <tag name="form.type" alias="mqm_shop.form.category" />
-            <argument type="service" id="doctrine"/>
+            <argument type="service" id="mqm_category.category_manager"/>
         </service>
         
         <service id="mqm_shop.form.pretty_price" class="%mqm_shop.form.pretty_price.class%" public="true">

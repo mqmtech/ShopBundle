@@ -10,9 +10,6 @@ class TimeDiscountRuleType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            //->add('name')
-            //->add('description')
-            //->add('scope')
             ->add('start', 'date', array(
                 'label' => 'add_fecha',
                 'input' => 'datetime',
@@ -31,10 +28,10 @@ class TimeDiscountRuleType extends AbstractType
 
     public function getName()
     {
-        return 'tecnokey_shopbundle_shop_timediscountRuletype';
+        return 'mqm_shop_form_time_discount_rule';
     }
     
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'data_class' => 'MQM\ShopBundle\Entity\TimeDiscountRule',

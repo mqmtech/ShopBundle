@@ -24,10 +24,10 @@ class BrandType extends AbstractType
 
     public function getName()
     {
-        return 'tecnokey_shopbundle_shop_brandtype';
+        return 'mqm_shop_form_brand';
     }
     
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'data_class' => 'MQM\BrandBundle\Entity\Brand',

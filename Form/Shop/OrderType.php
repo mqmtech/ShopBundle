@@ -30,6 +30,6 @@ class OrderType extends AbstractType
 
     public function getName()
     {
-        return 'tecnokey_shopbundle_shop_ordertype';
+        return 'mqm_shop_form_order';
     }
 }

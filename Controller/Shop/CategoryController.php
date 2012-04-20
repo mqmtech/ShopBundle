@@ -63,7 +63,7 @@ class CategoryController extends Controller
     public function newAction()
     {
         $entity = new Category();
-        $form   = $this->createForm(new CategoryType(), $entity);
+        $form   = $this->createForm($this->createCategoryFormType(), $entity);
 
         return array(
             'entity' => $entity,
@@ -82,7 +82,7 @@ class CategoryController extends Controller
     {
         $entity  = new Category();
         $request = $this->getRequest();
-        $form    = $this->createForm(new CategoryType(), $entity);
+        $form    = $this->createForm($this->createCategoryFormType(), $entity);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -116,7 +116,7 @@ class CategoryController extends Controller
             throw $this->createNotFoundException('Unable to find Shop\Category entity.');
         }
 
-        $editForm = $this->createForm(new CategoryType(), $entity);
+        $editForm = $this->createForm($this->createCategoryFormType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -143,7 +143,7 @@ class CategoryController extends Controller
             throw $this->createNotFoundException('Unable to find Shop\Category entity.');
         }
 
-        $editForm   = $this->createForm(new CategoryType(), $entity);
+        $editForm   = $this->createForm($this->createCategoryFormType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -198,5 +198,13 @@ class CategoryController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+    
+    private function createCategoryFormType()
+    {
+        $categoryManager = $this->get('mqm_category.category_manager');
+        $form = $this->createForm(new CategoryType($categoryManager));
+        
+        return $form;
     }
 }

@@ -1,19 +1,14 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace MQM\ShopBundle\Form\Shop;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
-use MQM\ShopBundle\Form\Shop\CustomFileType;
 use MQM\ShopBundle\Form\DataTransformer\PriceToPrettyPriceTransformer;
 use MQM\ToolsBundle\Utils;
 
-class PrettyPriceType extends AbstractType{
+class PrettyPriceType extends AbstractType
+{
     private $utils;
     
     public function __construct(Utils $utils)
@@ -34,10 +29,10 @@ class PrettyPriceType extends AbstractType{
 
     public function getName()
     {
-        return 'tecnokey_shopbundle_shop_prettyprice';
+        return 'mqm_shop_form_pretty_price';
     }
     
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'data_class' => 'string',
@@ -45,5 +40,3 @@ class PrettyPriceType extends AbstractType{
         );
     }
 }
-
-?>

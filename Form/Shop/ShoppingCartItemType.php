@@ -27,10 +27,10 @@ class ShoppingCartItemType extends AbstractType
 
     public function getName()
     {
-        return 'tecnokey_shopbundle_shop_shoppingcartitemtype';
+        return 'mqm_shop_form_cart_item';
     }
     
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'data_class' => 'MQM\ShoppingCartBundle\Entity\ShoppingCartItem',

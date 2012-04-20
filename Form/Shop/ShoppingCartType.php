@@ -10,30 +10,19 @@ class ShoppingCartType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            //->add('name')
-            //->add('description')
-            //->add('createdAt')
-            //->add('modifiedAt')
-            //->add('user')
             ->add('items', 'collection', array(
                 'type' => new ShoppingCartItemType(),
                 'label' => ' '
             ))
-            //->add('totalBasePrice')
-            //->add('tax', 'number', array(
-             //   'read_only' => true
-            //))
-            //->add('taxPrice')
-            //->add('totalPrice')
         ;
     }
 
     public function getName()
     {
-        return 'tecnokey_shopbundle_shop_shoppingcarttype';
+        return 'mqm_shop_form_cart';
     }
     
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'data_class' => 'MQM\ShoppingCartBundle\Entity\ShoppingCart',

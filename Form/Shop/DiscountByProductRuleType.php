@@ -31,7 +31,7 @@ class DiscountByProductRuleType extends AbstractType
         return 'mqm_pricing_form_type_discount_by_product';
     }
     
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'data_class' => 'MQM\PricingBundle\Entity\DiscountRule\DiscountByProductRule',

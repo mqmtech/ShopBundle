@@ -4,21 +4,15 @@ namespace MQM\ShopBundle\Form\Shop;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\PersistentCollection;
-use Symfony\Bundle\DoctrineBundle\Registry;
 
+use MQM\CategoryBundle\Model\CategoryManagerInterface;
 use MQM\ShopBundle\Form\DataTransformer\PriceToPrettyPriceTransformer;
 
 class ProductType extends AbstractType
 {
+    private $categoryManager;
 
-    /**
-     *
-     * @var Registry
-     */
-    public $doctrine = null;
-    
     public function buildForm(FormBuilder $builder, array $options)
     {
         $priceToPrettyPriceTransformer = new PriceToPrettyPriceTransformer(new \MQM\ToolsBundle\Utils());
@@ -44,7 +38,7 @@ class ProductType extends AbstractType
              'empty_value' => 'Categorias...',
              'required' => true,
              'label' => 'Categoria',
-             'choices' => $this->buildOrdenedCategoriesChoiceArray()
+             'choices' => $this->buildOrdenedCategoriesChoice()
               ))
             ->add('image', new ImageType(), array(
                 'required' => false,
@@ -70,36 +64,30 @@ class ProductType extends AbstractType
             ))
             ->add('fourthTag', null, array(
                 'label' => ' add_tags'
-            ))
-            
+            ))            
             ->add('brand', 'entity', array(
-            'empty_value' => 'Marcas...',
-            'class' => 'MQM\BrandBundle\Entity\Brand',
-            'required' => true,
-            'label' => 'Marca'
+                'empty_value' => 'Marcas...',
+                'class' => 'MQM\BrandBundle\Entity\Brand',
+                'required' => true,
+                'label' => 'Marca'
               ));
     }    
-    /**
-     *
-     * @param ArrayCollection $categories
-     * @param array $categoriesChoice
-     * @return array 
-     */
-    public function buildOrdenedCategoriesChoiceArray(PersistentCollection $categories=null, array &$categoriesChoice = null){
-        
-        if($categoriesChoice == null){
+
+    public function buildOrdenedCategoriesChoice(PersistentCollection $categories=null, array &$categoriesChoice = null)
+    {        
+        if ($categoriesChoice == null) {
             $categoriesChoice = array();
         }
         
-        if($categories == null){
-            $categories = (array) $this->doctrine->getEntityManager()->getRepository('MQMCategoryBundle:Category')->findAllFamilies();
+        if ($categories == null) {
+            $categories = (array) $this->categoryManager->findAllFamilies();
         }
         
         foreach ($categories as $category) {
             $categoriesChoice[$category->getId()] = $category;
             $subCategories = $category->getCategories();
-            if($subCategories != null){
-               $this->buildOrdenedCategoriesChoiceArray($subCategories, $categoriesChoice);
+            if ($subCategories != null) {
+               $this->buildOrdenedCategoriesChoice($subCategories, $categoriesChoice);
             }
         }
         
@@ -108,29 +96,18 @@ class ProductType extends AbstractType
     
     public function getName()
     {
-        return 'tecnokey_shopbundle_shop_producttype';
+        return 'mqm_shop_form_product';
     }
         
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'data_class' => 'MQM\ProductBundle\Entity\Product',
         );
     }
-    
-    /**
-     *
-     * @param Registry $doctrine 
-     */
-    public function __construct(Registry $doctrine) {
-            $this->doctrine = $doctrine;
-    }
-    
-    /**
-     *
-     * @param Registry $doctrine 
-     */
-    public function setDoctrine(Registry $doctrine){
-        $this->doctrine = $doctrine;               
+
+    public function __construct(CategoryManagerInterface $categoryManager)
+    {
+            $this->categoryManager = $categoryManager;
     }
 }

@@ -4,7 +4,6 @@ namespace MQM\ShopBundle\Form\Shop;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
-use MQM\ShopBundle\Form\Shop\CustomFileType;
 
 class ImageType extends AbstractType
 {
@@ -21,10 +20,10 @@ class ImageType extends AbstractType
 
     public function getName()
     {
-        return 'tecnokey_shopbundle_shop_imagetype';
+        return 'mqm_shop_form_image';
     }
     
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'data_class' => 'MQM\ImageBundle\Entity\Image',

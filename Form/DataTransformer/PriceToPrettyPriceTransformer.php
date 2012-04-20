@@ -52,4 +52,4 @@ class PriceToPrettyPriceTransformer implements DataTransformerInterface{
     }
 }
 
-?>
+

@@ -237,8 +237,8 @@ class CategoryController extends Controller
         $pagination = $this->get('mqm_pagination.pagination_manager');
         if($categories != null){
             $totalItems = count($categories);
-            $pagination->paginate($totalItems); 
-            $categories = $pagination->getPaginatedElements($categories);
+            $pagination->init($totalItems); 
+            $categories = $pagination->paginateArray($categories);
         }        
         $deleteForms = array();
         foreach ($categories as $subCategory) {

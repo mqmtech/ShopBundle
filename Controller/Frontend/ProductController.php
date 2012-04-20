@@ -43,8 +43,8 @@ class ProductController extends Controller
                     ->init();
         
         $category = $this->get('mqm_category.category_manager')->findCategoryBy(array('id' => $categoryId));
-        if($category == null){
-            throw new Exception("Custom Exception: Category is null");
+        if ($category == null) {
+            throw new Exception("Custom Exception: Category not found");
         }
         $rootCategory = $category->getRootCategory();
         
@@ -99,7 +99,7 @@ class ProductController extends Controller
         $breadcrumb = array();
         $i=0; $maxBreadcrumb = 6;
         while ($i < $maxBreadcrumb) {
-            if($relatedCategory != null){
+            if ($relatedCategory != null) {
                 array_unshift($breadcrumb, $relatedCategory);  
                 $relatedCategory = $relatedCategory->getParentCategory();
             }
