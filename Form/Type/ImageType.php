@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\ShopBundle\Form\Shop;
+namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -20,7 +20,7 @@ class ImageType extends AbstractType
 
     public function getName()
     {
-        return 'mqm_shop_form_image';
+        return 'mqm_shop_form_type_image';
     }
     
     public function getDefaultOptions()

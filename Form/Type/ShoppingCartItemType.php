@@ -1,30 +1,29 @@
 <?php
 
-namespace MQM\ShopBundle\Form\Shop;
+namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class PriceRuleType extends AbstractType
+class ShoppingCartItemType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('price', null, array(
-                'label' => 'add_precio'
-            ))
+            ->add('quantity', "integer", array(                
+            ))            
         ;
     }
 
     public function getName()
     {
-        return 'mqm_pricing_form_type_price_rule_default';
+        return 'mqm_shop_form_type_cart_item';
     }
     
     public function getDefaultOptions()
     {
         return array(
-            'data_class' => 'MQM\PricingBundle\Entity\PriceRule\PriceRule',
+            'data_class' => 'MQM\ShoppingCartBundle\Entity\ShoppingCartItem',
         );
     }
 }

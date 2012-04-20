@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use MQM\ShopBundle\Form\Shop\UserType;
+use MQM\ShopBundle\Form\Type\UserType;
 use MQM\UserBundle\Entity\User;
 use Exception;
 

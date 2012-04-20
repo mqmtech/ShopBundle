@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\ShopBundle\Form\Shop;
+namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -34,7 +34,7 @@ class CategoryType extends AbstractType
 
     public function getName()
     {
-        return 'mqm_shop_form_category';
+        return 'mqm_shop_form_type_category';
     }
     
     public function buildOrdenedCategoriesChoice(PersistentCollection $categories=null, array &$categoriesChoice = null)

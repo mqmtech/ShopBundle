@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\ShopBundle\Form\Shop;
+namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -28,7 +28,7 @@ class DiscountByProductRuleType extends AbstractType
 
     public function getName()
     {
-        return 'mqm_pricing_form_type_discount_by_product';
+        return 'mqm_pricing_form_type_type_discount_by_product';
     }
     
     public function getDefaultOptions()

@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\ShopBundle\Form\Shop;
+namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -30,6 +30,6 @@ class OrderType extends AbstractType
 
     public function getName()
     {
-        return 'mqm_shop_form_order';
+        return 'mqm_shop_form_type_order';
     }
 }

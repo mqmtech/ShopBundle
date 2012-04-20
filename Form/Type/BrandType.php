@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\ShopBundle\Form\Shop;
+namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -24,7 +24,7 @@ class BrandType extends AbstractType
 
     public function getName()
     {
-        return 'mqm_shop_form_brand';
+        return 'mqm_shop_form_type_brand';
     }
     
     public function getDefaultOptions()

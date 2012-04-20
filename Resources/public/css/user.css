@@ -287,13 +287,13 @@
 
 .titulo_prd_cesta{
 	float: left;
-	width: 295px;
+	width: 285px;
 }
 
 .ref_prod_cesta{
 	color: #000;
 	float: left;
-	width: 90px;
+	width: 100px;
 }
 
 .precio_ud{
@@ -722,7 +722,7 @@
 
 .titulo_prd_cesta_2lines{
 	float: left;
-	width: 295px;
+	width: 285px;
 	height: auto;
 	line-height: 15px;
 	padding-top: 15px;

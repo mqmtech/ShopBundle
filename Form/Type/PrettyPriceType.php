@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\ShopBundle\Form\Shop;
+namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -29,7 +29,7 @@ class PrettyPriceType extends AbstractType
 
     public function getName()
     {
-        return 'mqm_shop_form_pretty_price';
+        return 'mqm_shop_form_type_pretty_price';
     }
     
     public function getDefaultOptions()

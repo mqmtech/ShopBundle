@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use MQM\ShopBundle\Form\Shop\ProductType;
+use MQM\ShopBundle\Form\Type\ProductType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Exception;
 

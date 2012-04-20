@@ -1,6 +1,6 @@
 <?php
 
-namespace MQM\ShopBundle\Form\Shop;
+namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -96,7 +96,7 @@ class ProductType extends AbstractType
     
     public function getName()
     {
-        return 'mqm_shop_form_product';
+        return 'mqm_shop_form_type_product';
     }
         
     public function getDefaultOptions()
