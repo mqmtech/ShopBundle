@@ -67,9 +67,9 @@ class CategoryController extends Controller {
         }
         $totalCats = count($categories);
         if($categories != null && $totalCats > 0 || $category->getParentCategory() == null){
-            $pagination = $this->get('mqm_pagination.pagination_manager');
-            $pagination->init($totalCats);
-            $categories = $pagination->paginateArray($categories);
+            $paginationManager = $this->get('mqm_pagination.pagination_manager');
+            $paginationManager->init($totalCats);
+            $categories = $paginationManager->paginateArray($categories);
 
             return $this->render("MQMShopBundle:Frontend\Category:showAllCategories.".$_format.".twig", array(
                 'categories' => $categories,

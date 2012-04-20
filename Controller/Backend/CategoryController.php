@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use MQM\CategoryBundle\Entity\Category;
 use MQM\ShopBundle\Form\Type\CategoryType;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Shop\Category controller.
@@ -26,7 +25,7 @@ class CategoryController extends Controller
      */
     public function indexAction()
     {
-        $entities = $this->get('mqm_category.category_manager')->findCategories();
+        $entities = $this->getCategoryManager()->findCategories();
         return array('entities' => $entities);
     }
 
@@ -38,12 +37,10 @@ class CategoryController extends Controller
      */
     public function showAction($id)
     {
-        $entity = $this->get('mqm_category.category_manager')->findCategoryBy(array('id' => $id));
-
+        $entity = $this->getCategoryManager()->findCategoryBy(array('id' => $id));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\Category entity.');
         }
-
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -59,10 +56,10 @@ class CategoryController extends Controller
      */
     public function newAction()
     {
-        $entity = new Category();
-        
+        $entity = $this->getCategoryManager()->createCategory();        
         $categoryType = $this->get('mqm_shop.form.category');
         $form = $this->createForm($categoryType, $entity);
+        
         return array(
             'entity' => $entity,
             'form'   => $form->createView()
@@ -78,18 +75,15 @@ class CategoryController extends Controller
      */
     public function createAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
-        
-        $entity  = new Category();
+        $categoryManager = $this->getCategoryManager();
+        $entity  = $categoryManager->createCategory();
         $request = $this->getRequest();
         $categoryType = $this->get('mqm_shop.form.category');
         $form    = $this->createForm($categoryType, $entity);
         $form->bindRequest($request);
-
-        if ($form->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-
+        if ($form->isValid()) {            
+            $categoryManager->saveCategory($entity);
+            
             return $this->redirect($this->generateUrl('TKShopBackendCategoriesShowAll'));
         }
 
@@ -107,12 +101,10 @@ class CategoryController extends Controller
      */
     public function editAction($id)
     {
-        $entity = $this->get('mqm_category.category_manager')->findCategoryBy(array('id' => $id));
-
+        $entity = $this->getCategoryManager()->findCategoryBy(array('id' => $id));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\Category entity.');
         }
-
         $categoryType = $this->get('mqm_shop.form.category');
         $editForm = $this->createForm($categoryType, $entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -132,14 +124,11 @@ class CategoryController extends Controller
      */
     public function cloneAction($id)
     {
-        $entity = $this->get('mqm_category.category_manager')->findCategoryBy(array('id' => $id));
-        
+        $entity = $this->getCategoryManager()->findCategoryBy(array('id' => $id));        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\Category entity.');
-        }
-        
+        }        
         $entityCloned = clone ($entity);
-
         $categoryType = $this->get('mqm_shop.form.category');
         $editForm = $this->createForm($categoryType, $entityCloned);
 
@@ -159,31 +148,24 @@ class CategoryController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $this->get('mqm_category.category_manager')->findCategoryBy(array('id' => $id));
-
+        $categoryManager = $this->getCategoryManager();
+        $entity = $categoryManager->findCategoryBy(array('id' => $id));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\Category entity.');
         }
-
         $categoryType = $this->get('mqm_shop.form.category');
         $editForm   = $this->createForm($categoryType, $entity);
         $deleteForm = $this->createDeleteForm($id);
-
         $request = $this->getRequest();
-
         $editForm->bindRequest($request);
-
-        if ($editForm->isValid()) {
-            
+        if ($editForm->isValid()) {            
             //FIX VIRTUAL file update in Image
             $image = $entity->getImage();
-            if($image != null){
-                if($image->isFileUpdated() == false){
+            if ($image != null) {
+                if ($image->isFileUpdated() == false) {
                     $image->setFileUpdated(true);
                 }
-                else{
+                else {
                     $image->setFileUpdated(false);
                 }   
             }
@@ -191,9 +173,7 @@ class CategoryController extends Controller
                 throw new \Exception("Custom Exception: Image is null in the updateAction");
             }
             //END FIX VIRTUAL file update in Image 
-            
-            $em->persist($entity);
-            $em->flush();
+            $categoryManager->saveCategory($entity);
 
             return $this->redirect($this->generateUrl('TKShopBackendCategoriesShowAll'));
         }
@@ -211,8 +191,8 @@ class CategoryController extends Controller
      * @Template()
      */
     public function showAllAction() {
-        $pagination = $this->get('mqm_pagination.pagination_manager'); 
-        $categories = $this->get('mqm_category.category_manager')->findAllFamilies($pagination);
+        $paginationManager = $this->get('mqm_pagination.pagination_manager'); 
+        $categories = $this->get('mqm_category.category_manager')->findAllFamilies($paginationManager);
         $deleteForms = array();
         foreach ($categories as $category) {
             $form = $this->createDeleteForm($category->getId());
@@ -232,13 +212,13 @@ class CategoryController extends Controller
      */
     public function showAllSubCategoriesAction($id) 
     {
-        $category = $this->get('mqm_category.category_manager')->findCategoryBy(array('id' => $id));
+        $category = $this->getCategoryManager()->findCategoryBy(array('id' => $id));
         $categories = $category->getCategories();        
-        $pagination = $this->get('mqm_pagination.pagination_manager');
+        $paginationManager = $this->get('mqm_pagination.pagination_manager');
         if($categories != null){
             $totalItems = count($categories);
-            $pagination->init($totalItems); 
-            $categories = $pagination->paginateArray($categories);
+            $paginationManager->init($totalItems); 
+            $categories = $paginationManager->paginateArray($categories);
         }        
         $deleteForms = array();
         foreach ($categories as $subCategory) {
@@ -263,22 +243,16 @@ class CategoryController extends Controller
     {
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
-
         $form->bindRequest($request);
-
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
             $entity = $this->get('mqm_category.category_manager')->findCategoryBy(array('id' => $id));
-
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Shop\Category entity.');
-            }
-            
+            }            
             try {
-                $em->remove($entity);
-                $em->flush();
+                $this->get('mqm_category.category_manager')->deleteCategory($entity);
             }
-            catch(\Exception $e){
+            catch(\Exception $e) {
                  $this->get('session')->setFlash('category_error',"Atencion: La categoria no puede ser eliminada, elimine las subcategorias y productos asociados previamente");
             }
         }
@@ -292,5 +266,10 @@ class CategoryController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+    
+    private function getCategoryManager()
+    {
+        return $this->get('mqm_category.category_manager');
     }
 }

@@ -66,19 +66,10 @@ class ProductController extends Controller {
         $form   = $this->createForm($productType, $entity);
         $form->bindRequest($request);
 
-        if (false || $form->isValid()) { //// TRUE value is a  TEMPORAL SOLUTION OF DATETIME PROBLEM-> SOLVE SOON  ////
-            $em = $this->getDoctrine()->getEntityManager();
-           
-            $em->persist($entity);
-            $em->flush();
+        if ($form->isValid()) { // Sometimes there have been errors due to date format
+            $this->get('mqm_product.product_manager')->saveProduct($entity);
             
-            //Upload file (not needed->done by ORMLifeCyle)
-            //$image = $entity->getImage();
-            //$image->upload();
-            //End Uploading file
-
-            return $this->redirect($this->generateUrl('TKShopBackendProductsShowAll'));
-            
+            return $this->redirect($this->generateUrl('TKShopBackendProductsShowAll'));            
         }
         
         return array(
@@ -155,15 +146,11 @@ class ProductController extends Controller {
         $form->bindRequest($request);
         
         if (false || $form->isValid()) { //// TRUE value is a  TEMPORAL SOLUTION OF DATETIME PROBLEM-> SOLVE SOON  ////
-            $em = $this->getDoctrine()->getEntityManager();
             $entity = $this->get('mqm_product.product_manager')->findProductBy(array('id' => $productId));
-
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Shop\Product entity.');
             }
-
-            $em->remove($entity);
-            $em->flush();
+            $this->get('mqm_product.product_manager')->deleteProduct($entity);
                     
             return $this->redirect($this->generateUrl('TKShopBackendProductsShowAll'));
         }
@@ -182,13 +169,10 @@ class ProductController extends Controller {
      */
     public function updateAction($productId)
     {
-        $em = $this->getDoctrine()->getEntityManager();
-
         $entity = $this->get('mqm_product.product_manager')->findProductBy(array('id' => $productId));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\Product entity.');
-        }
-        
+        }        
         //save old discountRule
         $oldDiscountRule = $entity->getDiscountRule();
         if ($oldDiscountRule != null) {
@@ -196,31 +180,24 @@ class ProductController extends Controller {
         }        
         else {
             $oldDiscountRule = new \MQM\PricingBundle\Entity\DiscountRule\DiscountByProductRule();
-        }
-        
+        }        
         $oldBasePrice = $entity->getBasePrice();
         //end saving old discountRule
-
         $productType = $this->get('mqm_shop.form.product');
         $editForm   = $this->createForm($productType, $entity);
         $deleteForm = $this->createDeleteForm($productId);
-
         $request = $this->getRequest();
-
         $editForm->bindRequest($request);
-
-        if ($editForm->isValid()) {//// TRUE value is a  TEMPORAL SOLUTION OF DATETIME PROBLEM-> SOLVE SOON  ////
-            
+        if ($editForm->isValid()) {//// TRUE value is a  TEMPORAL SOLUTION OF DATETIME PROBLEM-> SOLVE SOON  ////            
             //FIX VIRTUAL file update in Image
             $image = $entity->getImage();
-            if($image != null){
-                if($image->isFileUpdated() == false){
+            if ($image != null) {
+                if ($image->isFileUpdated() == false) {
                     $image->setFileUpdated(true);
                 }
-                else{
+                else {
                     $image->setFileUpdated(false);
                 }
-                    
             }
 
             $image = $entity->getSecondImage();
@@ -274,8 +251,7 @@ class ProductController extends Controller {
                     }
                 }      */          
             // end verify what is modified and permissions
-            $em->persist($entity);
-            $em->flush();
+            $this->get('mqm_product.product_manager')->saveProduct($entity);
 
             return $this->redirect($this->generateUrl('TKShopBackendProductsShowAll'));
         }
@@ -295,8 +271,8 @@ class ProductController extends Controller {
      */
     public function showAllAction()
     {
-        $pagination = $this->get('mqm_pagination.pagination_manager'); 
-        $products = $this->get('mqm_product.product_manager')->findProducts($pagination);        
+        $paginationManager = $this->get('mqm_pagination.pagination_manager'); 
+        $products = $this->get('mqm_product.product_manager')->findProducts($paginationManager);        
         $deleteForms = array();
         foreach ($products as $product) {
             $form = $this->createDeleteForm($product->getId());
@@ -315,8 +291,8 @@ class ProductController extends Controller {
      */
     public function showAllCategoriesAction()
     {
-        $pagination = $this->get('mqm_pagination.pagination_manager');
-        $categories = $this->get('mqm_category.category_manager')->findAllFamilies($pagination);
+        $paginationManager = $this->get('mqm_pagination.pagination_manager');
+        $categories = $this->get('mqm_category.category_manager')->findAllFamilies($paginationManager);
         $deleteForms = array();
         foreach ($categories as $category) {
             $form = $this->createDeleteForm($category->getId());
@@ -337,7 +313,7 @@ class ProductController extends Controller {
     {
         $category = $this->get('mqm_category.category_manager')->findCategoryBy(array('id' => $id));
         $categories = $category->getCategories();        
-        if($categories == null || count($categories) == 0){
+        if ($categories == null || count($categories) == 0) {
             return $this->redirect($this->generateUrl('TKShopBackendProductsShowByCategoryAction', array('id' => $category->getId())));
         }
         $deleteForms = array();
@@ -361,13 +337,12 @@ class ProductController extends Controller {
     {
         $category = $this->get('mqm_category.category_manager')->findCategoryBy(array('id' => $id));
         $products = $category->getProducts();
-        $pagination = $this->get('mqm_pagination.pagination_manager');
-        if($products != null){
+        $paginationManager = $this->get('mqm_pagination.pagination_manager');
+        if ($products != null) {
             $totalItems = count($products);
-            $pagination->init($totalItems);
-            $products = $pagination->paginateArray($products);
-        }
-        
+            $paginationManager->init($totalItems);
+            $products = $paginationManager->paginateArray($products);
+        }        
         $deleteForms = array();
         foreach ($products as $product) {
             $form = $this->createDeleteForm($product->getId());
@@ -393,10 +368,6 @@ class ProductController extends Controller {
             'products' => $products
         );
     }
-    
-    /**
-     * Utilities
-     */
     
     private function createDeleteForm($id)
     {

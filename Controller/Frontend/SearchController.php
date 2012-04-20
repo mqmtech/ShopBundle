@@ -25,8 +25,8 @@ class SearchController extends Controller {
     {
         $sortManager = $this->createSortManager();        
         $brand = $this->get('mqm_brand.brand_manager')->findBrandBy(array('id' => $id));
-        $pagination = $this->get('mqm_pagination.pagination_manager');
-        $products = $this->get('mqm_product.product_manager')->findProductsByBrandId($id, $sortManager, $pagination);
+        $paginationManager = $this->get('mqm_pagination.pagination_manager');
+        $products = $this->get('mqm_product.product_manager')->findProductsByBrandId($id, $sortManager, $paginationManager);
         $productsPrice = null;
         if($products != null){
             $productsPrice = $this->get('mqm_pricing.pricing_manager')->getProductsPrice($products);
@@ -57,8 +57,8 @@ class SearchController extends Controller {
         }
         $name = $query->get('name');        
         $sortManager = $this->createSortManager();
-        $pagination = $this->get('mqm_pagination.pagination_manager');        
-        $products = $this->get('mqm_product.product_manager')->findProductsByMultiField($name, 'OR', $sortManager, $pagination);
+        $paginationManager = $this->get('mqm_pagination.pagination_manager');        
+        $products = $this->get('mqm_product.product_manager')->findProductsByMultiField($name, 'OR', $sortManager, $paginationManager);
         $productsPrice = array();
         if ($products != null) {
             $productsPrice = $this->get('mqm_pricing.pricing_manager')->getProductsPrice($products);

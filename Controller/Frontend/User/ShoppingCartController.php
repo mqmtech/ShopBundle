@@ -83,16 +83,13 @@ class ShoppingCartController extends Controller
      */
     public function createAction()
     {
-        $entity = $this->get('mqm_cart.cart_manager')->createCart();
+        $cartManager = $this->get('mqm_cart.cart_manager');
+        $entity = $cartManager->createCart();
         $request = $this->getRequest();
         $form = $this->createForm(new ShoppingCartType(), $entity);
         $form->bindRequest($request);
-
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            /* $em->persist($entity);
-              $em->flush(); */
-            $this->persistAndFlushShoppingCart($entity);
+            $cartManager->saveCart($entity);
 
             return $this->redirect($this->generateUrl('TKShopFrontendShoppingCartShow', array('id' => $entity->getId())));
         }
@@ -142,47 +139,16 @@ class ShoppingCartController extends Controller
     {
         $shoppingCart = $this->getUserShoppingCart();
         if ($shoppingCart != null) {
-
-            $this->get('mqm_cart.cart_manager')->removeItemFromCart($shoppingCart, $id);
-            $em = $this->getDoctrine()->getEntityManager();
-            /* $em->persist($shoppingCart);
-              $em->flush(); */
-            $this->persistAndFlushShoppingCart($shoppingCart);
+            $cartManager = $this->get('mqm_cart.cart_manager');
+            $cartManager->removeItemFromCart($shoppingCart, $id);
+            $cartManager->saveCart($shoppingCart);
 
             return $this->redirect($this->generateUrl('TKShopFrontendUserShoppingCartEdit'));
-            /* return $this->forward("MQMShopBundle:Frontend\User\ShoppingCart:edit", array(
-              'id' => $shoppingCart->getId()
-              )); */
         } else {
             $this->get('session')->setFlash('shoppingCart_error', "Atencion: El usuario no dispone de carrito de la compra");
+            
             return $this->redirect($this->generateUrl("TKShopFrontendIndex"));
         }
-    }
-
-    /**
-     * Deletes a Shop\ShoppingCart entity.
-     *
-     * @Route("/delete", name="TKShopFrontendUserShoppingCartDelete")
-     * @Method("post")
-     */
-    public function deleteAction()
-    {
-        $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
-        $form->bindRequest($request);
-
-        if ($form->isValid()) {
-            $entity = $this->getUserShoppingCart();
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Shop\ShoppingCart entity.');
-            }
-
-            $this->removeShoppingCart($entity);
-        }
-
-        return $this->redirect($this->generateUrl('TKShopFrontendUserShoppingCartIndex'));
     }
 
     /**
@@ -194,24 +160,16 @@ class ShoppingCartController extends Controller
      */
     public function updateAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
-
         $entity = $this->getUserShoppingCart();
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\ShoppingCart entity.');
         }
-
         $editForm = $this->createForm(new ShoppingCartType(), $entity);
         $request = $this->getRequest();
         $editForm->bindRequest($request);
         if ($editForm->isValid()) {
-            // Check if the quantity of an Entity is zero, then remove the entity
             $entity = $this->get('mqm_cart.cart_manager')->removeItemsWithoutProductsFromCart($entity);
-            // End Check if the quantity of an Entity is zero
-            $em->persist($entity);
-            $em->flush();
-
+            $this->get('mqm_cart.cart_manager')->saveCart($entity);
             $request = Request::createFromGlobals();
             $orderField = $request->request->get(self::FORM_ORDER_FIELD);
             if ($orderField == self::FORM_ORDER_COMFIRM_VALUE) {
@@ -221,11 +179,9 @@ class ShoppingCartController extends Controller
                         )
                     );
                 }
-               else{
-                   
-               }
             }
         }
+        
         return $this->redirect($this->generateUrl('TKShopFrontendUserShoppingCartEdit'));
     }
 
@@ -246,22 +202,16 @@ class ShoppingCartController extends Controller
         if ($shoppingCart == null) {
             return $this->shoppingCartErrorHandler();
         }
-
-        //Get Product from DB
-        $em = $this->getDoctrine()->getEntityManager();
         $product = $this->get('mqm_product.product_manager')->findProductBy(array('id' => $id));
         if ($product == null) {
             throw new Exception("Custom Exception: Product with id $id does NOT exist in database");
         }
         $this->get('mqm_cart.cart_manager')->addProductToCart($shoppingCart, $product);
-        $em->persist($shoppingCart);
-        $em->flush();
-
-        //return $this->redirect($this->generateUrl("TKShopFrontendUserShoppingCartIndex"));
+        $this->get('mqm_cart.cart_manager')->saveCart($shoppingCart);
         $session = $this->get('session');
         $last_route = $session->get('last_route', array('name' => 'TKShopFrontendIndex'));
+        
         return ($this->redirect($this->generateUrl($last_route['name'], $last_route['params'])));    
-    
     }
 
     /**
@@ -270,21 +220,14 @@ class ShoppingCartController extends Controller
     public function removeAllProductsAction()
     {
         $shoppingCart = $this->getUserShoppingCart();
-
         if ($shoppingCart == null) {
             return $this->shoppingCartErrorHandler();
         }
-
         $this->get('mqm_cart.cart_manager')->removerAllItemsFromCart($shoppingCart);
-
-        $em = $this->getDoctrine()->getEntityManager();
-        $em->persist($shoppingCart);
-        $em->flush();
-
+        $this->get('mqm_cart.cart_manager')->saveCart($shoppingCart);
+        
         return $this->redirect($this->generateUrl("TKShopFrontendUserShoppingCartIndex"));
     }
-
-    //  HELPER FUNCTIONS  //
 
     /**
      * Redirects to home page if there is a problem with ShoppingCart
@@ -339,40 +282,9 @@ class ShoppingCartController extends Controller
             $order = $checkoutManager->shoppingCartToOrder($entity);
             return $order;
     }
-
-    /**
-     *
-     * @param ShoppingCartInterface $shoppingCart 
-     */
-    protected function persistAndFlushShoppingCart(ShoppingCartInterface $shoppingCart) {
-        $user = $this->getCurrentUser();
-        if ($this->get('mqm_user.user_manager')->isDBUser($user)) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($shoppingCart);
-            $em->flush();
-        } else {
-            $session = $this->get('session');
-        }
-    }
-
-    /**
-     *
-     * @param ShoppingCartInterface $shoppingCart 
-     */
-    protected function removeShoppingCart(ShoppingCartInterface $shoppingCart) {
-        if ($this->get('mqm_user.user_manager')->isDBUser($user)) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->remove($shoppingCart);
-            $em->flush();
-        } else {
-            $session = $this->get('session');
-            $session->set('shoppingCart', null);
-            $session->save();
-        }
-    }
     
-    public function getCurrentUser(){
+    public function getCurrentUser()
+    {        
         return $this->get('mqm_user.user_manager')->getCurrentUser();
     }
-
 }

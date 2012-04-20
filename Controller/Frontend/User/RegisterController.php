@@ -55,16 +55,16 @@ class RegisterController extends Controller {
      * @Method("post")
      * @Template("MQMShopBundle:Frontend\User\Register:new.html.twig")
      */
-    public function createAction() {
-        $entity = new User(); //modded
-
+    public function createAction()
+    {
+        $userManager = $this->get('mqm_user.user_manager');
+        $entity = $userManager->createUser();
         $request = $this->getRequest();
         $form = $this->createForm(new UserType(), $entity);
         $form->bindRequest($request);
-
-        $basicValidation = $form->isValid();
-        $extraValidation = $this->extraRegistrationValidation($entity);
         
+        $basicValidation = $form->isValid();
+        $extraValidation = $this->extraRegistrationValidation($entity);        
         if ($basicValidation && $extraValidation) {
             // encode password //
             $factory = $this->get('security.encoder_factory');
@@ -72,22 +72,18 @@ class RegisterController extends Controller {
             $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
             $entity->setPassword($password);
             // end encoding password //
-            //copy email to username if username is 
-            if ($entity->getUsername() == null || $entity->getUsername() == "") {
+            if ($entity->getUsername() == null || $entity->getUsername() == '') {
                 $entity->setUsername($entity->getEmail());
             }
 
             try {
-                $em = $this->getDoctrine()->getEntityManager();
-                $em->persist($entity);
-                $em->flush();
+                $userManager->saveUser($entity);
                 //$this->sendSuccessRegistrationEmailSwift($entity);
                 return $this->render("MQMShopBundle:Frontend\User\Register:successMessageOnCreate." . "html" . ".twig", array('user' => $entity));
                 
             } catch (Exception $e) {
                 $this->get('session')->setFlash('Email', "El email empleado ya está registrado");
-            }
-            
+            }            
         }
 
         return array(
@@ -105,7 +101,6 @@ class RegisterController extends Controller {
     public function editAction($id)
     {
         $entity = $this->get('mqm_user.user_manager')->findUserBy(array('id' => $id));
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\User entity.');
         }
@@ -127,33 +122,25 @@ class RegisterController extends Controller {
      * @Method("post")
      * @Template("MQMShopBundle:Shop\User:edit.html.twig")
      */
-    public function updateAction($id) {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $this->get('mqm_user.user_manager')->findUserBy(array('id' => $id));
-
+    public function updateAction($id)
+    {
+        $userManager = $this->get('mqm_user.user_manager');
+        $entity = $userManager->findUserBy(array('id' => $id));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\User entity.');
         }
-
         $editForm = $this->createForm(new UserType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
-
         $request = $this->getRequest();
-
         $editForm->bindRequest($request);
-
         if ($editForm->isValid()) {
-
             // encode password //
             $factory = $this->get('security.encoder_factory');
             $encoder = $factory->getEncoder($entity);
             $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
             $entity->setPassword($password);
             // end encoding password //
-
-            $em->persist($entity);
-            $em->flush();
+            $userManager->saveUser($entity);
 
             return $this->redirect($this->generateUrl('TKShopFrontendUserEdit', array('id' => $id)));
         }
@@ -178,7 +165,6 @@ class RegisterController extends Controller {
             $this->get('session')->setFlash('Contraseña', "No coincide en las dos casillas");
             $validation = false;
         }
-
         if (!$this->validateCheckbox()) {
             $this->get('session')->setFlash('Política de uso', "Debe aceptar lo política de uso de Tecnokey");
             $validation = false;

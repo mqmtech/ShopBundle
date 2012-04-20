@@ -48,8 +48,8 @@ class ProductController extends Controller
         }
         $rootCategory = $category->getRootCategory();
         
-        $pagination = $this->get('mqm_pagination.pagination_manager');
-        $products = $this->get('mqm_product.product_manager')->findProductsByCategoryId($categoryId, $sortManager, $pagination);
+        $paginationManager = $this->get('mqm_pagination.pagination_manager');
+        $products = $this->get('mqm_product.product_manager')->findProductsByCategoryId($categoryId, $sortManager, $paginationManager);
         $productsPrice = null;
         if ($products != null) {
             $productsPrice = $this->get('mqm_pricing.pricing_manager')->getProductsPrice($products);

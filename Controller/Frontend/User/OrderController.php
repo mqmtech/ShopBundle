@@ -128,11 +128,10 @@ class OrderController extends Controller
      */
     protected function getOrderFromCurrentUser(){
         $user = $this->getCurrentUser();
-        $shoppingCart = null;
-        if($this->get('mqm_user.user_manager')->isDBUser($user)){
+        if ($this->get('mqm_user.user_manager')->isDBUser($user)) {
             return $user->getOrders();            
         }
-        else{
+        else {
             return null;
         }
     }
@@ -154,21 +153,13 @@ class OrderController extends Controller
         try {
             $checkoutManager = $this->get('mqm_checkout.checkout_manager');
             $sc = $checkoutManager->checkout($sc);
-            // generate an order
             $order = $checkoutManager->shoppingCartToOrder($sc);
-
             $user = $this->getCurrentUser();
-
             $order->setUser($user);
-
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($order);
-            $em->flush();
-            //End generating an order
-            // remove all cart items
+            $this->get('mqm_order.order_manager')->saveOrder($order);
             $this->get('mqm_cart.cart_manager')->removeAllItemsFromCart($sc);
-            $em->flush();
-            //End removing all cart items
+            $this->get('mqm_cart.cart_manager')->flush();
+
             return true;
             
         } catch (Exception $e) {

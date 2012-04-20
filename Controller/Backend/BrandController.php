@@ -58,8 +58,8 @@ class BrandController extends Controller
      */
     public function showAllAction()
     {
-        $pagination = $this->get('mqm_pagination.pagination_manager');
-        $brands = $this->get('mqm_brand.brand_manager')->findBrands($pagination); 
+        $paginationManager = $this->get('mqm_pagination.pagination_manager');
+        $brands = $this->get('mqm_brand.brand_manager')->findBrands($paginationManager); 
         $deleteForms = array();
         foreach ($brands as $brand) {
             $form = $this->createDeleteForm($brand->getId());
@@ -147,26 +147,21 @@ class BrandController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $this->get('mqm_brand.brand_manager')->findBrandBy(array('id' => $id));
-
+        $brandManager = $this->get('mqm_brand.brand_manager');
+        $entity = $brandManager->findBrandBy(array('id' => $id));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\Brand entity.');
         }
 
         $editForm   = $this->createForm(new BrandType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
-
         $request = $this->getRequest();
-
         $editForm->bindRequest($request);
-
         if ($editForm->isValid()) {
             //FIX VIRTUAL file update in Image
             $image = $entity->getImage();
-            if($image != null){
-                if($image->isFileUpdated() == false){
+            if ($image != null) {
+                if ($image->isFileUpdated() == false) {
                     $image->setFileUpdated(true);
                 }
                 else{
@@ -174,9 +169,7 @@ class BrandController extends Controller
                 }   
             }
             //END FIX VIRTUAL file update in Image 
-        
-            $em->persist($entity);
-            $em->flush();
+            $brandManager->saveBrand($entity);
 
             return $this->redirect($this->generateUrl('TKShopBackendBrandsShowAll'));
         }
@@ -196,16 +189,13 @@ class BrandController extends Controller
      */
     public function cloneAction($id)
     {
-        $entity = $this->get('mqm_brand.brand_manager')->findBrandBy(array('id' => $id));
-        
+        $entity = $this->get('mqm_brand.brand_manager')->findBrandBy(array('id' => $id));        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\Brand entity.');
-        }
-        
+        }        
         $entityCloned = clone ($entity);
-
         $editForm = $this->createForm(new BrandType(), $entityCloned);
-
+        
         return array(
             'entity'      => $entityCloned,
             'form'   => $editForm->createView(),
@@ -222,21 +212,17 @@ class BrandController extends Controller
     {
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
-
         $form->bindRequest($request);
-
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $entity = $this->get('mqm_brand.brand_manager')->findBrandBy(array('id' => $id));
-
+            $brandManager = $this->get('mqm_brand.brand_manager');
+            $entity = $brandManager->findBrandBy(array('id' => $id));
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Shop\Brand entity.');
             }
-            try{
-                $em->remove($entity);
-                $em->flush();
+            try {
+                $brandManager->remove($entity);
             }
-            catch(\Exception $e){
+            catch(\Exception $e) {
                 $this->get('session')->setFlash('category_error',"Atencion: La MARCA no puede ser eliminada, eliminela de los productos previamente");
             }
         }

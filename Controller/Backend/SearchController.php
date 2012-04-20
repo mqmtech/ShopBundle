@@ -36,8 +36,8 @@ class SearchController extends Controller {
         }
         $name = $request->query->get('name');
        
-        $pagination = $this->get('mqm_pagination.pagination_manager');
-        $products = $this->get('mqm_product.product_manager')->findProductsByMultiField($name, 'OR', null, $pagination);     
+        $paginationManager = $this->get('mqm_pagination.pagination_manager');
+        $products = $this->get('mqm_product.product_manager')->findProductsByMultiField($name, 'OR', null, $paginationManager);     
         $deleteForms = $this->createProductsDeletionForms($products);
 
         return $this->render('MQMShopBundle:Backend/Search:products.html.twig', 

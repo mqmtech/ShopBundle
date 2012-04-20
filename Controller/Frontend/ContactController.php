@@ -11,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Exception;
 
@@ -27,8 +26,8 @@ class ContactController extends Controller {
      * @Route("/", name="TKShopFrontendContactIndex")
      * @Template("MQMShopBundle:Default:contacto.html.twig")
      */
-    public function indexAction() {
-        
+    public function indexAction()
+    {        
         $form = $this->createContactForm();
         
         return array(
@@ -42,25 +41,22 @@ class ContactController extends Controller {
      * @Method("post")
      * @template("MQMShopBundle:Default:contacto.html.twig")
      */
-    public function sendEmailAction() {
-        $form = $this->createContactForm();
-        
+    public function sendEmailAction()
+    {
+        $form = $this->createContactForm();        
         $request = Request::createFromGlobals();        
         $form->bindRequest($request);
         $feedback = null;
-        if($form->isValid()){
-            $data = $form->getData();
-        
+        if ($form->isValid()) {
+            $data = $form->getData();        
             $company = $data["company"];
             $email = $data["email"];
-            $message = $data["message"];
-            
+            $message = $data["message"];            
             $mailer = $this->get('mqm_shop.mailer');
-            $mailer->sendEmail($email, 'amaestramientos@tecno-key.com', "[Tecnokey Online] Consulta de $company", $message);
-            
+            $mailer->sendEmail($email, 'amaestramientos@tecno-key.com', "[Tecnokey Online] Consulta de $company", $message);            
             $feedback = $this->getFormvalidationFeedback(true);
         }
-        else{
+        else {
             $feedback = $this->getFormvalidationFeedback(false);
         }
             $this->get('session')->setFlash('form_feedback', $feedback);
@@ -68,7 +64,8 @@ class ContactController extends Controller {
         return array('form' => $form->createView());
     }
     
-    public function createContactForm($data = null, $options = array()){
+    public function createContactForm($data = null, $options = array())
+    {
         $form = $this->createFormBuilder($data, $options)
                 ->add('company', 'text', array(
                     'required' => true,
@@ -89,16 +86,16 @@ class ContactController extends Controller {
      * @param boolean $isSuccess
      * @return type 
      */
-    public function getFormvalidationFeedback($isSuccess){
-
-        if(!$isSuccess) {
+    public function getFormvalidationFeedback($isSuccess)
+    {
+        if (!$isSuccess) {
             return array(
             "success" => null,
             "error" => "¡Formulario incorrecto! Revise todos los campos antes de enviar.",
             "fields" => array()
             );
         }
-        else{
+        else {
             return array(
              "success" => "¡Su mensaje ha sido enviado con éxito!",
             );
