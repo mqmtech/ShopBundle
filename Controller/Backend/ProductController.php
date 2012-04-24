@@ -2,19 +2,13 @@
 
 namespace MQM\ShopBundle\Controller\Backend;
 
-use MQM\BrandBundle\Entity\Brand;
-use MQM\CategoryBundle\Entity\Category;
 use MQM\ProductBundle\Entity\Product;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use MQM\ShopBundle\Form\Type\ProductType;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Exception;
 
 /**
  * Frontend\Default controller.
@@ -256,7 +250,7 @@ class ProductController extends Controller {
             return $this->redirect($this->generateUrl('TKShopBackendProductsShowAll'));
         }
         
-        throw new Exception("Custom Exception: Form not validated");
+        throw new \Exception("Custom Exception: Form not validated");
 
         return array(
             'entity'      => $entity,

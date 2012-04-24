@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use MQM\BrandBundle\Entity\Brand;
 use MQM\ShopBundle\Form\Type\BrandType;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Shop\Brand controller.

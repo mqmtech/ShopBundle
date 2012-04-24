@@ -3,21 +3,14 @@
 namespace MQM\ShopBundle\Controller\Frontend;
 
 use Symfony\Component\HttpFoundation\Request;
-use MQM\ProductBundle\Entity\Product;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Exception;
 
 /**
- *
  * @Route("/tienda/busqueda")
  */
-class SearchController extends Controller {
-    
+class SearchController extends Controller
+{    
     /**
      * @Route("/productos/por_marca/{id}", name="TKShopFrontendSearchProductsByBrand")
      */

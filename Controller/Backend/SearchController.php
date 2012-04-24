@@ -3,23 +3,16 @@
 namespace MQM\ShopBundle\Controller\Backend;
 
 use Symfony\Component\HttpFoundation\Request;
-use MQM\ProductBundle\Entity\Product;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Exception;
 
 /**
  *
  * @Route("/admin/busqueda")
  */
-class SearchController extends Controller {
-
+class SearchController extends Controller
+{
     /**
-     * TODO: Change it to POST for security!
      * @Route("/productos/por_multi_filtro/", name="TKShopBackendSearchProductsByMultiQuery")
      */
     public function searchProductByMultiQueryAction()
@@ -27,11 +20,10 @@ class SearchController extends Controller {
         $request = Request::createFromGlobals();
         $method = $request->getMethod();
         $query = null;        
-        if($method == 'POST'){
+        if ($method == 'POST') {
             $query = $request->request;
         }
-        else{
-            //TODO: Send Error msg
+        else {
             $query = $request->query;
         }
         $name = $request->query->get('name');

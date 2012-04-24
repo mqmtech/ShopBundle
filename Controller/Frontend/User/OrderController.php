@@ -3,10 +3,10 @@
 namespace MQM\ShopBundle\Controller\Frontend\User;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use MQM\ShopBundle\Form\Type\OrderType;
+
 
 /**
  * Shop\Order controller.

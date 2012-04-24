@@ -2,21 +2,17 @@
 
 namespace MQM\ShopBundle\Controller\Frontend;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Exception;
 
 /**
  * Frontend\Default controller.
  *
  * @Route("/tienda")
  */
-class DefaultController extends Controller {
-
+class DefaultController extends Controller
+{
     /**
      * Frontend demo
      *
@@ -28,8 +24,7 @@ class DefaultController extends Controller {
         
         return array(
             'entities' => $categories,
-        );
-        
+        );        
     }
     
      /**
@@ -53,23 +48,4 @@ class DefaultController extends Controller {
     {
         return $this->render("MQMShopBundle:Default:politica.html.twig");
     }
-    
-    /**
-     * Frontend demo
-     *
-     * @Route("/index2", name="TKShopFrontendIndex2")
-     * @Template()
-     */
-    public function index2Action() {
-        $blog = (object) array(
-            'title' => 'Test',
-            'body' => 'Main body'            
-        );
-        
-        $container = array(
-            'blog' => $blog
-        );
-        return array('blog_entries' => $container);
-    }
-
 }

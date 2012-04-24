@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use MQM\CategoryBundle\Entity\Category;
-use MQM\ShopBundle\Form\Type\CategoryType;
 
 /**
  * Shop\Category controller.

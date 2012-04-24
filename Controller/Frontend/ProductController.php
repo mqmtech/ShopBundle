@@ -1,19 +1,11 @@
 <?php
 
 namespace MQM\ShopBundle\Controller\Frontend;
-
-use MQM\BrandBundle\Entity\Brand;
 use MQM\ProductBundle\Entity\Product;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use MQM\CategoryBundle\Entity\Category;
-use MQM\ToolsBundle\IO\PropertiesReader;
-use Symfony\Component\HttpFoundation\Request;
+
 use Exception;
 
 /**
