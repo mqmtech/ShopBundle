@@ -75,15 +75,15 @@
              <div class="precio_box">
                     {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
                         {% if(productPrice.isDiscountRule is defined and productPrice.isDiscountRule) %}
-                        <div class="precio">{{ productPrice.value | roundoff | toPrettyPrice  | default("n/a")}} {% if(productPrice.value) %} {{ currencySymbol() }} {% endif %}</div>
+                        <div class="precio">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price  | default("n/a")}} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
                         <div class="iva">Sin IVA</div>
                         <div class="descuento">{{ product.discountRule.discount ~ "%"}}</div>
                         {% else %} {# else discountRule #}
-                            <div class="precio">{{ productPrice.value | roundoff | toPrettyPrice  | default("n/a")}} {% if(productPrice.value) %} {{ currencySymbol() }} {% endif %}</div>
+                            <div class="precio">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price  | default("n/a")}} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
                             <div class="iva">Sin IVA</div>
                         {% endif %} {# endig discountRule #}
                     {% else %} {# else is_granted #}
-                            <div class="no_price_access">{{ noPriceAccess() }}</div>
+                            <div class="no_price_access">{{ mqm_monetary_price_access_denied() }}</div>
                     {% endif %} {# endif is_granted #}
                 </div>
         </div><!--end lista individual -->

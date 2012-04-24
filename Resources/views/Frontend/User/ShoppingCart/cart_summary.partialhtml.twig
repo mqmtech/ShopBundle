@@ -1,6 +1,6 @@
 <div class="precio_desglos_container">
     <div class="iva_desglos">Total - Sin iva</div>
-    <div class="precio_total_desglos">{{ entity.totalBasePrice | roundoff | toPrettyPrice ~ currencySymbol() }}</div>
+    <div class="precio_total_desglos">{{ entity.totalBasePrice | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ mqm_monetary_currency_symbol() }}</div>
     <div class="iva_desglos">Total - Con iva</div>
-    <div class="precio_total_desglos">{{ entity.totalPrice | roundoff | toPrettyPrice ~ currencySymbol() }}</div>
+    <div class="precio_total_desglos">{{ entity.totalPrice | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ mqm_monetary_currency_symbol() }}</div>
 </div>

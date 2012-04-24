@@ -16,7 +16,7 @@
                 <div class="producto_legend"><a href="{{ path('TKShopFrontendOrderShow', {'publicId' : entity.publicId }) }}">{%if entity.publicId is null %} {{entity.id}} {% else %} {{ entity.publicId }} {% endif %}</a></div>
                 <div class="precio_ud_legend">{{ entity.createdAt | date ("d/m/Y") }}</div>
                 <div class="cantidad_legend">{{ entity.productsQuantity }}</div>
-                <div class="subtotat_legend">{{ entity.totalPrice | roundoff ~ currencySymbol() }}</div>
+                <div class="subtotat_legend">{{ entity.totalPrice | mqm_monetary_roundoff ~ mqm_monetary_currency_symbol() }}</div>
                 {% if entity.status == "RECEIVED" %}
                 <div class="estado_recibido">{{ ('order.' ~ entity.status) | trans({}, 'MQMOrderBundle') }}</div>
                 {% endif %}

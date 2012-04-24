@@ -85,7 +85,7 @@
                     
                     
                 </div>
-                <div class="precio_relacionados_ficha">{{ productPrice.value | roundoff | toPrettyPrice ~ currencySymbol() }}</div>
+                <div class="precio_relacionados_ficha">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ mqm_monetary_currency_symbol() }}</div>
                 <div class="dto_relacionados_ficha">{{ productPrice.totalDiscountsPercetageValue }}%</div>
                 {% else %}
                 <div class="titulo_prods_relacionados" name="prod_relacionado">
@@ -98,7 +98,7 @@
                 
                 </div>
                 
-                <div class="precio_relacionados_ficha">{{ productPrice.value | roundoff | toPrettyPrice  ~ currencySymbol() }}</div>
+                <div class="precio_relacionados_ficha">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price  ~ mqm_monetary_currency_symbol() }}</div>
                 <div class="dto_relacionados_ficha"></div>
                 {% endif %} {# end discountRule #}
             {% else %}
