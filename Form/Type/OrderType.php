@@ -13,9 +13,9 @@ class OrderType extends AbstractType
         $builder
             ->add('status', 'choice', array(
                 'choices' => array(
-                    OrderInterface::STATUS_0_RECEIVED => 'Recibido' ,
-                    OrderInterface::STATUS_1_IN_PROCESS => 'En Proceso',
-                    OrderInterface::STATUS_2_DELIVERED => 'Enviado'
+                    OrderInterface::RECEIVED => 'Recibido' ,
+                    OrderInterface::IN_PROCESS => 'En Proceso',
+                    OrderInterface::DELIVERED => 'Enviado'
                 ))
             )
         ;
