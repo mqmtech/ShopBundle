@@ -1,0 +1,71 @@
+{# src/Acme/BlogBundle/Resources/views/Backend/Product/index.html.twig #}
+{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="{{ asset('bundles/mqmshop/js/jqueryui/css/ui-lightness/jquery-ui-1.8.16.custom.css') }}" rel="stylesheet" />	
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts%}
+    
+{% block jsfunctions %}
+    {{ parent() }}
+    <script>
+    jQuery(document).ready(function(){
+    
+        var $dialog = $('<div></div>')
+                    .html('Está seguro de que realmente quiere eliminar la marca ?')
+                    .dialog({
+                            autoOpen: false,
+                            title: 'Confirmación de borrado',
+                            resizable: false,
+                            height:240,
+                            modal: true,
+                            buttons: {
+				"Eliminar": function() {
+                                        delform.submit();
+					$( this ).dialog( "close" );
+				},
+				Cancelar: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+                    });
+
+    
+        jQuery(".eliminar").click(function(event){
+        
+            event.preventDefault(); // now js will take full control of the order delection
+            delform = $( this ).parents("form");
+            
+            $dialog.bind( "dialogbeforeclose", function(e, ui) {
+               //alert( $(e.target)[0].tittle );
+            });
+            
+           $dialog.dialog("open");
+
+        });
+        
+     })
+     </script>
+{% endblock jsfunctions %}
+
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ <a href="{{ path('TKShopBackendBrandsIndex') }}">Administrar Pedidos</a> \ Gestionar Pedidos{% endblock %}
+
+{% block left_content %}
+<div class="lista_pedidos_container">
+    <div class="legend_container">
+            <div class="pedido_legend"><a href="#"><span>Número del pedido</span> <span>/ Cliente</span></a></div>
+            <div class="precio_ud_legend"><a href="#">Fecha</a></div>
+            <div class="cantidad_legend"><a href="#">Cantidad</a></div>
+            <div class="subtotat_legend"><a href="#">Importe</a></div>
+            <div class="estado"><a href="#">Estado</a></div>
+    </div>
+    {% for order in orders %}        
+        {% include 'MQMShopBundle:Backend/Order:showOrderSummary.partialhtml.twig' with {'order' : order, 'form' : 'form'} %}
+    {% endfor %}
+</div>
+{% endblock left_content%}

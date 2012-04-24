@@ -5,11 +5,21 @@
 {% block contextualThree %}<a href="#">Panel de control</a> \{% endblock %}
 
 {% block left_content %}
-    <div class="icono_prod_container"><!--start 1a fila botones-->
+    <!--start 1a fila botones-->
+    <div class="icono_prod_container">
       <div class=" icono_admin_prod"><a href="{{ path('TKShopBackendProductsIndex') }}">Administrar Productos</a></div>
       <div class=" icono_admin_users"><a href="{{ path('TKShopBackendUserStaffIndex') }}">Administrar Usuarios</a></div>
       <div class=" icono_admin_clientes"><a href="{{ path('TKShopBackendUserClientIndex') }}">Administrar Clientes</a></div>
       <div class=" icono_admin_categorias"><a href="{{ path('TKShopBackendCategoriesIndex') }}">Administrar Categorías</a></div>
       <div class=" icono_admin_marcas"><a href="{{ path('TKShopBackendBrandsIndex') }}">Administrar Marcas</a></div>
-    </div><!--end 1a fila botones-->
+    </div>
+    <!--end 1a fila botones-->
+    
+    <!--start 2a fila botones-->
+    <div class="icono_prod_container">                          
+        <div class=" icono_admin_pedidos"><a href="{{ path('TKShopBackendOrdersShowAll') }}">Pedidos</a></div>
+        <div class=" icono_admin_descuentos"><a href="admin_descuentos.html">Descuentos </a></div>
+        <div class=" icono_admin_estadisticas"><a href="admin_estadisticas.html">Estadísticas</a></div>                        
+    </div>
+    <!--End 2a fila botones-->    
 {% endblock %}

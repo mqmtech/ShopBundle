@@ -724,6 +724,211 @@ height: 114px;
 	font-weight: bold;
 }
 
+/* pedidos */
+
+.icono_admin_pedidos a {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #ccc;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x left -2278px;
+	color: #555;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font: bold 0.890em/16px Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+}
+
+.icono_admin_pedidos a:hover {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #f87e15;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x right -2278px;
+	color: #f87e15;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font-family: Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+	font-weight: bold;
+}
+
+/* Descuentos */
+
+.icono_admin_descuentos a {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #ccc;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x left -2144px;
+	color: #555;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font: bold 0.890em/16px Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+}
+
+.icono_admin_descuentos a:hover {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #f87e15;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x right -2144px;
+	color: #f87e15;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font-family: Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+	font-weight: bold;
+}
+
+.icono_admin_descuentos_portal a {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #ccc;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x left -2412px;
+	color: #555;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font: bold 0.890em/16px Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+}
+
+.icono_admin_descuentos_portal a:hover {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #f87e15;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x right -2412px;
+	color: #f87e15;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font-family: Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+	font-weight: bold;
+}
+
+.icono_admin_descuentos_categorias a {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #ccc;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x left -2546px;
+	color: #555;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font: bold 0.890em/16px Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+}
+
+.icono_admin_descuentos_categorias a:hover {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #f87e15;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x right -2546px;
+	color: #f87e15;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font-family: Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+	font-weight: bold;
+}
+
+.icono_admin_descuentos_marcas a {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #ccc;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x left -2680px;
+	color: #555;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font: bold 0.890em/16px Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+}
+
+.icono_admin_descuentos_marcas a:hover {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #f87e15;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x right -2680px;
+	color: #f87e15;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font-family: Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+	font-weight: bold;
+}
+
+/* legends descueto: categorias + marcas */
+
+.producto_desc_categ_legend{
+	float: left;
+	width: 542px;
+	color: #258cdb;
+}
+
+.descuento_categ_legend{
+	width: 100px;
+	float: left;
+	text-align: center;
+}
+
+.editar_desc_categ_legend{
+	float: right;
+	color: #179108;
+	text-align: center;
+	width: 40px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+
+/* estadisticas */
+
+.icono_admin_estadisticas a {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #ccc;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x left -2010px;
+	color: #555;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font: bold 0.890em/16px Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+}
+
+.icono_admin_estadisticas a:hover {
+	height: 114px;
+	width: 114px;
+	padding: 10px;
+	float: left;
+	border: 1px solid #f87e15;
+	margin-right: 10px;
+	background: url(../images/botones_admin.png) repeat-x right -2010px;
+	color: #f87e15;
+	text-align: right;
+	text-shadow: #fff 1px 1px 0;
+	font-family: Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+	font-weight: bold;
+}
+
+
 /* gestionar productos */
 .action_box {
 	height: 65px;

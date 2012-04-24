@@ -4,27 +4,20 @@ namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
+use MQM\OrderBundle\Model\OrderInterface;
 
 class OrderType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('createdAt')
-            ->add('modifiedAt')
-            ->add('checkoutAt')
-            ->add('shippingBasePrice')
-            ->add('totalProductsBasePrice')
-            ->add('totalBasePrice')
-            ->add('tax')
-            ->add('taxPrice')
-            ->add('totalPrice')
-            ->add('shippingMethod')
-            ->add('orderState')
-            ->add('status')
-            ->add('user')
+            ->add('status', 'choice', array(
+                'choices' => array(
+                    OrderInterface::STATUS_0_RECEIVED => 'Recibido' ,
+                    OrderInterface::STATUS_1_IN_PROCESS => 'En Proceso',
+                    OrderInterface::STATUS_2_DELIVERED => 'Enviado'
+                ))
+            )
         ;
     }
 

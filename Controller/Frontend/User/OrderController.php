@@ -39,8 +39,8 @@ class OrderController extends Controller
      * @Template()
      */
     public function showDeliveredAction()
-    {        
-        $sortManager = $this->createSortManager();   
+    {
+        $sortManager = $this->createSortManager();
         $user = $this->getCurrentUser();
         $entities = $this->get('mqm_order.order_manager')->findDeliveredOrdersByUserId($user->getId(), $sortManager);
 
@@ -196,7 +196,7 @@ class OrderController extends Controller
     {
         $sortManager = $this->get('mqm_sort.sort_manager');
         $sortManager->addSort('pedido', 'publicId', 'pedido')
-                    ->addSort('fecha', 'createdAt', 'Fecha')
+                    ->addSort('fecha', 'createdAt', 'Fecha', 'DESC', array('default' => true))
                     ->addSort('cantidad', 'quantity', 'Cantidad')
                     ->addSort('importe', 'totalPrice', 'Importe')
                     ->addSort('estado', 'status', 'Estado')
