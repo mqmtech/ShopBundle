@@ -32,19 +32,19 @@
                var height_imagen_actual = $(imagen_actual).height();//$(imagen_actual).attr("height");
                
                $(".imagen_principal").find("img").attr("src", attr_imagen_actual).load(function(){
-                   tecnokey.utils.ajustarImagen(this,  width_imagen_actual, height_imagen_actual);
+                   shop.utils.ajustarImagen(this,  width_imagen_actual, height_imagen_actual);
             });
                //$(this).attr("src", attr_imagen_principal);
            }
         });
         
         //Run 2
-        //tecnokey.utils.imagePreview($(".imagen_principal"));
+        //shop.utils.imagePreview($(".imagen_principal"));
         
         //run 3
         $(".imagen_principal").find("img").click(function(event){
             var src_imagen_actual = $(this).attr("src");
-            tecnokey.utils.abrirVentana(src_imagen_actual);
+            shop.utils.abrirVentana(src_imagen_actual);
             
         });
     });
@@ -57,7 +57,7 @@ jQuery(window).load(function(){
     jQuery('.add_cesta_ficha').click(function(event){
       
         //event.preventDefault();
-        tecnokey.kernel.eventSubscriber.dispatchEvent('SHOPPING_CART.ADD', this);
+        shop.kernel.eventSubscriber.dispatchEvent('SHOPPING_CART.ADD', this);
 
     });
     

@@ -121,14 +121,14 @@
     
     /******************************************************************/
     //Set namespaces
-    window.tecnokey = (window.tecnokey == null) ? window.tecnokey = new Object() : window.tecnokey;
-    window.tecnokey.utils = (window.tecnokey.utils == null) ? window.tecnokey.utils = new Object() : window.tecnokey.utils;
+    window.shop = (window.shop == null) ? window.shop = new Object() : window.shop;
+    window.shop.utils = (window.shop.utils == null) ? window.shop.utils = new Object() : window.shop.utils;
     //End set namespaces
     
     //Set functions
-    window.tecnokey.utils.ajustarImagen = ajustarImagen;
-    window.tecnokey.utils.imagePreview = imagePreview;
-    window.tecnokey.utils.abrirVentana = abrirVentana;
+    window.shop.utils.ajustarImagen = ajustarImagen;
+    window.shop.utils.imagePreview = imagePreview;
+    window.shop.utils.abrirVentana = abrirVentana;
     //End set functions
     /******************************************************************/
     

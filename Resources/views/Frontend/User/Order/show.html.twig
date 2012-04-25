@@ -72,24 +72,22 @@
 
 {% include 'MQMShopBundle:Frontend/User:menu.partialhtml.twig' with {'nothing' : 'null'} %}            
 
-  <!--start cuerpo--> 
+<!--start cuerpo--> 
 <div class="right_cuerpo_user">
     <div class="titulo_current">Datos del pedido:</div>
-
     {% if order.items is defined %}
-                <div class="lista_pedidos_container">
-                    {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item_fields.partialhtml.twig'%}                
-                    {% for dataItem in order.items %}
-                        {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item.partialhtml.twig' with {'isEditable' : false} %}
-                    {% endfor %}
-                    {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_summary.partialhtml.twig' with {'entity' : order} %}
-                {% else %}
-                    <h3>No se encuetran datos del Pedido</h3>
-                {% endif %}
-                
-            </div>
-
-        </div><!--end cuerpo--> 
+        <div class="lista_pedidos_container">
+        {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item_fields.partialhtml.twig' %}
+        {% for dataItem in order.items %}
+            {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item.partialhtml.twig' with {'isEditable' : false} %}
+        {% endfor %}
+        {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_summary.partialhtml.twig' with {'entity' : order} %}
+        </div>
+    {% else %}
+        <h3>No se encuetran datos del Pedido</h3>
+    {% endif %}
+</div>
+<!--end cuerpo--> 
 {% endblock right_content %}
 
 

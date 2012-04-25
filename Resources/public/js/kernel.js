@@ -47,12 +47,12 @@
     
     /******************************************************************/
     //Set namespaces
-    window.tecnokey = (window.tecnokey == null) ? window.tecnokey = new Object() : window.tecnokey;
+    window.shop = (window.shop == null) ? window.shop = new Object() : window.shop;
     //End set namespaces
     
     //Set functions
-    window.tecnokey.EventSubscriber = app['EventSubscriber'];
-    window.tecnokey.kernel = app['kernel'];
+    window.shop.EventSubscriber = app['EventSubscriber'];
+    window.shop.kernel = app['kernel'];
     //End set functions
     /******************************************************************/
     

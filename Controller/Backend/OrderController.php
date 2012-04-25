@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use MQM\ShopBundle\Form\Type\OrderType;
-use Tools
 
 /**
  * @Route("/admin/pedidos")
@@ -25,36 +24,16 @@ class OrderController extends Controller
         $paginationManager->setLimitPerPage(20);                     
         $orders = $this->get('mqm_order.order_manager')->findOrders($sortManager, $paginationManager);
         
+        $orderForms = array();
         foreach ($orders as $order) {
           $form = $this->createForm(new OrderType(), $order);
-          $formView = $form->createView();
-          $order->form = $formView;
+          $orderForms [] = $form->createView();
         }        
         
         return array(
-            'orders' => $orders, 
+            'orderForms' => $orderForms, 
+            'sortManager' => $sortManager->switchMode(),
         );      
-    }
-
-    /**
-     * @Route("/{id}/editar", name="TKShopBackendOrderEdit")
-     * @Template()
-     */
-    public function editAction($id)
-    {
-        $order = $this->get('mqm_order.order_manager')->findOrderBy(array('id' => $id));
-        if (!$order) {
-            throw $this->createNotFoundException('Unable to find Shop\Order order.');
-        }
-
-        $editForm = $this->createForm(new OrderType(), $order);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'order'      => $order,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
     }
 
     /**
@@ -67,9 +46,8 @@ class OrderController extends Controller
         $orderManager = $this->get('mqm_order.order_manager');
         $order = $orderManager->findOrderBy(array('id' => $id));
         if (!$order) {
-            throw $this->createNotFoundException('Unable to find Shop\Order order.');
+            throw $this->createNotFoundException('Unable to find the order');
         }
-
         $editForm   = $this->createForm(new OrderType(), $order);
         $request = $this->getRequest();
         $editForm->bindRequest($request);
@@ -80,7 +58,7 @@ class OrderController extends Controller
         }
         
         return array(
-            'order'      => $order,
+            'order'  => $order,
             'form'   => $editForm->createView(),
         );
     }

@@ -1,8 +1,8 @@
-<form action="{{ path('TKShopBackendOrderUpdate', {'id': order.id}) }}" method="post" {{ form_enctype(order.form) }}>
-    <div class="legend_container">
+<form action="{{ path('TKShopBackendOrderUpdate', {'id': order.id}) }}" method="post" {{ form_enctype(orderForm) }}>
+    <div class="pedido_container">
         <div class="pedido_legend"><a href="#"><span>{{ order.publicId }}</span> <span>/ {{ order.user.username }}</span></a></div>
         <div class="precio_ud_legend">{{ order.createdAt | date('d/m/y') }}</div>
-        <div class="cantidad_legend">{{ order.form.vars.value.productsQuantity }}</div>
+        <div class="cantidad_legend">{{ order.productsQuantity }}</div>
         <div class="subtotat_legend">{{ order.totalPrice | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ mqm_monetary_currency_symbol() }}</div>
         {% set orderClass = " estado_recibido" %}
         {% if order.status == "IN_PROCESS" %}
@@ -11,8 +11,7 @@
         {% if order.status == "DELIVERED" %}
             {% set orderClass = " estado_enviado" %}
         {% endif %}
-        {#<div class="{{orderClass}}">{{ ('order.' ~ order.status) | trans({}, 'MQMOrderBundle') }}</div>#}
-        {{ form_widget(order.form.status, {'attr' : {'class' : orderClass}}) }}
+        {{ form_widget(orderForm.status, {'attr' : {'class' : orderClass}}) }}
         <div class="submit_pedido">
             <input type="submit" name="Guardar"/>
         </div>

@@ -1,0 +1,11 @@
+{% if order.items is defined %}
+    <div class="lista_pedidos_container">
+    {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item_fields.partialhtml.twig' %}
+    {% for dataItem in order.items %}
+        {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item.partialhtml.twig' with {'isEditable' : false} %}
+    {% endfor %}
+    {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_summary.partialhtml.twig' with {'entity' : order} %}
+    </div>
+{% else %}
+    <h3>No se encuetran datos del Pedido</h3>
+{% endif %}

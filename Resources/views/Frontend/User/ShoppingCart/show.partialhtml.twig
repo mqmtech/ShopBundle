@@ -36,7 +36,7 @@ TODO: Create the controller for the shopping cart
 			}, 1000 );
 		};
                 
-                tecnokey.kernel.eventSubscriber.addEventListener('SHOPPING_CART.ADD', function(event){
+                shop.kernel.eventSubscriber.addEventListener('SHOPPING_CART.ADD', function(event){
                     //alert("ShoppingCart item added : " + event);
                     runEffect(event, ".cesta img");
                 });
