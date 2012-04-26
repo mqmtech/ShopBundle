@@ -1,0 +1,68 @@
+{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="{{ asset('bundles/mqmshop/js/jqueryui/css/ui-lightness/jquery-ui-1.8.16.custom.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts%}
+    
+{% block jsfunctions %}
+    {{ parent() }}
+    <script>
+    jQuery(document).ready(function(){
+        //Discounts start hidden
+        jQuery('.edicion_descuento').hide();
+
+        //Toggle discount
+        jQuery('[edit="discount"]').click(function(event){
+            var editDiscount = jQuery(this).parent().parent().find('.edicion_descuento');
+            jQuery('.edicion_descuento').each(function(key, value){
+                if (this != editDiscount.get(0)) {
+                    jQuery(value).slideUp('slow');
+                }
+            })
+            jQuery(editDiscount).slideToggle('slow');
+        })
+
+        //Tax starts hidden
+        jQuery('.edicion_iva').hide();
+        //Toggle tax
+        jQuery('[edit="tax"]').click(function(event){
+            var editTax = jQuery(this).parent().parent().find('.edicion_iva');
+            jQuery(editTax).slideToggle('slow');
+        })
+     })
+     </script>
+{% endblock jsfunctions %}
+
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ <a href="{{ path('TKShopBackendPortalDiscountAndIvaShow') }}">Administrar Descuentos</a> \ Descuento e IVA {% endblock %}
+
+{% block left_content %}
+    <div class="lista_pedidos_container">
+            <div class="legend_container">
+                <div class="producto_desc_categ_legend">Portal</div>
+                <div class="descuento_categ_legend"><a href="#">{{discountForm.vars.value.discount}}%</a></div>
+                <div class="editar_desc_categ_legend" edit="discount"><a href="#">Editar</a></div>
+            </div>
+            <div class="edicion_descuento">
+                {% include 'MQMShopBundle:Backend/Discount:editDiscount.partialhtml.twig'
+                        with {'form' : discountForm, 'editController' : path('TKShopBackendPortalDiscountUpdate', {'id': 0})} %}
+            </div>
+    </div>
+    <div class="lista_pedidos_container">
+            <div class="legend_container">
+                <div class="producto_desc_categ_legend">I.V.A.</div>
+                <div class="descuento_categ_legend"><a href="#">{{taxForm.vars.value.tax * 100}}%</a></div>
+                <div class="editar_desc_categ_legend" edit="tax"><a href="#">Editar</a></div>
+            </div>
+            <div class="edicion_iva">
+            {% include 'MQMShopBundle:Backend/Discount/PortalDiscountAndIva:editTax.partialhtml.twig'
+                        with {'form' : taxForm, 'editController' : path('TKShopBackendPortalTaxUpdate')} %}
+            </div>
+     </div>
+{% endblock left_content %}
