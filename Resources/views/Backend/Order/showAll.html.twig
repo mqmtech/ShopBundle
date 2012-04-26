@@ -1,4 +1,3 @@
-{# src/Acme/BlogBundle/Resources/views/Backend/Product/index.html.twig #}
 {% extends 'MQMShopBundle:Backend:layout.html.twig' %}
 
 {% block stylesheets %}
@@ -17,6 +16,11 @@
     jQuery(document).ready(function(){
         jQuery('.pedido .pedido_legend').click(function(event){
             var orderDetails = jQuery(this).parent().parent().parent().find('.pedido_detalles');
+            jQuery('.pedido_detalles').each(function(key, value){
+                if (this != orderDetails.get(0)) {
+                    jQuery(value).slideUp('slow');
+                }
+            })
             jQuery(orderDetails).slideToggle('slow');
         })
      })
@@ -46,4 +50,4 @@
         </div>
     {% endfor %}
 </div>
-{% endblock left_content%}
+{% endblock left_content %}

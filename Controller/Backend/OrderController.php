@@ -21,7 +21,7 @@ class OrderController extends Controller
     {
         $sortManager = $this->createSortManager();   
         $paginationManager = $this->get('mqm_pagination.pagination_manager');
-        $paginationManager->setLimitPerPage(20);                     
+        //$paginationManager->setLimitPerPage(20);                     
         $orders = $this->get('mqm_order.order_manager')->findOrders($sortManager, $paginationManager);
         
         $orderForms = array();

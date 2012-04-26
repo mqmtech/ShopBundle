@@ -46,40 +46,31 @@
 
 <!--start lista individual -->
 {% for product in products %}
-        {% set productPrice = productsPrice[product.id]  %}
-        <div class="listbox_container" name="test">    
-            
+        {% set productPrice = productsPrice[product.id] %}
+        <div class="listbox_container" name="test">
             <div class="fotoprodcontainer">
-                <!--div class="fotoprod">¡FOTO!</div-->
-                {% set imageSizeInfo =  product.image.getImageSize("68", "68") %}
+                {% set imageSizeInfo = product.image.getImageSize("68", "68") %}
                 <a href="{{ path('TKShopFrontendProductShow', {'productId': product.id}) }}"><img class="fotoprod" src="{{ asset(product.image.webPath) }}" style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};" /></a>
-            </div> <!-- end fotoprod -->
-            
+            </div><!-- end fotoprod -->            
             <div class="listbox">
-
                 <div class="titulo_box">
                     <h1><a href="{{ path('TKShopFrontendProductShow', {'productId': product.id}) }}">{{ product.name }}</a></h1>
                 </div>
-
                 <div class="text_list_box">
-                    <h3><a href="{{ path('TKShopFrontendProductShow', {'productId': product.id})}}">{{ product.description |mqm_tools_truncate}}</a></h3>
+                    <h3><a href="{{ path('TKShopFrontendProductShow', {'productId': product.id}) }}">{{ product.description | mqm_tools_truncate }}</a></h3>
                 </div>
                 <div class="ref_lista">
                     <div class="ref">REF: {{ product.sku }}</div>
-                    {#<div class="ref">Rojo</div>
-                    <div class="ref">23cm X 4cm</div>
-                    <div class="ref">Madera</div>#}
                 </div>
-
             </div>
              <div class="precio_box">
                     {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
-                        {% if(productPrice.isDiscountRule is defined and productPrice.isDiscountRule) %}
-                        <div class="precio">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price  | default("n/a")}} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
-                        <div class="iva">Sin IVA</div>
-                        <div class="descuento">{{ product.discountRule.discount ~ "%"}}</div>
+                        {% if(productPrice.hasDiscounts is defined and productPrice.hasDiscounts) %}
+                            <div class="precio">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price | default("n/a")}} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
+                            <div class="iva">Sin IVA</div>
+                            <div class="descuento">{{ productPrice.totalDiscountsPercetageValue ~ "%" }}</div>
                         {% else %} {# else discountRule #}
-                            <div class="precio">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price  | default("n/a")}} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
+                            <div class="precio">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price | default("n/a")}} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
                             <div class="iva">Sin IVA</div>
                         {% endif %} {# endig discountRule #}
                     {% else %} {# else is_granted #}

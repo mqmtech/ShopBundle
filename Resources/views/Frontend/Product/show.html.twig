@@ -81,106 +81,87 @@ jQuery(window).load(function(){
 
 {% block right %}
 <!--start right-->
-<div class="right">
-    
+<div class="right">    
     <!--start ficha-->
     <div class="div_detail_fecha"><span class="text_bold"><a href="{{ path('TKShopFrontendCategoriesShowAllCategories', {'id': product.category.parentCategory.id }) }}">{{ product.category.parentCategory.name }}</a></span> / <span class="text_bold"><a href="{{ path('TKShopFrontendSearchProductsByBrand', {'id' : product.brand.id}) }}">{{ product.brand.name|mqm_tools_truncate }}</a></span></div>
     <div class="titulo_prod_ficha"><h1>{{ product.name }}</h1></div>
-
     <!--start imagenes cesta-->
     <div class="imagenes_cesta_container">
-
         <div class="imagenes_container">
-                <div class="imagen_principal">
-                {% if (product.image!= null) %} 
-                    {% set imageSizeInfo =  product.image.getImageSize("298", "260") %}
-                        <img src="{{ asset(product.image.webPath) }}" name="{{ product.image.name }}" style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};"/>
-                {% else %} 
-                    <img src="" />
-                {% endif %}
-                </div>
-                <div class="div_otros_angulos">Otros angulos</div>
-                <div class="angulos" >
-                {% if (product.secondImage!= null) %} 
-                        {% set imageSizeInfo =  product.image.getImageSize("98", "98") %}
-                        <img src="{{ asset(product.image.webPath) }}" name="{{ product.image.name }}"  style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};"/>
-                {% else %} 
-                    <img src="" />
-                {% endif %}
-                </div>
-                
-                <div class="angulos" >
-                {% if (product.thirdImage!= null) %} 
-                    {% set imageSizeInfo =  product.secondImage.getImageSize("98", "98") %}
-                    <img src="{{ asset(product.secondImage.webPath) }}"  name="{{ product.secondImage.name }}"  style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};"/>
-                {% else %} 
-                    <img src="" />
-                {% endif %}
-                </div>
-                <div class="angulos" >
-                {% if (product.fourthImage!= null) %} 
-                    {% set imageSizeInfo =  product.thirdImage.getImageSize("98", "98") %}
-                    <img src="{{ asset(product.thirdImage.webPath) }}" name="{{ product.thirdImage.name }}"  style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};"/>
-                {% else %} 
-                    <img src="" />
-                {% endif %}
-                </div>
-        </div>
-
+            <div class="imagen_principal">
+            {% if (product.image!= null) %} 
+                {% set imageSizeInfo =  product.image.getImageSize("298", "260") %}
+                    <img src="{{ asset(product.image.webPath) }}" name="{{ product.image.name }}" style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};"/>
+            {% else %} 
+                <img src="" />
+            {% endif %}
+            </div>
+            <div class="div_otros_angulos">Otros angulos</div>
+            <div class="angulos" >
+            {% if (product.secondImage!= null) %} 
+                    {% set imageSizeInfo =  product.image.getImageSize("98", "98") %}
+                    <img src="{{ asset(product.image.webPath) }}" name="{{ product.image.name }}"  style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};"/>
+            {% else %} 
+                <img src="" />
+            {% endif %}
+            </div>                
+            <div class="angulos" >
+            {% if (product.thirdImage!= null) %} 
+                {% set imageSizeInfo =  product.secondImage.getImageSize("98", "98") %}
+                <img src="{{ asset(product.secondImage.webPath) }}"  name="{{ product.secondImage.name }}"  style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};"/>
+            {% else %} 
+                <img src="" />
+            {% endif %}
+            </div>
+            <div class="angulos" >
+            {% if (product.fourthImage!= null) %} 
+                {% set imageSizeInfo =  product.thirdImage.getImageSize("98", "98") %}
+                <img src="{{ asset(product.thirdImage.webPath) }}" name="{{ product.thirdImage.name }}"  style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};"/>
+            {% else %} 
+                <img src="" />
+            {% endif %}
+            </div>
+        </div>        
         <!--start  cesta-->
         <div class="cesta_container">
-
             <div class="precio_cesta_container">
                 {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
                     {% if(productPrice.hasDiscounts is defined and productPrice.hasDiscounts) %}
-                        <div class="precio_ficha">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ "" ~ mqm_monetary_currency_symbol() | default(mqm_monetary_price_access_denied())}}</div>
+                        <div class="precio_ficha">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ "" ~ mqm_monetary_currency_symbol() | default(mqm_monetary_price_access_denied()) }}</div>
                         <div class="text_bold">REF: {{product.sku}}</div>
-
                         <div class="descuento_container_ficha">
-                            <div class="precio_tachado_ficha">{{ productPrice.originalValue | mqm_monetary_roundoff | mqm_monetary_pretty_price  | default(mqm_monetary_price_access_denied())}} {% if(productPrice.value) %} {{mqm_monetary_currency_symbol()}} {% endif %}</div>
+                            <div class="precio_tachado_ficha">{{ productPrice.originalValue | mqm_monetary_roundoff | mqm_monetary_pretty_price | default(mqm_monetary_price_access_denied()) }} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
                             <div class="descuento_ficha">{{ productPrice.totalDiscountsPercetageValue ~ "%"}}</div>
-                            <div class="ahorro_ficha">Ahorra {{ ( productPrice.totalDiscountsValue )| mqm_monetary_roundoff | mqm_monetary_pretty_price  ~ mqm_monetary_currency_symbol() }}</div>
+                            <div class="ahorro_ficha">Ahorra {{ ( productPrice.totalDiscountsValue )| mqm_monetary_roundoff | mqm_monetary_pretty_price ~ mqm_monetary_currency_symbol() }}</div>
                         </div>
                         <div class="add_cesta_ficha"><a href="{{ path('TKShopFrontendUserShoppingAddProduct', {'id' : product.id }) }}"><img src="{{ asset('bundles/mqmshop/images/btn_add_cesta_ficha.png') }}" alt="add_cesta" /></a></div>
                         <div class="oferta">
-                        	<p class="text_bold">Oferta valida hasta:</p>
-                        	<p class="validez">{{ product.discountRule.deadline |date("d/m/Y") }}</p>
+                            <p class="text_bold">Oferta valida hasta:</p>
+                            <p class="validez">{{ productPrice.discounts[0].get('deadline') | date("d/m/Y") }}</p>
                     	</div> 
                         {% else %} {# else discountRule #}
                         <div class="precio_ficha">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price | default(mqm_monetary_price_access_denied())}} {% if(productPrice.value) %} {{mqm_monetary_currency_symbol()}} {% endif %}</div>
                         <div class="text_bold">REF: {{product.sku}}</div>
                         <div class="add_cesta_ficha"><a href="{{ path('TKShopFrontendUserShoppingAddProduct', {'id' : product.id }) }}"><img src="{{ asset('bundles/mqmshop/images/btn_add_cesta_ficha.png') }}" alt="add_cesta" /></a></div>
-                    {% endif %} {# endif discountRule #}
-                    
+                    {% endif %} {# endif discountRule #}                    
                     {% else %} {# else is_granted #}
                     <div class="no_price_access_ficha">{{ mqm_monetary_price_access_denied() }} </div>
                     <div class="text_bold">REF: {{product.sku}}</div>
                     <div class="add_cesta_ficha"><a href="{{ path('TKShopFrontendUserShoppingAddProduct', {'id' : product.id }) }}"><img src="{{ asset('bundles/mqmshop/images/btn_add_cesta_ficha.png') }}" alt="add_cesta" /></a></div>
-                {% endif %} {# endif is_granted #}
-                
+                {% endif %} {# endif is_granted #}                
             </div>
-
-
             <!--productos relaciodos-->
             {% render path('TKShopBundleFrontendProductRelatedProducts', {'productId' : product.id}) | mqm_shop_to_app_path %}
             <!--end productos relaciodos-->
-
-
         </div><!--end  cesta-->
-
     </div><!--end imagenes cesta-->
-
-
-
-    <!--start info procuto-->
+    <!--start info producto-->
     <div class="titulo_info">Información sobre el producto:</div>
     <div class="description_ficha">
         <h5>{{ product.description }}</h5>
     </div>
-
-    <!--end info procuto-->
-
-    <!--end ficha-->  
+    <!--end info producto-->
+    <!--end ficha-->
 </div>
 <!--end right-->
 {% endblock %}
