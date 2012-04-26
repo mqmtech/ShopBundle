@@ -28,7 +28,7 @@ class DiscountByProductRuleType extends AbstractType
 
     public function getName()
     {
-        return 'mqm_pricing_form_type_type_discount_by_product';
+        return 'mqm_pricing_form_type_discount_by_product';
     }
     
     public function getDefaultOptions()
