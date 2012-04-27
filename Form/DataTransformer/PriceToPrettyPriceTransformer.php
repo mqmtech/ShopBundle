@@ -38,5 +38,3 @@ class PriceToPrettyPriceTransformer implements DataTransformerInterface
         return $float;
     }
 }
-
-

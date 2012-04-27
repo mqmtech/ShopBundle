@@ -20,7 +20,7 @@ class DiscountByPortalRuleType extends AbstractType
                 'input' => 'datetime',
                 'widget' => 'choice'
             ))
-            ->add('discount', null, array(
+            ->add('discount', 'mqm_shop.form.percentage', array(
                 'label' => 'add_descuento'
             ))
         ;
@@ -30,7 +30,7 @@ class DiscountByPortalRuleType extends AbstractType
     {
         return 'mqm_pricing_form_type_discount_by_portal';
     }
-    
+
     public function getDefaultOptions()
     {
         return array(

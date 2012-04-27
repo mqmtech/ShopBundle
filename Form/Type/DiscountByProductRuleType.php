@@ -20,7 +20,7 @@ class DiscountByProductRuleType extends AbstractType
                 'input' => 'datetime',
                 'widget' => 'choice'
             ))
-            ->add('discount', null, array(
+            ->add('discount', 'mqm_shop.form.percentage', array(
                 'label' => 'add_descuento'
             ))
         ;

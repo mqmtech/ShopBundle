@@ -23,8 +23,9 @@ class PortalDiscountAndIvaController extends Controller
         $discountForm = $this->createForm(new DiscountByPortalRuleType(), $discountRule);
         
         $taxValue = $this->getTaxationManager()->getTax();
-        $taxObject = array('tax' => $taxValue);
-        $taxForm = $this->getTaxForm($taxObject);
+        $taxForm = $this->createFormBuilder(array('tax' => $taxValue))
+                ->add('tax', 'mqm_shop.form.percentage')
+                ->getForm();
         
         return array(
             'discountForm' => $discountForm->createView(),
@@ -60,28 +61,19 @@ class PortalDiscountAndIvaController extends Controller
     public function updateTaxAction()
     {
         $taxValue = $this->getTaxationManager()->getTax();
-        $taxObject = array('tax' => $taxValue);
-        $editForm = $this->getTaxForm($taxObject);
+        $editForm = $taxForm = $taxForm = $this->createFormBuilder(array('tax' => $taxValue))
+                ->add('tax', 'mqm_shop.form.percentage')
+                ->getForm();
         $request = $this->getRequest();
         $editForm->bindRequest($request);
-        if ($editForm->isValid()) {
-            throw new \Exception('tax: ' . $request->request->get('form[tax]'));
-            throw new \Exception('tax: ' . $taxObject['tax']);
+        if ($editForm->isValid()) {            
+            $taxObject = $editForm->getData(); 
             $this->getTaxationManager()->saveTax($taxObject['tax']);
 
             return $this->redirect($this->generateUrl('TKShopBackendPortalDiscountAndIvaShow'));
         }
         
         throw new \Exception('Invalid Portal DiscountRule');
-    }
-    
-    private function getTaxForm($tax)
-    {
-        $taxForm = $this->createFormBuilder($tax)
-                ->add('tax')
-                ->getForm();
-        
-        return $taxForm;
     }
     
     /**
