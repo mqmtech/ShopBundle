@@ -67,7 +67,7 @@ jQuery(document).ready(function() {
                     </div>                    
                 </div>
                 <div class="precio_relacionados_ficha">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ mqm_monetary_currency_symbol() }}</div>
-                <div class="dto_relacionados_ficha">{{ productPrice.totalDiscountsPercetageValue }}%</div>
+                <div class="dto_relacionados_ficha">{{ productPrice.totalDiscountsPercentageValue }}%</div>
                 {% else %}
                 <div class="titulo_prods_relacionados" name="prod_relacionado">
                     <a href="{{ path('TKShopFrontendProductShow',{'productId' : product.id}) }}">{{ product.name | mqm_tools_truncate(30) }}</a>                    

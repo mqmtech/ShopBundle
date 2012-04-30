@@ -4,28 +4,10 @@ namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
+use MQM\ShopBundle\Form\Type\DiscountRuleType;
 
-class DiscountByPortalRuleType extends AbstractType
+class DiscountByPortalRuleType extends DiscountRuleType
 {
-    public function buildForm(FormBuilder $builder, array $options)
-    {
-        $builder
-            ->add('startDate', 'date', array(
-                'label' => 'add_fecha',
-                'input' => 'datetime',
-                'widget' => 'choice'
-            ))
-            ->add('deadline', 'date', array(
-                'label' => 'add_fecha',
-                'input' => 'datetime',
-                'widget' => 'choice'
-            ))
-            ->add('discount', 'mqm_shop.form.percentage', array(
-                'label' => 'add_descuento'
-            ))
-        ;
-    }
-
     public function getName()
     {
         return 'mqm_pricing_form_type_discount_by_portal';

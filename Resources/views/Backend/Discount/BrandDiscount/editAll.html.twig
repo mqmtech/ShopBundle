@@ -1,0 +1,63 @@
+{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="{{ asset('bundles/mqmshop/js/jqueryui/css/ui-lightness/jquery-ui-1.8.16.custom.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts%}
+    
+{% block jsfunctions %}
+    {{ parent() }}
+    <script>
+    jQuery(document).ready(function(){
+        //Discounts start hidden
+        jQuery('.descuento_edicion_container').hide();
+
+        //Toggle discount
+        jQuery('[edit="discount"]').click(function(event){
+            var editDiscount = jQuery(this).parent().parent().find('.descuento_edicion_container');
+            jQuery('.descuento_edicion_container').each(function(key, value){
+                if (this != editDiscount.get(0)) {
+                    jQuery(value).slideUp('slow');
+                }
+            })
+            jQuery(editDiscount).slideToggle('slow');
+        })
+
+        //Tax starts hidden
+        jQuery('.edicion_iva').hide();
+        //Toggle tax
+        jQuery('[edit="tax"]').click(function(event){
+            var editTax = jQuery(this).parent().parent().find('.edicion_iva');
+            jQuery(editTax).slideToggle('slow');
+        })
+     })
+     </script>
+{% endblock jsfunctions %}
+
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ <a href="{{ path('TKShopBackendPortalDiscountAndIvaEdit') }}">Administrar Descuentos</a> \ Descuento de Marcas {% endblock %}
+
+{% block left_content %}
+    <div class="descuentos_container">
+    {% for discountForm in discountForms %}
+        {% set discount = discountForm.vars.value %}
+        {% set brand = brands[loop.index0] %}
+        <div class="descuento_container">
+                <div class="legend_container">
+                    <div class="producto_desc_categ_legend">{{ brand.name }}</div>
+                    <div class="descuento_categ_legend"><a href="#">{{discountForm.vars.value.discount * 100}}%</a></div>
+                    <div class="editar_desc_categ_legend" edit="discount"><a href="#">Editar</a></div>
+                </div>
+                <div class="descuento_edicion_container">
+                    {% include 'MQMShopBundle:Backend/Discount:editDiscount.partialhtml.twig'
+                        with {'form' : discountForm, 'editController' : path('TKShopBackendBrandDiscountUpdate', {'id': discount.brandId | default('~')})} %}
+                </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock left_content %}

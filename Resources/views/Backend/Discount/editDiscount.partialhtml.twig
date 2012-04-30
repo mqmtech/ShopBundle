@@ -1,25 +1,23 @@
 <form action="{{editController}}" method="post" {{ form_enctype(form) }}>
-    <div class="discounts_container">
-        <div class="discount_container">
+        <div class="descuento_propiedad">
             <div class="legend"><span class="text_bold">Descuento %</span></div>
             {{ form_errors(form.discount) }}
             {{ form_widget(form.discount) }}
         </div>
 
-        <div class="discount_container">
+        <div class="descuento_propiedad">
             <div class="legend"><span class="text_bold">Fecha: Alta promoción</span></div>
             {{ form_errors(form.startDate) }}
             {{ form_widget(form.startDate) }}
         </div>
 
-        <div class="discount_container">
+        <div class="descuento_propiedad">
             <div class="legend"><span class="text_bold">Fecha: Baja promoción</span></div>
             {{ form_errors(form.deadline) }}
             {{ form_widget(form.deadline) }}
         </div>
 
-        <div class="submit_descuento">
+        <div class="descuento_submit">
             <input type="submit" value="Enviar" name="Guardar"/>
         </div>
-    </div>
 </form>

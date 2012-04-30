@@ -1302,28 +1302,51 @@ input.eliminar {
     display: none;
 }
 
-.discounts_container {
-    width: 725px;
+.descuento_edicion_container {
+    width: 726px;
     height: auto;
-    border: 1px dotted #888;
     float: left;
     padding: 0px;
     background: #cee6f2;
-    margin-bottom: 10px;
 }
 
-.discount_container{
+.edicion_iva {
+    width: 725px;
+    height: auto;
+    float: left;
+    padding: 0px;
+    background: #cee6f2;
+}
+
+.descuentos_container {
+    height: auto;
+    background: white;
+    width: 728px;
+    color: #555;
+    font-size: 13px;
+    border-top: 1px solid #CCC;
+    margin-bottom: 15px;
+}
+
+.descuento_container {
+    border-left: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+    float: left;
+    width: 726px;
+}
+
+.descuento_propiedad{
     width: auto;
     height: auto;
     float: left;
     margin: 0 5px 5px 5px;
 }
 
-.submit_descuento{
+.descuento_submit{
     display: inline
 }
 
-.submit_descuento input{
+.descuento_submit input{
     margin-top: 20px;
     margin-left: 10px;
     border: 1px solid #ccc;

@@ -1,12 +1,10 @@
 <form action="{{editController}}" method="post" {{ form_enctype(form) }}>
-    <div class="discounts_container">
-        <div class="discount_container">
+        <div class="descuento_propiedad">
             <div class="legend"><span class="text_bold">IVA %</span></div>
             {{ form_errors(form.tax) }}
             {{ form_widget(form.tax) }}
         </div>
-        <div class="submit_descuento">
+        <div class="descuento_submit">
             <input type="submit" value="Enviar" name="Guardar"/>
         </div>
-    </div>
 </form>

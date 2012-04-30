@@ -6,17 +6,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 use MQM\ShopBundle\Form\Type\DiscountRuleType;
 
-class DiscountByProductRuleType extends DiscountRuleType
+class DiscountByBrandRuleType extends DiscountRuleType
 {
     public function getName()
     {
-        return 'mqm_pricing_form_type_discount_by_product';
+        return 'mqm_pricing_form_type_discount_by_brand';
     }
     
     public function getDefaultOptions()
     {
         return array(
-            'data_class' => 'MQM\PricingBundle\Entity\DiscountRule\DiscountByProductRule',
+            'data_class' => 'MQM\PricingBundle\Entity\DiscountRule\DiscountByBrandRule',
         );
     }
 }

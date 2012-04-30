@@ -14,10 +14,10 @@ use MQM\ShopBundle\Form\Type\DiscountByPortalRuleType;
 class PortalDiscountAndIvaController extends Controller
 {
     /**
-     * @Route("/ver_todos", name="TKShopBackendPortalDiscountAndIvaShow")
+     * @Route("/ver_todos", name="TKShopBackendPortalDiscountAndIvaEdit")
      * @Template()
      */
-    public function showAllAction()
+    public function editAllAction()
     {
         $discountRule = $this->getDefaultDiscountRule();
         $discountForm = $this->createForm(new DiscountByPortalRuleType(), $discountRule);
@@ -47,7 +47,7 @@ class PortalDiscountAndIvaController extends Controller
         if ($editForm->isValid()) {
             $this->getDiscountManager()->saveDiscountRule($discountRule);
 
-            return $this->redirect($this->generateUrl('TKShopBackendPortalDiscountAndIvaShow'));
+            return $this->redirect($this->generateUrl('TKShopBackendPortalDiscountAndIvaEdit'));
         }
         
         throw new \Exception('Invalid Portal DiscountRule');
@@ -56,7 +56,7 @@ class PortalDiscountAndIvaController extends Controller
     /**
      * @Route("/actualizar_iva", name="TKShopBackendPortalTaxUpdate")
      * @Method("post")
-     * @Template("MQMShopBundle:Backend\Discount\PortalDiscountAndIva:showAll.html.twig")
+     * @Template("MQMShopBundle:Backend\Discount\PortalDiscountAndIva:editAll.html.twig")
      */
     public function updateTaxAction()
     {
@@ -70,7 +70,7 @@ class PortalDiscountAndIvaController extends Controller
             $taxObject = $editForm->getData(); 
             $this->getTaxationManager()->saveTax($taxObject['tax']);
 
-            return $this->redirect($this->generateUrl('TKShopBackendPortalDiscountAndIvaShow'));
+            return $this->redirect($this->generateUrl('TKShopBackendPortalDiscountAndIvaEdit'));
         }
         
         throw new \Exception('Invalid Portal DiscountRule');
