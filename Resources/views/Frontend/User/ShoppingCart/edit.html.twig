@@ -140,15 +140,13 @@ jQuery(document).ready(function(){
             <div class="lista_pedidos_container">
                 {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item_fields.partialhtml.twig'%}                
                 <form name="edit_form" action="{{ path('TKShopFrontendUserShoppingCartUpdate') }}" method="post" {{ form_enctype(edit_form) }}>        
-                {% set count = 0 %}
                 {% for item in edit_form.items %}
-                    {% if (entity.items[count] is defined ) %}
-                        {% set dataItem = entity.items[count] %}
+                    {% if (entity.items[loop.index0] is defined ) %}
+                        {% set dataItem = entity.items[loop.index0] %}
                         {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item.partialhtml.twig' with {'isEditable' : true} %}
-                        {% set count = count + 1 %}
                     {% endif %}
                 {% endfor %}
-                    {{ form_rest(edit_form) }}
+                    {#{{ form_rest(edit_form) }}#}
                     {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_summary.partialhtml.twig' with {'entity' : entity} %}
                     <div class="btn_accion_container">
                         <input type="hidden" id="{{ order_field }}" name="{{ order_field }}" value="{{ update_value }}"/>

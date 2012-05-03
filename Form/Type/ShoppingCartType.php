@@ -13,7 +13,6 @@ class ShoppingCartType extends AbstractType
             ->add('items', 'collection', array(
                 'type' => new ShoppingCartItemType(),
                 'label' => ' ',
-                'required' => false,
             ))
         ;
     }

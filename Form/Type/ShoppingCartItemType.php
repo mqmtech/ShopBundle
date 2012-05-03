@@ -10,8 +10,7 @@ class ShoppingCartItemType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('quantity', "integer", array(                
-            ))            
+            ->add('quantity', "integer")
         ;
     }
 

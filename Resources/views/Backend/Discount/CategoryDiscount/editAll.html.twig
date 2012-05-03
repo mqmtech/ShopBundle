@@ -2,7 +2,12 @@
 
 {% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ <a href="{{ path('TKShopBackendDiscountIndex') }}">Administrar Descuentos</a>
 {%if parentCategory is defined and parentCategory is not null %}
-\ <a href="{{ path('TKShopBackendCategoryDiscountEditAllSubcategories', {'id' : parentCategory.id}) }}">{{parentCategory.name}}</a>
+\ <a href="{{ path('TKShopBackendCategoryDiscountEditAll') }}">Descuento por Categoria</a>
+{% set ancestors = parentCategory.ancestors %}
+    {%for ancestor in ancestors%}
+        \ <a href="{{ path('TKShopBackendCategoryDiscountEditAllSubcategories', {'id' : ancestor.id}) }}">{{ancestor.name}}</a>
+    {%endfor%}
+    \ {{parentCategory.name}}
 {%else%}
  \ Descuento por Categoria
 {%endif%}

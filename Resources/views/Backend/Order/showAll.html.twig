@@ -14,7 +14,7 @@
     {{ parent() }}
     <script>
     jQuery(document).ready(function(){
-        jQuery('.pedido .pedido_legend').click(function(event){
+        jQuery('.pedido_container .pedido_legend').click(function(event){
             var orderDetails = jQuery(this).parent().parent().parent().find('.pedido_detalles');
             jQuery('.pedido_detalles').each(function(key, value){
                 if (this != orderDetails.get(0)) {
@@ -40,9 +40,11 @@
             <div class="estado {% if(sortManager.sorts['estado'] == currentSort) %}current{% endif %}"><a href="{{ sortManager.sorts['estado'].url}}">Estado</a></div>
     </div>
     {% for orderForm in orderForms %}
-        <div class="pedido">
+        <div class="pedido_container">
+            <div class="legend_container">
             {% include 'MQMShopBundle:Backend/Order:showOrderSummary.partialhtml.twig'
                 with {'orderForm' : orderForm, 'order' : orderForm.vars.value} %}
+            </div>
             <div class="pedido_detalles">
             {% include 'MQMShopBundle:Backend/Order:showOrderDetails.partialhtml.twig'
                 with {'order' : orderForm.vars.value} %}

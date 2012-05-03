@@ -287,13 +287,14 @@
 
 .titulo_prd_cesta{
 	float: left;
-	width: 285px;
+	width: 276px;
 }
 
 .ref_prod_cesta{
 	color: #000;
 	float: left;
-	width: 100px;
+        padding-left: 10px;
+	width: 90px;
 }
 
 .precio_ud{
@@ -367,6 +368,7 @@
 .btn_guardar_pedido:hover, .confirmar_pedido:hover{
 	text-decoration: underline;
 	border-color: #4e4e4e;
+        cursor: pointer;
 }
 
 .precio_desglos_container{
@@ -722,7 +724,7 @@
 
 .titulo_prd_cesta_2lines{
 	float: left;
-	width: 285px;
+	width: 276px;
 	height: auto;
 	line-height: 15px;
 	padding-top: 15px;

@@ -108,11 +108,8 @@ class ShoppingCartController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\ShoppingCart entity.');
         }
-
-        // Fill Shopping Cart with the current last Market/DiscountRule Info
         $checkoutManager = $this->get('mqm_checkout.checkout_manager');
         $entity = $checkoutManager->checkout($entity);
-        // End filling Shopping Cart
 
         $editForm = $this->createForm(new ShoppingCartType(), $entity);
         $deleteForm = $this->createDeleteForm($entity->getId());
