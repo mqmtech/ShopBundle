@@ -81,25 +81,20 @@
         <div class="listbox_container">    
 
             <div class="fotoprodcontainer">
-            
             {% if (category.image!= null) %}
                 {% set imageSizeInfo =  category.image.getImageSize("68", "68") %}
                 <img class="fotoprod" src="{{ asset(category.image.webPath) }}" style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};" />
-                {#<img class="fotoprod" src="{{ asset(category.image.webPath) }}" />#}
-            {% else %} 
+            {% else %}
                 <img class="fotoprod" src="" />
             {% endif %}
-            
             </div>
             <div class="listbox">
 
                 <div class="titulo_box">
-                    {# <h1><a href="{{ path('TKShopFrontendCategoriesShowAllCategories', {'id': category.id}) }} ">{{ category.name | upper }}</a></h1> #}
                     <h1><a href="{{ path('TKShopBackendCategoriesShowAllSubcategories', {'id': category.id}) }} ">{{ category.name | upper }}</a></h1>
                 </div>
 
                 <div class="text_list_box">
-                    {# <h3><a href="{{ path('TKShopFrontendCategoriesShowAllCategories', {'id': category.id}) }}">{{ category.description |default("Descripcion...") |mqm_tools_truncate }}</a></h3> #}
                     <h3><a href="{{ path('TKShopBackendCategoriesShowAllSubcategories', {'id': category.id}) }}">{{ category.description |default("Descripcion...") |mqm_tools_truncate }}</a></h3>
                 </div>
             </div>
@@ -107,7 +102,6 @@
                 <div class="editar"><a href="{{ path('TKShopBackendCategoryEdit',{'id' : category.id}) }}">EDITAR</a></div>
                 <div class="duplicar"><a href="{{ path('TKShopBackendCategoryClone',{'id' : category.id}) }}">DUPLICAR</a></div>
                 <form name="{{ "del_form"~category.id }}" id="{{ "del_form"~category.id }}" action="{{ path('TKShopBackendCategoryDelete',{'id' : category.id}) }}" method="POST" {{ form_enctype(del_form) }}>
-                    <!--div class="eliminar"><a href="{{ path('TKShopBackendCategoryDelete',{'id' : category.id}) }}">ELIMINAR</a></div-->
                     {{ form_rest(del_form) }}
                     <input type="submit" id="form-delete" name="algo" class = "eliminar" value = "ELIMINAR"></input>
                 </form>

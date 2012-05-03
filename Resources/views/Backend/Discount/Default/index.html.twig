@@ -1,0 +1,18 @@
+{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+
+{% block title %}| Administración | Panel de control |{% endblock %}
+
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \{% endblock %}
+
+{% block left_content %}
+<!--start 1a fila botones-->
+<div class="icono_prod_container">
+
+    <div class=" icono_admin_descuentos_portal"><a href="{{ path('TKShopBackendPortalDiscountAndIvaEdit') }}">Descuentos Portal - IVA</a></div>
+    <div class=" icono_admin_descuentos_categorias"><a href="{{ path('TKShopBackendCategoryDiscountEditAll') }}">Descuentos Categorías </a></div>
+    <div class=" icono_admin_descuentos_marcas"><a href="{{ path('TKShopBackendBrandDiscountEditAll') }}">Descuentos Marcas</a></div>
+
+</div>
+<!--End 1a fila botones-->
+
+{% endblock %}

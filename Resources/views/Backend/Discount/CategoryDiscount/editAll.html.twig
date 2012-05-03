@@ -1,0 +1,35 @@
+{% extends 'MQMShopBundle:Backend/Discount:editAll.html.twig' %}
+
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ <a href="{{ path('TKShopBackendDiscountIndex') }}">Administrar Descuentos</a>
+{%if parentCategory is defined and parentCategory is not null %}
+\ <a href="{{ path('TKShopBackendCategoryDiscountEditAllSubcategories', {'id' : parentCategory.id}) }}">{{parentCategory.name}}</a>
+{%else%}
+ \ Descuento por Categoria
+{%endif%}
+{% endblock %}
+
+{% block left_content %}
+    <div class="descuentos_container">
+    {% for discountForm in discountForms %}
+        {% set discount = discountForm.vars.value %}
+        {% set category = categories[loop.index0] %}
+        <div class="descuento_container">
+                <div class="legend_container">
+                    <div class="producto_desc_categ_legend">{{ category.name }}</div>
+                    {%if (category.categories is not null and category.categories | length > 0)%}
+                        <div class="descuento_categ_legend"><a href="#"></a></div>
+                        <div class="editar_desc_categ_legend" edit="discount_subcat"><a href="{{ path('TKShopBackendCategoryDiscountEditAllSubcategories', {'id' : category.id}) }}"">Editar</a>
+                    {%else%}
+                        <div class="descuento_categ_legend"><a href="#">{{discountForm.vars.value.discount * 100}}%</a></div>
+                        <div class="editar_desc_categ_legend" edit="discount"><a href="#">Editar</a>
+                    {%endif%}
+                    </div>
+                </div>
+                <div class="descuento_edicion_container">
+                    {% include 'MQMShopBundle:Backend/Discount:editDiscount.partialhtml.twig'
+                        with {'form' : discountForm, 'editController' : path('TKShopBackendCategoryDiscountUpdate', {'id': discount.categoryId | default('~')})} %}
+                </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock left_content %}

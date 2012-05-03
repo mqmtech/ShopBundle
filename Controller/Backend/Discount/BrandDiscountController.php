@@ -14,7 +14,7 @@ use MQM\ShopBundle\Form\Type\DiscountByBrandRuleType;
 class BrandDiscountController extends Controller
 {
     /**
-     * @Route("/editar_todos", name="TKShopBackendBrandDiscountEdit")
+     * @Route("/editar_todos", name="TKShopBackendBrandDiscountEditAll")
      * @Template()
      */
     public function editAllAction()

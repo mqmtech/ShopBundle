@@ -1,46 +1,6 @@
-{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+{% extends 'MQMShopBundle:Backend/Discount:editAll.html.twig' %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
-    <link type="text/css" href="{{ asset('bundles/mqmshop/js/jqueryui/css/ui-lightness/jquery-ui-1.8.16.custom.css') }}" rel="stylesheet" />
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-{% endblock javascripts%}
-    
-{% block jsfunctions %}
-    {{ parent() }}
-    <script>
-    jQuery(document).ready(function(){
-        //Discounts start hidden
-        jQuery('.descuento_edicion_container').hide();
-
-        //Toggle discount
-        jQuery('[edit="discount"]').click(function(event){
-            var editDiscount = jQuery(this).parent().parent().find('.descuento_edicion_container');
-            jQuery('.descuento_edicion_container').each(function(key, value){
-                if (this != editDiscount.get(0)) {
-                    jQuery(value).slideUp('slow');
-                }
-            })
-            jQuery(editDiscount).slideToggle('slow');
-        })
-
-        //Tax starts hidden
-        jQuery('.edicion_iva').hide();
-        //Toggle tax
-        jQuery('[edit="tax"]').click(function(event){
-            var editTax = jQuery(this).parent().parent().find('.edicion_iva');
-            jQuery(editTax).slideToggle('slow');
-        })
-     })
-     </script>
-{% endblock jsfunctions %}
-
-{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ <a href="{{ path('TKShopBackendPortalDiscountAndIvaEdit') }}">Administrar Descuentos</a> \ Descuento de Marcas {% endblock %}
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ <a href="{{ path('TKShopBackendDiscountIndex') }}">Administrar Descuentos</a> \ Descuento por Marcas {% endblock %}
 
 {% block left_content %}
     <div class="descuentos_container">

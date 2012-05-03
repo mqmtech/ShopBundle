@@ -131,7 +131,7 @@ jQuery(window).load(function(){
                         <div class="text_bold">REF: {{product.sku}}</div>
                         <div class="descuento_container_ficha">
                             <div class="precio_tachado_ficha">{{ productPrice.originalValue | mqm_monetary_roundoff | mqm_monetary_pretty_price | default(mqm_monetary_price_access_denied()) }} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
-                            <div class="descuento_ficha">{{ productPrice.totalDiscountsPercentageValue ~ "%"}}</div>
+                            <div class="descuento_ficha">{{ productPrice.totalDiscountsPercentageValue | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ "%"}}</div>
                             <div class="ahorro_ficha">Ahorra {{ ( productPrice.totalDiscountsValue )| mqm_monetary_roundoff | mqm_monetary_pretty_price ~ mqm_monetary_currency_symbol() }}</div>
                         </div>
                         <div class="add_cesta_ficha"><a href="{{ path('TKShopFrontendUserShoppingAddProduct', {'id' : product.id }) }}"><img src="{{ asset('bundles/mqmshop/images/btn_add_cesta_ficha.png') }}" alt="add_cesta" /></a></div>

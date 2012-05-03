@@ -9,16 +9,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use MQM\CategoryBundle\Entity\Category;
 
 /**
- * Shop\Category controller.
- *
  * @Route("/admin/categorias")
  */
 class CategoryController extends Controller
 {
     
     /**
-     * Lists all Shop\Category entities.
-     *
      * @Route("/", name="TKShopBackendCategoriesIndex")
      * @Template()
      */
@@ -29,8 +25,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Finds and displays a Shop\Category entity.
-     *
      * @Route("/{id}/ver", name="TKShopBackendCategoryShow")
      * @Template()
      */
@@ -48,8 +42,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Displays a form to create a new Shop\Category entity.
-     *
      * @Route("/~/nuevo", name="TKShopBackendCategoryNew")
      * @Template()
      */
@@ -66,8 +58,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Creates a new Shop\Category entity.
-     *
      * @Route("/create", name="TKShopBackendCategoryCreate")
      * @Method("post")
      * @Template("MQMShopBundle:Backend\Category:new.html.twig")
@@ -93,8 +83,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Shop\Category entity.
-     *
      * @Route("/{id}/editar", name="TKShopBackendCategoryEdit")
      * @Template()
      */
@@ -116,8 +104,6 @@ class CategoryController extends Controller
     }
     
     /**
-     * Displays a form to edit an existing Shop\Category entity.
-     *
      * @Route("/{id}/clonar", name="TKShopBackendCategoryClone")
      * @Template("MQMShopBundle:Backend\Category:new.html.twig")
      */
@@ -139,8 +125,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Edits an existing Shop\Category entity.
-     *
      * @Route("/{id}/actualizar", name="TKShopBackendCategoryUpdate")
      * @Method("post")
      * @Template("MQMShopBundle:Backend\Category:edit.html.twig")
@@ -218,7 +202,7 @@ class CategoryController extends Controller
             $totalItems = count($categories);
             $paginationManager->init($totalItems); 
             $categories = $paginationManager->paginateArray($categories);
-        }        
+        }
         $deleteForms = array();
         foreach ($categories as $subCategory) {
             $form = $this->createDeleteForm($subCategory->getId());
@@ -233,8 +217,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Deletes a Shop\Category entity.
-     *
      * @Route("/{id}/delete", name="TKShopBackendCategoryDelete")
      * @Method("post")
      */
