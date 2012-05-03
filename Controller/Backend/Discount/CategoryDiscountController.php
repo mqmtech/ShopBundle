@@ -62,7 +62,7 @@ class CategoryDiscountController extends Controller
         if ($editForm->isValid()) {
             $this->getDiscountManager()->saveDiscountRule($discountRule);
 
-            return $this->redirect($this->generateUrl('TKShopBackendCategoryDiscountEdit'));
+            return $this->redirect($this->generateUrl('TKShopBackendCategoryDiscountEditAll'));
         }
         
         throw new \Exception('Invalid Category DiscountRule');

@@ -42,7 +42,7 @@ class BrandDiscountController extends Controller
         if ($editForm->isValid()) {
             $this->getDiscountManager()->saveDiscountRule($discountRule);
 
-            return $this->redirect($this->generateUrl('TKShopBackendBrandDiscountEdit'));
+            return $this->redirect($this->generateUrl('TKShopBackendBrandDiscountEditAll'));
         }
         
         throw new \Exception('Invalid Brand DiscountRule');
