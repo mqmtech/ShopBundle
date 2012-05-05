@@ -1670,3 +1670,8 @@ input.buscarbtn{
     white;
     font-weight: bold;
 }
+
+.social_buttons{
+    position: relative;
+    margin-top: 50px;
+}

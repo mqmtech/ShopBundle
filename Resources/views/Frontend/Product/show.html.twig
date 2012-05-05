@@ -37,7 +37,7 @@
                //$(this).attr("src", attr_imagen_principal);
            }
         });
-        
+
         //Run 2
         //shop.utils.imagePreview($(".imagen_principal"));
         
@@ -81,7 +81,7 @@ jQuery(window).load(function(){
 
 {% block right %}
 <!--start right-->
-<div class="right">    
+<div class="right">
     <!--start ficha-->
     <div class="div_detail_fecha"><span class="text_bold"><a href="{{ path('TKShopFrontendCategoriesShowAllCategories', {'id': product.category.parentCategory.id }) }}">{{ product.category.parentCategory.name }}</a></span> / <span class="text_bold"><a href="{{ path('TKShopFrontendSearchProductsByBrand', {'id' : product.brand.id}) }}">{{ product.brand.name|mqm_tools_truncate }}</a></span></div>
     <div class="titulo_prod_ficha"><h1>{{ product.name }}</h1></div>
@@ -148,7 +148,7 @@ jQuery(window).load(function(){
                     <div class="no_price_access_ficha">{{ mqm_monetary_price_access_denied() }} </div>
                     <div class="text_bold">REF: {{product.sku}}</div>
                     <div class="add_cesta_ficha"><a href="{{ path('TKShopFrontendUserShoppingAddProduct', {'id' : product.id }) }}"><img src="{{ asset('bundles/mqmshop/images/btn_add_cesta_ficha.png') }}" alt="add_cesta" /></a></div>
-                {% endif %} {# endif is_granted #}                
+                {% endif %} {# endif is_granted #}
             </div>
             <!--productos relaciodos-->
             {% render path('TKShopBundleFrontendProductRelatedProducts', {'productId' : product.id}) | mqm_shop_to_app_path %}
@@ -159,6 +159,10 @@ jQuery(window).load(function(){
     <div class="titulo_info">Información sobre el producto:</div>
     <div class="description_ficha">
         <h5>{{ product.description }}</h5>
+    </div>
+    <div class="social_buttons">
+        {{ twitter_anywhere_tweet_button({'data_hashtags': 'tecnokey'}) }}
+        {{ facebook_likeit_button() }}
     </div>
     <!--end info producto-->
     <!--end ficha-->

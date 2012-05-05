@@ -15,15 +15,12 @@ TODO:
 {% endblock %}
 
 {% block body %} <!--start page-->
+{{ facebook_initialize({'domain': 'www.tecnokey.com', 'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
 <div class="container">
-
     {% block header %}<!--start header-->
-        {#{% include 'MQMShopBundle:Frontend:header.partialhtml.twig' %}#}
     <div class="headercontainer">
-
         <div class="logologincontainer">
             {% image '@MQMShopBundle/Resources/public/images/logo.png' output='bundles/mqmshop/images/logo.png' %}
-            {# asset('bundles/mqmshop/images/logo.png') #}
             <div class="logo"><img src="{{ asset_url }}" alt="logo" /></div>
             {% endimage %}
             <div class="cestalogin"><!--start cesta login-->
@@ -73,7 +70,6 @@ TODO:
         </div>
         {% endblock right %}
         </div> {# end bodycontainer#}
-
     {% endblock %} {# end content #}
 
     {% block footer %}<!--start footer-->
