@@ -56,6 +56,7 @@ class UserType extends AbstractType
     {
         return array(
             'data_class' => 'MQM\UserBundle\Entity\User',
+            'validation_groups' => 'Registration',
         );
     }
 }

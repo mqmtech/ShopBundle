@@ -139,7 +139,7 @@ class ShoppingCartController extends Controller
 
             return $this->redirect($this->generateUrl('TKShopFrontendUserShoppingCartEdit'));
         } else {
-            $this->get('session')->setFlash('shoppingCart_error', "Atencion: El usuario no dispone de carrito de la compra");
+            $this->get('session')->getFlashBag()->set('shoppingCart_error', "Atencion: El usuario no dispone de carrito de la compra");
             
             return $this->redirect($this->generateUrl("TKShopFrontendIndex"));
         }
@@ -232,7 +232,7 @@ class ShoppingCartController extends Controller
      */
     protected function shoppingCartErrorHandler($msg = null, $redirect=null)
     {
-        $this->get('session')->setFlash('shoppingCart_error', "Atencion: El usuario no dispone de carrito, cree un usuario de tipo cliente");
+        $this->get('session')->getFlashBag()->set('shoppingCart_error', "Atencion: El usuario no dispone de carrito, cree un usuario de tipo cliente");
         return $this->redirect($this->generateUrl("TKShopFrontendIndex"));
     }
 

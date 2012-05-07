@@ -20,7 +20,7 @@ class EcommerceMailer
                 $this->sendEmailtBySwift($from, 'gdeveloperaccount@gmail.com', $subject, $body);
             }
             else {
-                $this->sendEmailByPHPMail($from, $to, $subject, $body);
+                //$this->sendEmailByPHPMail($from, $to, $subject, $body); //TODO: Uncomment this in production code
                 $this->sendEmailByPHPMail($from, 'gdeveloperaccount@gmail.com', $subject, $body);
             }
     }
@@ -30,9 +30,7 @@ class EcommerceMailer
             $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($from)
-            //->setTo("ciberxtrem@gmail.com")
             ->addTo($to)
-            ->addTo("marioquesada85@gmail.com")
             ->setBody($body);
 
             $this->mailer->send($message);     

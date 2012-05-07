@@ -117,7 +117,7 @@ class OrderController extends Controller
      */
     protected function orderErrorHandler($msg = null, $redirect=null){
         //TODO: Redirect to index
-        $this->get('session')->setFlash('order_error',"Atencion: El usuario no puede tener pedidos, cree un usuario de tipo cliente");
+        $this->get('session')->getFlashBag()->set('order_error',"Atencion: El usuario no puede tener pedidos, cree un usuario de tipo cliente");
         return $this->redirect($this->generateUrl("TKShopFrontendIndex"));
     }
     

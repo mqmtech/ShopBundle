@@ -700,6 +700,10 @@
 	padding-left: 10px;
 }
 
+button:hover, .buscarbtn:hover{
+    cursor: pointer;
+}
+
 .btn_solicitar_alta:hover button{
 	text-decoration: underline;
 }

@@ -14,9 +14,7 @@ use Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Frontend\Default controller.
- *
- * @Route("/tienda/registro_not_allowed")
+ * @Route("/tienda/registro")
  */
 class RegisterController extends Controller {
 
@@ -75,17 +73,10 @@ class RegisterController extends Controller {
             if ($entity->getUsername() == null || $entity->getUsername() == '') {
                 $entity->setUsername($entity->getEmail());
             }
-
-            try {
-                $userManager->saveUser($entity);
-                //$this->sendSuccessRegistrationEmailSwift($entity);
-                return $this->render("MQMShopBundle:Frontend\User\Register:successMessageOnCreate." . "html" . ".twig", array('user' => $entity));
-                
-            } catch (Exception $e) {
-                $this->get('session')->setFlash('Email', "El email empleado ya está registrado");
-            }            
+            $userManager->saveUser($entity);
+            return $this->render("MQMShopBundle:Frontend\User\Register:successMessageOnCreate." . "html" . ".twig", array('user' => $entity));
         }
-
+        
         return array(
             'entity' => $entity,
             'form' => $form->createView()
@@ -116,8 +107,6 @@ class RegisterController extends Controller {
     }
 
     /**
-     * Edits an existing Shop\User entity.
-     *
      * @Route("/{id}/update", name="crud_user_update")
      * @Method("post")
      * @Template("MQMShopBundle:Shop\User:edit.html.twig")
@@ -158,17 +147,18 @@ class RegisterController extends Controller {
         
         //Validate mail and passwords
         if (!$this->validateEmail($entity)) {
-            $this->get('session')->setFlash('Email', "No coincide en las dos casillas");
+            $this->get('session')->getFlashBag()->set('Email', "No coincide en las dos casillas");
             $validation = false;
         }
         if (!$this->validatePassword($entity)) {
-            $this->get('session')->setFlash('Contraseña', "No coincide en las dos casillas");
+            $this->get('session')->getFlashBag()->set('Contraseña', "No coincide en las dos casillas");
             $validation = false;
         }
         if (!$this->validateCheckbox()) {
-            $this->get('session')->setFlash('Política de uso', "Debe aceptar lo política de uso de Tecnokey");
+            $this->get('session')->getFlashBag()->set('Política de uso', "Debe aceptar lo política de uso de Tecnokey");
             $validation = false;
         }
+        $this->get('session')->save();
         //End validating mail and passwords
         
         return $validation;

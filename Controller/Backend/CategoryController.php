@@ -234,7 +234,7 @@ class CategoryController extends Controller
                 $this->get('mqm_category.category_manager')->deleteCategory($entity);
             }
             catch(\Exception $e) {
-                 $this->get('session')->setFlash('category_error',"Atencion: La categoria no puede ser eliminada, elimine las subcategorias y productos asociados previamente");
+                 $this->get('session')->getFlashBag()->set('category_error',"Atencion: La categoria no puede ser eliminada, elimine las subcategorias y productos asociados previamente");
             }
         }
 

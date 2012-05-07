@@ -70,7 +70,7 @@
 
 {% block left_content %}
     
-    {% for key, flash in app.session.getFlashes() %}
+    {% for key, flash in app.session.flashbag.getAll() %}
     <div class="error">
         {{ flash }}
     </div>

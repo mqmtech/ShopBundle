@@ -48,6 +48,6 @@
 })(window)
  </script> 
 
-{% for key, flash in app.session.getFlashes() %}
+{% for key, flash in app.session.flashbag.getAll() %}
     <div class="field_inline_error" name="{{ key }}">{{ flash }}</div>
 {% endfor %}

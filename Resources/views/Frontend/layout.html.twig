@@ -1,10 +1,3 @@
-{# app/Resources/views/layout.html.twig #}
-{# 
-TODO:
-    - Create controller for shopping cart and render it instead including it
-    - Implement user login controller
-#}
-
 {% extends '::base.html.twig' %}
 
 {% block title %}| Tecnokey |{% endblock %}
@@ -31,14 +24,14 @@ TODO:
                         {% render path('TKShopFrontendUserShoppingCartShow', {'_format': 'partialhtml'}) | mqm_shop_to_app_path %}
                     {% endblock %}
                 </div><!--end cesta login-->
-            </div><!--end logo login container-->	
+            </div><!--end logo login container-->
             <div class="menucontainer"> <!--start menucontainer-->
-        {% block menu %}     
+        {% block menu %}
             {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig'%}
         {% endblock %}
         {% block busqueda %}
-                 {% include 'MQMShopBundle:Default:buscar.partialhtml.twig' with {'targetController' : 'TKShopFrontendSearchProductsByMultiQuery'} %}            
-        {% endblock busqueda%}<!--end menu--> 
+                 {% include 'MQMShopBundle:Default:buscar.partialhtml.twig' with {'targetController' : 'TKShopFrontendSearchProductsByMultiQuery'} %}
+        {% endblock busqueda%}<!--end menu-->
             </div>
     </div>
     {% endblock %} <!--end header-->
@@ -57,14 +50,13 @@ TODO:
         <div class="bodycontainer">
         {% block left %}
         {% endblock left %}
-        
+
         {% block right %}
         <div class="right">
             {% block right_content %}
             {% endblock right_content %}
-            
+
             {% block right_pagination %}
-                {#{% include 'MQMPaginationBundle:Pagination:pagination_bar.partialhtml.twig' with {'pagination' : mqm_pagination.pagination_manager} %}#}
                 {{ mqm_pagination_paginate('MQMPaginationBundle:Pagination:pagination_bar.partialhtml.twig') }}
             {% endblock right_pagination %}
         </div>

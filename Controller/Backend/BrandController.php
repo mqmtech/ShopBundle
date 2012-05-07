@@ -222,7 +222,7 @@ class BrandController extends Controller
                 $brandManager->remove($entity);
             }
             catch(\Exception $e) {
-                $this->get('session')->setFlash('category_error',"Atencion: La MARCA no puede ser eliminada, eliminela de los productos previamente");
+                $this->get('session')->getFlashBag()->set('category_error',"Atencion: La MARCA no puede ser eliminada, eliminela de los productos previamente");
             }
         }
 
