@@ -98,7 +98,7 @@ class OrderController extends Controller
         $confirmed = $this->confirmOrder();
         
         if ($confirmed == true) {
-                return $this->redirect($this->generateUrl('TKShopFrontendOrdersShowInProcess'));
+            return $this->redirect($this->generateUrl('TKShopFrontendOrdersShowInProcess'));
         }
         
         else{
@@ -157,8 +157,9 @@ class OrderController extends Controller
             $user = $this->getCurrentUser();
             $order->setUser($user);
             $this->get('mqm_order.order_manager')->saveOrder($order);
+            $this->get('mqm_order.order_manager')->flush();
             $this->get('mqm_cart.cart_manager')->removeAllItemsFromCart($sc);
-            $this->get('mqm_cart.cart_manager')->flush();
+            $this->get('mqm_statistic.logger.order')->logStatistic(array('order' => $order));
 
             return true;
             

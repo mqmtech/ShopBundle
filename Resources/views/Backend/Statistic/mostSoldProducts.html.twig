@@ -18,5 +18,5 @@
         <div class="google_analytics"><a href="https://www.google.com/analytics/web/#report/visitors-overview/a29696718w55914268p56967804/" target="_blank">Google Analytics</a></div>
     </div>
     <!--End 1a fila botones-->
-    {% include 'MQMShopBundle:Backend/Statistic:showAll.partialhtml.twig' with {'statistics' : statistics}%}
+    {% include 'MQMShopBundle:Backend/Statistic:showAll.partialhtml.twig' with {'statistics' : statistics, 'counterName' : 'Vendidos'}%}
 {% endblock %}

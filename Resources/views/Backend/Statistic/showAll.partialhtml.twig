@@ -1,9 +1,9 @@
 <div class="lista_pedidos_container">
     {% if sortManager is defined%}
-        {{mqm_sort_render_choice('MQMShopBundle:Backend/Statistic:sortChoice.partialhtml.twig', sortManager)}}
+        {{mqm_sort_render_choice('MQMShopBundle:Backend/Statistic:sortChoice.partialhtml.twig', sortManager, {'counterName' : counterName})}}
         {% set sortId = sortManager.currentSort.id %}
     {%else%}
-        {% include 'MQMShopBundle:Backend/Statistic:sortChoice.partialhtml.twig'%}
+        {% include 'MQMShopBundle:Backend/Statistic:sortChoice.partialhtml.twig' with {'counterName': counterName}%}
         {% set sortId = 'name' %}
     {%endif%}
 

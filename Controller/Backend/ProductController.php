@@ -167,19 +167,9 @@ class ProductController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Shop\Product entity.');
         }        
-        //save old discountRule
-        $oldDiscountRule = $entity->getDiscountRule();
-        if ($oldDiscountRule != null) {
-            $oldDiscountRule = clone ($oldDiscountRule);
-        }        
-        else {
-            $oldDiscountRule = new \MQM\PricingBundle\Entity\DiscountRule\DiscountByProductRule();
-        }        
-        $oldBasePrice = $entity->getBasePrice();
-        //end saving old discountRule
+
         $productType = $this->get('mqm_shop.form.product');
         $editForm   = $this->createForm($productType, $entity);
-        $deleteForm = $this->createDeleteForm($productId);
         $request = $this->getRequest();
         $editForm->bindRequest($request);
         if ($editForm->isValid()) {//// TRUE value is a  TEMPORAL SOLUTION OF DATETIME PROBLEM-> SOLVE SOON  ////            
@@ -230,21 +220,7 @@ class ProductController extends Controller {
             if ($discountRule != null) {
                 $discountRule->setProduct($entity);
             }
-            // End set Product to the discount-> this is necessary for the ORM as it's the discount who stores the productId  
-            
-            // Verify what is modified and permission
-                /*$data = $editForm->getData();
-                
-                $discountRule = $data->getDiscountRule();
-                $basePrice = $data->getBasePrice();
-                
-                if ($discountRule->getDiscount() != $oldDiscountRule->getDiscount() || $oldBasePrice != $basePrice
-                || $oldDiscountRule->getStart() != $discountRule->getStart() || $oldDiscountRule->getDeadline() != $discountRule->getDeadline()) {
-                    if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
-                        throw new AccessDeniedException();
-                    }
-                }      */          
-            // end verify what is modified and permissions
+            // End set Product to the discount
             $this->get('mqm_product.product_manager')->saveProduct($entity);
 
             return $this->redirect($this->generateUrl('TKShopBackendProductsShowAll'));

@@ -101,8 +101,8 @@ class ProductController extends Controller
             $i++;
         }        
         $productPrice = $this->get('mqm_pricing.pricing_manager')->getProductPrice($product);
-        $this->registerProductViewStatistic($product);
-        
+        $this->get('mqm_statistic.logger.product_viewed')->logStatistic(array('product' => $product));
+
         return array(
             'breadcrumb' => $breadcrumb,
             'product' => $product,
@@ -110,19 +110,4 @@ class ProductController extends Controller
         );
     }
 
-    public function registerProductViewStatistic(\MQM\ProductBundle\Model\ProductInterface $product)
-    {
-        $statisticManager = $this->get('mqm_statistic.statistic_manager');
-        $productDimension = $statisticManager->findOneBy(array('sku' => $product->getSku()), 'product');
-        if ($productDimension == null) {
-            $productDimension = $statisticManager->createDimension('product');
-            $productDimension->setName($product->getName());
-            $productDimension->setSku($product->getSku());
-            $productDimension->setCategoryName($product->getcategory()->getName());
-            $productDimension->setBrandName($product->getBrand()->getName());
-        }
-        $productViewStatistic = $statisticManager->createStatistic('productViewStatistic');
-        $productViewStatistic->setProduct($productDimension);
-        $statisticManager->save($productViewStatistic, true);
-    }
 }

@@ -4,5 +4,5 @@
     <div class=" ref_state_legend {% if(sortManager.sorts['referencia'] == currentSort) %}current{% endif %}"><a href="{{sortManager.sorts['referencia'].url}}">Referencia</a></div>
     <div class=" categoria_state_legend {% if(sortManager.sorts['categoria'] == currentSort) %}current{% endif %}"><a href="{{sortManager.sorts['categoria'].url}}">Categoría</a></div>
     <div class=" marca_state_legend {% if(sortManager.sorts['marca'] == currentSort) %}current{% endif %}"><a href="{{sortManager.sorts['marca'].url}}">Marca</a></div>
-    <div class="vistas_state_legend {% if(sortManager.sorts['visitas'] == currentSort) %}current{% endif %}"><a href="{{sortManager.sorts['visitas'].url}}">Visitas</a></div>
+    <div class="vistas_state_legend {% if(sortManager.sorts['visitas'] == currentSort) %}current{% endif %}"><a href="{{sortManager.sorts['visitas'].url}}">{{counterName}}</a></div>
 </div>

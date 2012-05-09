@@ -1671,6 +1671,6 @@ input.buscarbtn{
 }
 
 .social_buttons{
-    position: relative;
+    height: auto;
     margin-top: 50px;
 }

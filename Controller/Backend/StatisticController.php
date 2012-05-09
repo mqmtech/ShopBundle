@@ -21,7 +21,7 @@ class StatisticController extends Controller
     {
         $paginationManager = $this->get('mqm_pagination.pagination_manager');
         $sortManager = $this->createSortManager();
-        $mostViewed = $this->getStatisticManager()->findMostViewedProducts($sortManager, $paginationManager);
+        $mostViewed = $this->getStatisticManager()->findMostSoldProducts($sortManager, $paginationManager);
         return array(
             'statistics' => $mostViewed,
             'sortManager' => $sortManager->switchMode(),
@@ -58,7 +58,7 @@ class StatisticController extends Controller
             ->addSort('referencia', 'sku', 'Referencia')
             ->addSort('categoria', 'categoryName', 'Categoria')
             ->addSort('marca', 'brandName', 'Marca', 'DESC', array('default' => true))
-            ->addSort('visitas', array('name' => 'counter', 'appendEntityAlias' => false), 'Visitas', 'DESC', array('default' => true))
+            ->addSort('visitas', array('name' => 'counter', 'ignoreEntityAlias' => true), 'Visitas', 'DESC', array('default' => true))
             ->init();
 
         return $sortManager;

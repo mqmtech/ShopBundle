@@ -21,7 +21,6 @@ class OrderController extends Controller
     {
         $sortManager = $this->createSortManager();   
         $paginationManager = $this->get('mqm_pagination.pagination_manager');
-        //$paginationManager->setLimitPerPage(20);                     
         $orders = $this->get('mqm_order.order_manager')->findOrders($sortManager, $paginationManager);
         
         $orderForms = array();
@@ -55,6 +54,9 @@ class OrderController extends Controller
             $orderManager->saveOrder($order);
 
             return $this->redirect($this->generateUrl('TKShopBackendOrdersShowAll'));
+        }
+        else{
+            print_r($editForm->getErrors());
         }
         
         return array(
