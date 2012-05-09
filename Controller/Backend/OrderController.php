@@ -70,7 +70,7 @@ class OrderController extends Controller
                     ->addSort('fecha', 'createdAt', 'Fecha', 'ASC', array('default' => true))
                     ->addSort('cantidad', 'quantity', 'Cantidad')
                     ->addSort('importe', 'totalPrice', 'Importe')
-                    ->addSort('estado', 'status', 'Estado')
+                    ->addSort('estado', array('name' => 'status', 'hasEntityAlias' => false), 'Estado')
                     ->init();
         
         return $sortManager;

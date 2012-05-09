@@ -1,0 +1,15 @@
+{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="{{ asset('bundles/mqmshop/js/jqueryui/css/ui-lightness/jquery-ui-1.8.16.custom.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}| Administración | Panel de control |{% endblock %}
+
+{% block contextualThree %}<a href="#">Panel de control</a> \{% endblock %}
+
+{% block left_content %}
+{% include 'MQMShopBundle:Backend/Statistic:showAll.partialhtml.twig' with {'statistics' : statistics}%}
+{% endblock %}

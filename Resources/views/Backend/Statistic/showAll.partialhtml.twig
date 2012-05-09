@@ -1,0 +1,39 @@
+<!--start 1a fila botones-->
+<div class="btn_estadisticas">
+    <div class=" btn_state_current">Mas Vendidos</div>
+    <div class="mas_Visitados"><a href="#">Mas Visitados</a></div>
+    <div class="google_analytics"><a href="https://www.google.com/analytics/web/#report/visitors-overview/a29696718w55914268p56967804/">Google Analytics</a></div>
+</div>
+<!--End 1a fila botones-->
+
+<div class="lista_pedidos_container">
+    {% if sortManager is defined%}
+        {{mqm_sort_render_choice('MQMShopBundle:Backend/Statistic:sortChoice.partialhtml.twig', sortManager)}}
+
+        {% set sortId = sortManager.currentSort.id %}
+    {%else%}
+
+        {% include 'MQMShopBundle:Backend/Statistic:sortChoice.partialhtml.twig'%}
+    {%endif%}
+
+    {%for statistic in statistics %}
+
+        {%set stat = {}%}
+        {%set quantity = {}%}
+        {%for item in statistic %}
+            {%if loop.index0 == 0%}
+                {%set stat = item%}
+            {%else%}
+                {%set quantity = item%}
+            {%endif%}
+        {%endfor%}
+
+    <div class="legend_container">
+        <div class=" producto_state_legend {% if(sortId == 'name') %}current{% endif %}"><a href="#" title="{{stat.product.name}}">{{stat.product.name | mqm_tools_truncate(45)}}</a></div>
+        <div class=" ref_state_legend {% if(sortId == 'referencia') %}current{% endif %}"><a href="#">{{stat.product.sku}}</a></div>
+        <div class=" categoria_state_legend {% if(sortId == 'categoria') %}current{% endif %}"><a href="#" title="{{stat.product.categoryName}}">{{stat.product.categoryName | mqm_tools_truncate(20)}}</a></div>
+        <div class=" marca_state_legend {% if(sortId == 'marca') %}current{% endif %}"><a href="#" title="{{stat.product.brandName}}">{{stat.product.brandName | mqm_tools_truncate(10)}}</a></div>
+        <div class="vistas_state_legend {% if(sortId == 'visitas') %}current{% endif %}"><a href="#">{{quantity}}</a></div>
+    </div>
+    {%endfor%}
+</div>

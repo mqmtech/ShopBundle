@@ -41,7 +41,7 @@ jQuery(document).ready(function(){
 {% block right %}
     <div class="right">
 	  <div class="titulo_naranja">Contactar con Tecnokey</div>
-          {% for key, flash in app.session.flashbag.getAll() %}
+          {% for key, flash in app.session.flashbag.all() %}
               {% if(flash.success == true) %}
                 <div class="exito">¡Su mensaje ha sido enviado con éxito!</div>
                 <script>
