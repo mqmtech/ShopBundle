@@ -1,26 +1,17 @@
-<!--start 1a fila botones-->
-<div class="btn_estadisticas">
-    <div class=" btn_state_current">Mas Vendidos</div>
-    <div class="mas_Visitados"><a href="#">Mas Visitados</a></div>
-    <div class="google_analytics"><a href="https://www.google.com/analytics/web/#report/visitors-overview/a29696718w55914268p56967804/">Google Analytics</a></div>
-</div>
-<!--End 1a fila botones-->
-
 <div class="lista_pedidos_container">
     {% if sortManager is defined%}
         {{mqm_sort_render_choice('MQMShopBundle:Backend/Statistic:sortChoice.partialhtml.twig', sortManager)}}
-
         {% set sortId = sortManager.currentSort.id %}
     {%else%}
-
         {% include 'MQMShopBundle:Backend/Statistic:sortChoice.partialhtml.twig'%}
+        {% set sortId = 'name' %}
     {%endif%}
 
-    {%for statistic in statistics %}
+    {%for statisticGroup in statistics %}
 
         {%set stat = {}%}
         {%set quantity = {}%}
-        {%for item in statistic %}
+        {%for item in statisticGroup %}
             {%if loop.index0 == 0%}
                 {%set stat = item%}
             {%else%}
