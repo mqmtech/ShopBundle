@@ -12,7 +12,7 @@
     <div class="subtotat_legend {{ orderClass }}">{{ order.totalPrice | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ mqm_monetary_currency_symbol() }}</div>
     {{ form_widget(orderForm.status, {'attr' : {'class' : orderClass}}) }}
     <div class="submit_pedido">
-        <input type="submit" name="Guardar"/>
+        <input type="submit" name="Enviar" value="Enviar"/>
     </div>
     {{form_rest(orderForm)}}
 </form>

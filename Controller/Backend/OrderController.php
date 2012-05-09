@@ -38,7 +38,6 @@ class OrderController extends Controller
     /**
      * @Route("/{id}/actualizar", name="TKShopBackendOrderUpdate")
      * @Method("post")
-     * @Template("MQMShopBundle:Backend\Order:edit.html.twig")
      */
     public function updateAction($id)
     {
@@ -55,14 +54,8 @@ class OrderController extends Controller
 
             return $this->redirect($this->generateUrl('TKShopBackendOrdersShowAll'));
         }
-        else{
-            print_r($editForm->getErrors());
-        }
-        
-        return array(
-            'order'  => $order,
-            'form'   => $editForm->createView(),
-        );
+
+        throw new \Exception('Form is not valid');
     }
     
     private function createSortManager()

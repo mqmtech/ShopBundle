@@ -1277,6 +1277,7 @@ input.acceder_admin_btn{
     border: 1px solid #ccc;
     color: #555;
     font: bold;
+    cursor: pointer;
 }
 
 .pedido_legend{
