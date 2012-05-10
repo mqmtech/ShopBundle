@@ -91,7 +91,12 @@
             <div class="listbox">
 
                 <div class="titulo_box">
+                    {%if category.categories == null or category.categories|length <= 0 %}
+                    <h1><a href="#">{{ category.name | upper }}</a></h1>
+                    {%else%}
                     <h1><a href="{{ path('TKShopBackendCategoriesShowAllSubcategories', {'id': category.id}) }} ">{{ category.name | upper }}</a></h1>
+                    {%endif%}
+
                 </div>
 
                 <div class="text_list_box">

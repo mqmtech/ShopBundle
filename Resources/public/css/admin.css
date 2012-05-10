@@ -1480,4 +1480,10 @@ input.acceder_admin_btn{
     float: right;
     padding: 10px;
 }
+
+.buscarbtn:hover {
+    text-decoration: underline;
+    border: 1px solid #656565;
+    cursor: pointer;
+}
 /** end Mario mods **/
