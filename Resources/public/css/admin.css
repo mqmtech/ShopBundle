@@ -1453,4 +1453,31 @@ input.acceder_admin_btn{
 .legend_container .current{
     color: #179108;
 }
+
+.usuario_nombre_legend{
+    float: left;
+    width: 292px;
+    color: #258cdb;
+}
+
+.usuario_nombre_fecha{
+    float: left;
+    width: 100px;
+    color: #258cdb;
+}
+
+.usuario_detalles_main_container{
+    width: 726px;
+    float: left;
+}
+
+.usuario_detalles_container{
+    float: left;
+    padding: 10px;
+}
+
+.usuario_validacion_container{
+    float: right;
+    padding: 10px;
+}
 /** end Mario mods **/

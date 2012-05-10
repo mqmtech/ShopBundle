@@ -5,10 +5,8 @@
 {% block left_content %}
 <!--start 1a fila botones-->
 <div class="icono_prod_container">
-
-    <div class=" icono_add_clientes"><a href="#">Añadir <br /> <span style="color:#F00">NUEVO</span><br /> Cliente<br /></a></div>
-    <div class=" icono_gestion_clientes"><a href="#">Gestionar Clientes</a></div>
-
+    {#<div class=" icono_add_clientes"><a href="{{ path('TKShopBackendBrandsIndex')}}">Añadir <br /> <span style="color:#F00">NUEVO</span><br /> Cliente<br /></a></div>#}
+    <div class=" icono_gestion_clientes"><a href="{{ path('TKShopBackendUserClientValidation')}}">Gestionar Clientes</a></div>
 </div>
 <!--start 1a fila botones-->
 {% endblock %}

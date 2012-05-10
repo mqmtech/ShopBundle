@@ -1,0 +1,28 @@
+<div class="usuario_detalles_main_container">
+    <div class="usuario_detalles_container">
+        <p><strong>Nombre:</strong> <span>{{ client.firstname }}</span></p>
+        <p><strong>Apellidos:</strong>  <span>{{ client.lastname }}</span></p>
+        <!--p><strong>Nombre de usuario:</strong> {{ client.username }} </p-->
+        <p><strong>e-mail:</strong>  <span>{{ client.email }}</span></p>
+        <p><strong>Razón social:</strong>{{ client.firmName }}</p>
+        <p><strong>CIF:</strong>{{ client.vatin }}</p>
+        <p><strong>Dirección:</strong> <span>{{ client.address }}</span></p>
+        <p><strong>CP:</strong> {{ client.zipCode }}</p>
+        <p><strong>Población:</strong>{{ client.city }}</p>
+        <p><strong>Provincia:</strong>{{ client.province }}</p>
+        <p><strong>Teléfono:</strong>{{ client.phone }}</p>
+        <p><strong>Fax:</strong>{{ client.fax }}</p>
+    </div>
+
+    <div class="usuario_validacion_container">
+        <form action="{{ path('TKShopBackendUserClientUpdate', {'id': client.id}) }}" method="post" {{ form_enctype(clientForm) }}>
+            Validar:            
+                {{ form_widget(clientForm.isEnabled, {'attr' : {'class' : 'client_es_habilitado'}}) }}
+                {{form_rest(clientForm)}}
+                <div class="submit_pedido">
+                    <input type="submit" name="Guardar" value="Guardar"/>
+                </div>
+        </form>
+    </div>
+</div>
+    
