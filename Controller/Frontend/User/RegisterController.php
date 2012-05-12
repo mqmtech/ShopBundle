@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use MQM\ShopBundle\Form\Type\UserType;
 use MQM\UserBundle\Entity\User;
+use MQM\UserBundle\Model\UserInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -74,6 +75,7 @@ class RegisterController extends Controller {
                 $entity->setUsername($entity->getEmail());
             }
             $userManager->saveUser($entity);
+            $this->postProcessUserCreation($entity);
             return $this->render("MQMShopBundle:Frontend\User\Register:successMessageOnCreate." . "html" . ".twig", array('user' => $entity));
         }
         
@@ -81,6 +83,11 @@ class RegisterController extends Controller {
             'entity' => $entity,
             'form' => $form->createView()
         );
+    }
+
+    private function postProcessUserCreation(UserInterface $user)
+    {
+        $this->get('mqm_shop.user_notificator')->sendUserRegistrationMessage($user);
     }
 
     /**
@@ -130,7 +137,6 @@ class RegisterController extends Controller {
             $entity->setPassword($password);
             // end encoding password //
             $userManager->saveUser($entity);
-
             return $this->redirect($this->generateUrl('TKShopFrontendUserEdit', array('id' => $id)));
         }
 
@@ -197,30 +203,5 @@ class RegisterController extends Controller {
                         ->add('id', 'hidden')
                         ->getForm()
         ;
-    }
-    
-    private function sendSuccessRegistrationEmailHosting(User $user){
-        
-        $para      = $user->getEmail();
-        $titulo = '[Tecnokey] Registro en versión de prueba]';
-        $mensaje = 'Gracias '. $user->getFirstName() . ' ' . $user->getLastName() . ' por completar su registro en Tecnokey, cuando su cuenta sea validada le enviaremos un e-mail de confirmación.';
-        $cabeceras = 'From: '. "amaestramientos@tecno-key.com" . "\r\n" .
-            'Reply-To: '. "Tecnokey" . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();            
-
-        mail($para, $titulo, $mensaje, $cabeceras);
-        
-    }
-    
-    public function sendSuccessRegistrationEmailSwift(User $user) {
-           
-            $message = \Swift_Message::newInstance()
-            ->setSubject('[Tecnokey] Registro en versión de prueba]')
-            ->setFrom(array('amaestramientos@tecno-key.com' => "Tecnokey"))
-            ->setReplyTo("amaestramientos@tecno-key.com")
-            ->addTo($user->getEmail())
-            ->setBody('Gracias '. $user->getFirstName() . ' ' . $user->getLastName() . ' por completar su registro en Tecnokey, cuando su cuenta sea validada le enviaremos un e-mail de confirmación.');
-
-            $this->get('mailer')->send($message);
     }
 }

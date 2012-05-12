@@ -59,6 +59,17 @@ class WebConsoleController extends Controller
                 )
         );
     }
+
+    /**
+     * @Route("/upgrade_products.{_format}", name="TKShopDeveloperExec", defaults={"_format" = "html"})
+     */
+    public function upgradeProductsAction($_format)
+    {
+        $priceUpgrade = $this->get('mqm_upgrade.price_upgrade');
+        $priceUpgrade->upgradeProductPricesInDB();
+
+        return new \Symfony\Component\HttpFoundation\Response('Prices Upgraded');
+    }
      
     public function createExeForm($defaultinput = "")
     {        

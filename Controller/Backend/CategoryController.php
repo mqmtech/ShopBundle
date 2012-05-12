@@ -235,6 +235,7 @@ class CategoryController extends Controller
             }
             catch(\Exception $e) {
                  $this->get('session')->getFlashBag()->set('category_error',"Atencion: La categoria no puede ser eliminada, elimine las subcategorias y productos asociados previamente");
+                 $this->get('session')->save();
             }
         }
 

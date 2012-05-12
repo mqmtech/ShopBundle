@@ -54,6 +54,7 @@ class ContactController extends Controller
             $feedback = $this->getFormvalidationFeedback(false);
         }
             $this->get('session')->getFlashBag()->set('form_feedback', $feedback);
+            $this->get('session')->save();
         
         return array('form' => $form->createView());
     }

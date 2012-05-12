@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use MQM\UserBundle\Model\UserManagerInterface;
+use MQM\UserBundle\Model\UserInterface;
 use MQM\ShopBundle\Form\Type\UserValidationType;
 
 /**
@@ -65,11 +66,17 @@ class ClientController extends Controller
         $editForm->bindRequest($request);
         if ($editForm->isValid()) {
             $this->getUserManager()->saveUser($user);
+            $this->postProcessUserUpdate($user);
 
             return $this->redirect($this->generateUrl('TKShopBackendUserClientValidation'));
         }
 
         throw new \Exception('Invalid Brand DiscountRule');
+    }
+
+    private function postProcessUserUpdate(UserInterface $user)
+    {
+        $this->get('mqm_shop.user_notificator')->sendUserValidationMessage($user);
     }
 
     /**
@@ -89,8 +96,6 @@ class ClientController extends Controller
 
     private function createValidationFormsFromClients($clients)
     {
-
-
         $forms = array();
         if ($clients != null) {
             foreach ($clients as $client) {

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use MQM\OrderBundle\Model\OrderInterface;
 
 
 /**
@@ -118,6 +119,7 @@ class OrderController extends Controller
     protected function orderErrorHandler($msg = null, $redirect=null){
         //TODO: Redirect to index
         $this->get('session')->getFlashBag()->set('order_error',"Atencion: El usuario no puede tener pedidos, cree un usuario de tipo cliente");
+        $this->get('session')->save();
         return $this->redirect($this->generateUrl("TKShopFrontendIndex"));
     }
     
@@ -159,13 +161,20 @@ class OrderController extends Controller
             $this->get('mqm_order.order_manager')->saveOrder($order);
             $this->get('mqm_order.order_manager')->flush();
             $this->get('mqm_cart.cart_manager')->removeAllItemsFromCart($sc);
-            $this->get('mqm_statistic.logger.order')->logStatistic(array('order' => $order));
+
+            $this->postOrderProcess($order);
 
             return true;
             
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    private function postOrderProcess(OrderInterface $order)
+    {
+        $this->get('mqm_statistic.logger.order')->logStatistic(array('order' => $order));
+        $this->get('mqm_shop.order_notificator')->sendOrderPlacedNotification($order);
     }
     
     /**

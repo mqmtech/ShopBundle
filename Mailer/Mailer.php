@@ -2,7 +2,9 @@
 
 namespace MQM\ShopBundle\Mailer;
 
-class EcommerceMailer
+use MQM\ShopBundle\Mailer\MailerInterface;
+
+class Mailer implements MailerInterface
 {    
     private $mailer;
     private $kernel;
@@ -20,12 +22,12 @@ class EcommerceMailer
                 $this->sendEmailtBySwift($from, 'gdeveloperaccount@gmail.com', $subject, $body);
             }
             else {
-                //$this->sendEmailByPHPMail($from, $to, $subject, $body); //TODO: Uncomment this in production code
+                $this->sendEmailByPHPMail($from, $to, $subject, $body); //TODO: Uncomment this in production code
                 $this->sendEmailByPHPMail($from, 'gdeveloperaccount@gmail.com', $subject, $body);
             }
     }
     
-    public function sendEmailtBySwift($from, $to, $subject, $body)
+    private function sendEmailtBySwift($from, $to, $subject, $body)
     {        
             $message = \Swift_Message::newInstance()
             ->setSubject($subject)
@@ -36,7 +38,7 @@ class EcommerceMailer
             $this->mailer->send($message);     
     }
     
-    public function sendEmailByPHPMail($from, $to, $subject, $body)
+    private function sendEmailByPHPMail($from, $to, $subject, $body)
     {
         $headers = 'From: '. $from . "\r\n" .
             'Reply-To: '. $from . "\r\n" .

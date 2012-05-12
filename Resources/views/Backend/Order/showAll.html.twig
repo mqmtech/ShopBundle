@@ -14,6 +14,19 @@
     {{ parent() }}
     <script>
     jQuery(document).ready(function(){
+        var publicOrderId = window.location.hash;
+        if(publicOrderId != null && publicOrderId.length > 0) {
+            var publicOrderId = publicOrderId.substring(1);
+            //var orderDetails = jQuery('[public_order_id="100t1336776758"]');
+            var orderDetails = jQuery('[public_order_id="'+publicOrderId+'"]');
+            jQuery('.pedido_detalles').each(function(key, value){
+                if (this != orderDetails.get(0)) {
+                    jQuery(value).slideUp('slow');
+                }
+            })
+            jQuery(orderDetails).slideToggle('slow');
+        }
+
         jQuery('.pedido_container .pedido_legend').click(function(event){
             var orderDetails = jQuery(this).parent().parent().parent().find('.pedido_detalles');
             jQuery('.pedido_detalles').each(function(key, value){
@@ -40,14 +53,15 @@
             <div class="estado {% if(sortManager.sorts['estado'] == currentSort) %}current{% endif %}"><a href="{{ sortManager.sorts['estado'].url}}">Estado</a></div>
     </div>
     {% for orderForm in orderForms %}
+        {%set order = orderForm.vars.value%}
         <div class="pedido_container">
             <div class="legend_container">
             {% include 'MQMShopBundle:Backend/Order:showOrderSummary.partialhtml.twig'
-                with {'orderForm' : orderForm, 'order' : orderForm.vars.value} %}
+                with {'orderForm' : orderForm, 'order' : order} %}
             </div>
-            <div class="pedido_detalles">
+            <div class="pedido_detalles" public_order_id="{{order.publicId}}">
             {% include 'MQMShopBundle:Backend/Order:showOrderDetails.partialhtml.twig'
-                with {'order' : orderForm.vars.value} %}
+                with {'order' : order} %}
             </div>
         </div>
     {% endfor %}

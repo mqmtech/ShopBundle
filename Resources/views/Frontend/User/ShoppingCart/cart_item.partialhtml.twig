@@ -7,7 +7,7 @@
             <div class="foto_prod_cesta" style="padding-left: 18px; padding-right: 18px"> <img src="{{ asset(dataItem.product.image.webPath) }}" style="width: {{ imageSizeInfo.width ~ "px"}}; height: {{ imageSizeInfo.height ~ "px"}}; margin-top: {{imageSizeInfo.vPadding ~ "px"}}; margin-left: {{ imageSizeInfo.hPadding ~ "px"}};"></img> </div>
     {% endif %}    
     <div class="{% if dataItem.product.name | length > 40%}titulo_prd_cesta_2lines{% else %}titulo_prd_cesta{% endif %}"><a href="{{ path('TKShopFrontendProductShow', {'productId' : dataItem.product.id}) }}">{{ dataItem.product.name | mqm_tools_truncate(70) }}</a></div>
-    <div class="ref_prod_cesta">{{ dataItem.product.sku }}</div>
+    <div class="ref_prod_cesta" title="{{dataItem.product.sku}}">{{dataItem.product.sku | mqm_tools_truncate(15)}}</div>
     <div class="precio_ud">{{ dataItem.basePrice | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ mqm_monetary_currency_symbol()}}</div>
     {% if isEditable is defined and isEditable == true %}
         {{ form_errors(item.quantity) }}

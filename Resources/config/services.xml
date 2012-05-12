@@ -6,7 +6,9 @@
 
     <parameters>
         <parameter key="mqm_shop.twig_extension.class">MQM\ShopBundle\Twig\Extension\ShopExtension</parameter>
-        <parameter key="mqm_shop.mailer.class">MQM\ShopBundle\Mailer</parameter>
+        <parameter key="mqm_shop.user_notificator.class">MQM\ShopBundle\Mailer\Handler\UserNotificator</parameter>
+        <parameter key="mqm_shop.order_notificator.class">MQM\ShopBundle\Mailer\Handler\OrderNotificator</parameter>
+        <parameter key="mqm_shop.mailer.class">MQM\ShopBundle\Mailer\Mailer</parameter>
     </parameters>
     
     <services>
@@ -14,6 +16,16 @@
             <tag name="twig.extension" />
             <argument type="service" id="service_container" />
             <argument type="service" id="router" />
+        </service>
+
+        <service id="mqm_shop.user_notificator" class="%mqm_shop.user_notificator.class%" public="true">
+            <argument type="service" id="mqm_shop.mailer"/>
+        </service>
+
+        <service id="mqm_shop.order_notificator" class="%mqm_shop.order_notificator.class%" public="true" scope="request">
+            <argument type="service" id="mqm_shop.mailer"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="request"/>
         </service>
         
         <service id="mqm_shop.mailer" class="%mqm_shop.mailer.class%" public="true">

@@ -219,10 +219,11 @@ class BrandController extends Controller
                 throw $this->createNotFoundException('Unable to find Shop\Brand entity.');
             }
             try {
-                $brandManager->remove($entity);
+                $brandManager->deleteBrand($entity);
             }
             catch(\Exception $e) {
                 $this->get('session')->getFlashBag()->set('category_error',"Atencion: La MARCA no puede ser eliminada, eliminela de los productos previamente");
+                $this->get('session')->save();
             }
         }
 
