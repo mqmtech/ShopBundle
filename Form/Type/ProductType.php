@@ -103,6 +103,7 @@ class ProductType extends AbstractType
     {
         return array(
             'data_class' => 'MQM\ProductBundle\Entity\Product',
+            'validation_groups' => 'Registration',
         );
     }
 

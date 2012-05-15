@@ -54,17 +54,13 @@ class ProductController extends Controller {
      */
     public function createAction()
     {
-        $entity  = $this->get('mqm_product.product_manager')->createProduct();
-        $request = $this->getRequest();
-        $productType = $this->get('mqm_shop.form.product');
-        $form   = $this->createForm($productType, $entity);
-        $form->bindRequest($request);
-
-        if ($form->isValid()) { // Sometimes there have been errors due to date format
-            $this->get('mqm_product.product_manager')->saveProduct($entity);
-            
-            return $this->redirect($this->generateUrl('TKShopBackendProductsShowAll'));            
+        $registrationHandler = $this->get('mqm_product.form.handler.registration');
+        $isValid = $registrationHandler->process();
+        if ($isValid) {
+            return $this->redirect($this->generateUrl('TKShopBackendProductsShowAll'));
         }
+        $entity = $entity  = $this->get('mqm_product.product_manager')->createProduct();
+        $form = $this->get('mqm_product.form.registration');
         
         return array(
             'entity' => $entity,
