@@ -41,8 +41,13 @@ jQuery(document).ready(function(){
 {% block right %}
     <div class="right">
 	  <div class="titulo_naranja">Contactar con Tecnokey</div>
-          {% for key, flash in app.session.flashbag.all() %}
-              {% if(flash.success == true) %}
+          {% set flash = app.session.flashbag.get('form_feedback') %}
+            {%if flash.success is defined %}
+                <script type="text/javascript">
+                    alert('flash success')
+                </script>
+
+              {% if(flash.success is not null) %}
                 <div class="exito">¡Su mensaje ha sido enviado con éxito!</div>
                 <script>
                     setTimeout(function(){window.location = "{{ path('TKShopFrontendIndex') }}";}, 3000);
@@ -50,7 +55,6 @@ jQuery(document).ready(function(){
               {% endif %}
 
               {% if(flash.success == null) %}
-                {#<div class="form_incompleto">{{ flash.title }} </div>#}
                 {% set fields = "Formulario incompleto! Rellene los campos " %}
                 {% for field, error in flash.fields %}
                     {% if(loop.first) %}
@@ -62,15 +66,14 @@ jQuery(document).ready(function(){
                             {% set fields = fields ~ ", '" ~ field ~ "'" %}
                         {% endif %}
                     {% endif %}
-                    
+
                 {% endfor %}
                 {% set fields = fields ~ "antes de enviar" %}
                 <div class="form_incompleto">{{ fields }} </div>
-                
+
               {% endif %}
-          {% endfor %}
-          
-          
+        {% endif %}
+
         
 <div class="form_container">
     <form action="{{ path('TKShopFrontendContactSendEmail') }}" method="POST">
