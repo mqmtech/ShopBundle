@@ -23,7 +23,7 @@
         <div class=" producto_state_legend {% if(sortId == 'name') %}current{% endif %}"><a href="#" title="{{stat.product.name}}">{{stat.product.name | mqm_tools_truncate(45)}}</a></div>
         <div class=" ref_state_legend {% if(sortId == 'referencia') %}current{% endif %}"><a href="#" title="{{stat.product.sku}}">{{stat.product.sku | mqm_tools_truncate(10)}}</a></div>
         <div class=" categoria_state_legend {% if(sortId == 'categoria') %}current{% endif %}"><a href="#" title="{{stat.product.categoryName}}">{{stat.product.categoryName | mqm_tools_truncate(20)}}</a></div>
-        <div class=" marca_state_legend {% if(sortId == 'marca') %}current{% endif %}"><a href="#" title="{{stat.product.brandName}}">{{stat.product.brandName | mqm_tools_truncate(10)}}</a></div>
+        <div class=" marca_state_legend {% if(sortId == 'marca') %}current{% endif %}"><a href="#" title="{{stat.product.brandName}}">{{stat.product.brandName | mqm_tools_truncate(8)}}</a></div>
         <div class="vistas_state_legend {% if(sortId == 'visitas') %}current{% endif %}"><a href="#">{{quantity}}</a></div>
     </div>
     {%endfor%}

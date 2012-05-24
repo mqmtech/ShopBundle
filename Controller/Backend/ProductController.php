@@ -168,7 +168,7 @@ class ProductController extends Controller {
         $editForm   = $this->createForm($productType, $entity);
         $request = $this->getRequest();
         $editForm->bindRequest($request);
-        if ($editForm->isValid()) {//// TRUE value is a  TEMPORAL SOLUTION OF DATETIME PROBLEM-> SOLVE SOON  ////            
+        if ($editForm->isValid()) {
             //FIX VIRTUAL file update in Image
             $image = $entity->getImage();
             if ($image != null) {
