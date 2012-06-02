@@ -15,7 +15,7 @@
     </div>
 
     <div class="usuario_validacion_container">
-        <form action="{{ path('TKShopBackendUserClientUpdate', {'id': client.id}) }}" method="post" {{ form_enctype(clientForm) }}>
+        <form action="{{ path('TKShopBackendUserUpdate', {'id': client.id}) }}" method="post" {{ form_enctype(clientForm) }}>
             Validar:            
                 {{ form_widget(clientForm.isEnabled, {'attr' : {'class' : 'client_es_habilitado'}}) }}
                 {{form_rest(clientForm)}}

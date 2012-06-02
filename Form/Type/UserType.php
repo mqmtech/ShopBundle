@@ -21,11 +21,18 @@ class UserType extends AbstractType
             ))
             ->add('address', null, array(
                 'required' => true,
-            ))
-            ->add('password', 'password', array(
-                'required' => true,
-            ))
-            ->add('firmName', null, array(
+            ));
+            if ( $options['intention'] == 'Revision' ) {
+                $builder->add('password', 'password', array(
+                    'required' => false,
+                ));
+            }
+            else {
+                $builder->add('password', 'password', array(
+                    'required' => true,
+                ));
+            }
+            $builder->add('firmName', null, array(
                 'required' => true,
             ))
             ->add('vatin', null, array(

@@ -1,12 +1,26 @@
 {% extends 'MQMShopBundle:Backend:layout.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="{{ asset('bundles/mqmshop/js/jqueryui/css/ui-lightness/jquery-ui-1.8.16.custom.css') }}" rel="stylesheet" />	
+{% endblock %}
+
 {% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ Administrar Clientes \{% endblock %}
 
 {% block left_content %}
 <!--start 1a fila botones-->
 <div class="icono_prod_container">
-    {#<div class=" icono_add_clientes"><a href="{{ path('TKShopBackendBrandsIndex')}}">Añadir <br /> <span style="color:#F00">NUEVO</span><br /> Cliente<br /></a></div>#}
-    <div class=" icono_gestion_clientes"><a href="{{ path('TKShopBackendUserClientValidation')}}">Gestionar Clientes</a></div>
+    <div class=" icono_add_clientes"><a href="{{ path('TKShopBackendUserNew')}}">Añadir Clientes<br /> <span style="color:#F00">NUEVO</span><br /> Cliente<br /></a></div>
+    <div class=" icono_gestion_clientes"><a href="{{ path('TKShopBackendUserClientShowAll')}}">Gestionar Clientes</a></div>
 </div>
 <!--start 1a fila botones-->
+
+<div class="linea_horizontal"></div>
+<br/>
+<p class="text_bold">Clientes pendientes de validación</p>
+
+{% include 'MQMShopBundle:Backend/User/Client:validation.partialhtml.twig' %}
+
 {% endblock %}

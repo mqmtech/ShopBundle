@@ -3,8 +3,10 @@
 {% block title %}| Tecnokey |{% endblock %}
 
 {% block stylesheets %}
-            {{ parent() }}
+{{ parent() }}
 <link href="{{ asset('bundles/mqmshop/css/site.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block body %} <!--start page-->
@@ -16,6 +18,7 @@
             {% image '@MQMShopBundle/Resources/public/images/logo.png' output='bundles/mqmshop/images/logo.png' %}
             <div class="logo"><img src="{{ asset_url }}" alt="logo" /></div>
             {% endimage %}
+            {% include 'MQMShopBundle:Frontend:welcomeLogout.partialhtml.twig'%}
             <div class="cestalogin"><!--start cesta login-->
                     {% block login %}
                         {% render path('TKShopFrontendUserShow', {'_format': 'partialhtml'}) | mqm_shop_to_app_path %}

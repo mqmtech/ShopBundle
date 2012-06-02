@@ -138,14 +138,14 @@
                   <div class="legend"><span class="text_bold">Precio €</span></div>
                   <!--input name="Empresa" onclick="this.value='';" type="Empresa" class="add_precio" value="00,00"/-->
                   {{ form_errors(form.priceRule.price) }}
-                  {{ form_widget(form.priceRule.price) }}
+                  {{ form_widget(form.priceRule.price, {attr: {'class' : 'add_precio'}} ) }}
               </div>
 
               <div class="promo_container">
                   <div class="legend"><span class="text_bold">Descuento %</span></div>
                   <!--input name="Empresa" onclick="this.value='';" type="Empresa" class="add_descuento" value="00"/-->
                   {{ form_errors(form.discountRule.discount) }}
-                  {{ form_widget(form.discountRule.discount) }}
+                  {{ form_widget(form.discountRule.discount, {attr: {'class' : 'add_precio'}}) }}
               </div>
 
               <div class="promo_container">

@@ -1,0 +1,13 @@
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+{% set username = 'Anonimo' %}
+{% if app.user is defined and app.user != '' %}
+{% set username = app.user.firstName %}
+{% endif %}
+
+<div class="header_admin">
+        <div class="nombre_cliente">Bienvenido {{username}}</div>
+        <div class="logout_user"><a href="{{path('TKShopFrontendSecurityAutoLogin')}}">Cerrar sesión</a></div>
+</div>	
+
+{% endif %}

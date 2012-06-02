@@ -21,7 +21,25 @@ class ClientController extends Controller
      */
     public function indexAction()
     {
-        return array('name' => "Usuario!");
+        $clients = $this->get('mqm_user.user_manager')->findUsersBy(array(
+            'isEnabled' => false,
+            'permissionType' => 'ROLE_USER'
+        ));
+        
+        $paginationManager = $this->get('mqm_pagination.pagination_manager');
+        if($clients != null){
+            $totalItems = count($clients);
+            $paginationManager->init($totalItems); 
+            $clients = $paginationManager->paginateArray($clients);
+        }        
+        $forms = $this->createValidationFormsFromClients($clients);
+        $sortManager = $this->createSortManager();
+
+        return array(
+            'clients' => $clients,
+            'clientForms' => $forms,
+            'sortManager' => $sortManager,
+        );
     }    
     
     /**
@@ -33,50 +51,29 @@ class ClientController extends Controller
         $clients = $this->get('mqm_user.user_manager')->findRecentUsers();        
         return $this->render("MQMShopBundle:Backend\User\Client:recentClients.".$_format.".twig", array('clients' => $clients));
     }
-
+    
     /**
-     * @Route("/validacion.{_format}", defaults={"_format"="html"}, name="TKShopBackendUserClientValidation")
+     * @Route("/ver_todos.{_format}", defaults={"_format"="html"}, name="TKShopBackendUserClientShowAll")
      * @Template()
      */
-    public function validationAction($_format)
+    public function showAllAction($_format)
     {
-        $clients = $this->get('mqm_user.user_manager')->findUsersBy(array(
-            'isEnabled' => false,
+        $validatedClients = $this->get('mqm_user.user_manager')->findUsersBy(array(
+            'isEnabled' => true,
             'permissionType' => 'ROLE_USER'
         ));
-        $forms = $this->createValidationFormsFromClients($clients);
+        $paginationManager = $this->get('mqm_pagination.pagination_manager');
+        if($validatedClients != null){
+            $totalItems = count($validatedClients);
+            $paginationManager->init($totalItems); 
+            $validatedClients = $paginationManager->paginateArray($validatedClients);
+        }
         $sortManager = $this->createSortManager();
 
-        return array(
-            'clients' => $clients,
-            'clientForms' => $forms,
+        return $this->render("MQMShopBundle:Backend\User\Client:showAll.html.twig",array(
+            'validatedClients' => $validatedClients,
             'sortManager' => $sortManager,
-        );
-    }
-
-    /**
-     * @Route("/{id}/actualizar_usuario", name="TKShopBackendUserClientUpdate")
-     * @Method("post")
-     */
-    public function updateUserAction($id)
-    {
-        $user = $this->getUserManager()->findUserBy(array('id' => $id));
-        $editForm   = $this->createForm(new UserValidationType(), $user);
-        $request = $this->getRequest();
-        $editForm->bindRequest($request);
-        if ($editForm->isValid()) {
-            $this->getUserManager()->saveUser($user);
-            $this->postProcessUserUpdate($user);
-
-            return $this->redirect($this->generateUrl('TKShopBackendUserClientValidation'));
-        }
-
-        throw new \Exception('Invalid Brand DiscountRule');
-    }
-
-    private function postProcessUserUpdate(UserInterface $user)
-    {
-        $this->get('mqm_shop.user_notificator')->sendUserValidationMessage($user);
+        ));
     }
 
     /**

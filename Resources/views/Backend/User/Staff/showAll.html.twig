@@ -1,0 +1,54 @@
+{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="{{ asset('bundles/mqmshop/js/jqueryui/css/ui-lightness/jquery-ui-1.8.16.custom.css') }}" rel="stylesheet" />	
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts%}
+    
+{% block jsfunctions %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function(){
+            //Discounts start hidden
+            jQuery('.descuento_edicion_container').hide();
+
+            //Toggle discount
+            jQuery('[edit="discount"]').click(function(event){
+                var editDiscount = jQuery(this).parent().parent().find('.descuento_edicion_container');
+                jQuery('.descuento_edicion_container').each(function(key, value){
+                    if (this != editDiscount.get(0)) {
+                        jQuery(value).slideUp('slow');
+                    }
+                })
+                jQuery(editDiscount).slideToggle('slow');
+            })
+        })
+    </script>
+{% endblock jsfunctions %}
+
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ <a href="{{ path('TKShopBackendStaffUserClientIndex') }}">Administrar Usuarios</a> \ Ver todos{% endblock %}
+
+{% block left_content %}
+<div class="lista_pedidos_container">
+    <div class="legend_container">
+            {% set currentSort = sortManager.currentSort %}
+            <div class="usuario_nombre_legend {% if(sortManager.sorts['nombre'] == currentSort) %}current{% endif %}"><a href="{{ sortManager.sorts['nombre'].url}}"><span>Cliente</span></a></div>
+            <div class="usuario_nombre_fecha {% if(sortManager.sorts['fecha'] == currentSort) %}current{% endif %}"><a href="{{ sortManager.sorts['fecha'].url}}">Fecha</a></div>
+    </div>
+    {% for user in users %}
+        <div class="descuento_container">
+            <div class="legend_container">
+                <div class="usuario_nombre_legend"><a href="#"><span>{{ user.username }}</span></a></div>
+                <div class="usuario_nombre_fecha ">{{ user.createdAt | date('d/m/y') }}</div>
+                <div class="editar_desc_categ_legend"><a href="{{path('TKShopBackendStaffUserEdit', {'id' : user.id})}}">Editar</a></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock left_content %}
