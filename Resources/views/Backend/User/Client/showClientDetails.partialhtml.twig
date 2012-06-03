@@ -15,14 +15,9 @@
     </div>
 
     <div class="usuario_validacion_container">
-        <form action="{{ path('TKShopBackendUserUpdate', {'id': client.id}) }}" method="post" {{ form_enctype(clientForm) }}>
-            Validar:            
-                {{ form_widget(clientForm.isEnabled, {'attr' : {'class' : 'client_es_habilitado'}}) }}
-                {{form_rest(clientForm)}}
-                <div class="submit_pedido">
-                    <input type="submit" name="Guardar" value="Guardar"/>
-                </div>
-        </form>
+        <div class="usuario_validacion_btn_container">
+            <a href="{{path('TKShopBackendUserValidate', {'id' : client.id})}}"><strong class="blue validate_user">Validar</strong></a>
+        </div>
     </div>
 </div>
     

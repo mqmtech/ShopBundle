@@ -1,0 +1,45 @@
+{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts%}
+    
+{% block jsfunctions %}
+    {{ parent() }}
+{% endblock jsfunctions %}
+
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ Previsualización NewsLetter{% endblock %}
+
+{% block left_content %}
+<div class="div_border">
+    <div>
+        {{newsLetter.title}}
+    </div>
+</div>
+<div class="div_border">
+    <div>
+        {{newsLetter.body | raw}}
+    </div>
+
+    <form action="{{ path('TKShopBackendNewsLetterCreate') }}" method="post" {{ form_enctype(form) }}>
+        <div style="display:none">
+            {% include 'MQMShopBundle:Backend/NewsLetter:formBody.partialhtml.twig' %}
+        </div>
+        <div class="btn_container_form">
+            <div class="btn_enviar_letter">
+                <input type="submit" name="Enviar" value="Confirmar"/>
+            </div>
+            <div class="btn_sin_guardar_letter"><a href="" onclick="self.close()">Descartar</a></div>
+        </div>
+
+        {{ form_rest(form) }}
+    </form>
+</div>
+<!--end  div border-->
+{% endblock left_content %}

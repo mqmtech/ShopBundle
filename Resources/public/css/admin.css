@@ -1200,9 +1200,9 @@ padding-right: 10px;
 }
 
 
-.btn_guardar a:hover, .btn_sin_guardar a:hover{
+.btn_guardar a:hover, .btn_sin_guardar a:hover, .btn_guardar input:hover {
     text-decoration: underline;
-
+    cursor: pointer
 }
 
 /* categorias y marcas */
@@ -1445,6 +1445,64 @@ input.acceder_admin_btn{
     text-align: right;
     width: 64px;
 }
+
+/* newsletter */
+.input_titulo{
+    width: 700px;
+    border: 1px solid #ccc;
+    font: bold 0.750em/19px "Lucida Grande", Lucida, Verdana, sans-serif;
+    color: #555;
+    background: #fff url(../images/fondo_arbol.png) repeat-x left top;
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.input_textedit{
+    width: 700px;
+    border: 1px solid #ccc;
+    font: bold 0.750em/19px "Lucida Grande", Lucida, Verdana, sans-serif;
+    color: #555;
+    background: #eee;
+    height: 295px;
+    margin-bottom: 5px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.btn_sin_guardar_letter a{
+    height: 26px;
+    width: auto;
+    float: right;
+    border: 1px solid #ccc;
+    background-image: url(../images/fondo_franja_rojo.png);
+    font: bold 0.750em/24px Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+    color: #fffeff;
+    padding-right: 10px;
+    padding-left: 10px;
+    text-shadow: #750403 1px 1px 0;
+    margin-right: 10px;
+}
+
+.btn_enviar_letter a, .btn_enviar_letter input{
+    height: 26px;
+    width: auto;
+    float: right;
+    border: 1px solid #ccc;
+    background-image: url(../images/fondo_franja_verde.png);
+    font: bold 0.750em/24px Arial, "Helvetica Neue", Helvetica, Geneva, sans-serif;
+    color: #fffeff;
+    padding-right: 10px;
+    padding-left: 10px;
+    text-shadow: #147842 1px 1px 0;
+}
+
+.btn_enviar_letter a:hover, .btn_sin_guardar_letter a:hover, .btn_enviar_letter input:hover{
+    text-decoration: underline;
+    cursor: pointer
+}
+
 /** Mario mods **/
 .legend_state_container .current{
     color: #179108;
@@ -1485,5 +1543,13 @@ input.acceder_admin_btn{
     text-decoration: underline;
     border: 1px solid #656565;
     cursor: pointer;
+}
+
+.usuario_validacion_btn_container {
+}
+
+.usuario_validacion_btn_container a:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 /** end Mario mods **/

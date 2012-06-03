@@ -47,5 +47,8 @@
 
         </div>
         <!--end cuerpo-->         
-{% endif %}    
+{% endif %}
+
+{% render path('TKShopFrontendNewsLetterSubscription', {'_format' : 'partialhtml'}) | mqm_shop_to_app_path %}
+
 {% endblock right_content %}

@@ -32,12 +32,10 @@ class ClientController extends Controller
             $paginationManager->init($totalItems); 
             $clients = $paginationManager->paginateArray($clients);
         }        
-        $forms = $this->createValidationFormsFromClients($clients);
         $sortManager = $this->createSortManager();
 
         return array(
             'clients' => $clients,
-            'clientForms' => $forms,
             'sortManager' => $sortManager,
         );
     }    

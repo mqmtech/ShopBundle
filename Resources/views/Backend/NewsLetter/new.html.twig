@@ -1,0 +1,56 @@
+{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset('bundles/mqmshop/js/texteditor/jquery.wysiwyg.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/mqmshop/js/texteditor/jquery.wysiwyg.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mqmshop/js/texteditor/controls/wysiwyg.image.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mqmshop/js/texteditor/controls/wysiwyg.link.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mqmshop/js/texteditor/controls/wysiwyg.table.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mqmshop/js/texteditor/controls/wysiwyg.colorpicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mqmshop/js/texteditor/controls/wysiwyg.cssWrap.js') }}"></script>
+{% endblock javascripts%}
+    
+{% block jsfunctions %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $('#mqm_shop_form_type_user_body').wysiwyg();
+            $('#mqm_shop_form_type_user_body').wysiwyg('clear');
+        });
+    </script>
+{% endblock jsfunctions %}
+
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ NewsLetter{% endblock %}
+
+{% block left_content %}
+
+{% for key, flash in app.session.flashbag.all() %}
+<div class="error">
+    {{ flash }}
+</div>
+{% endfor %}
+
+<div class="div_border">
+    <form action="{{ path('TKShopBackendNewsLetterPreview') }}" method="post" {{ form_enctype(form) }} target="_blank">
+        {% include 'MQMShopBundle:Backend/NewsLetter:formBody.partialhtml.twig' %}
+        <br/>
+        <div class="btn_container_form">
+            <div class="btn_enviar_letter">
+                <input type="submit" name="Guardar" value="Previsualizar"/>
+            </div>
+            <div class="btn_sin_guardar_letter"><a href="{{ path('TKShopBackendIndex') }}">Volver</a></div>
+        </div>
+
+        {{ form_rest(form) }}
+    </form>
+</div>
+<!--end  div border-->
+{% endblock left_content %}

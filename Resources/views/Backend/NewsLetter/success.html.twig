@@ -1,0 +1,28 @@
+{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts%}
+    
+{% block jsfunctions %}
+    {{ parent() }}
+{% endblock jsfunctions %}
+
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ NewsLetter enviado{% endblock %}
+
+{% block left_content %}
+<div class="div_border">
+    <div>
+        <strong class="blue">Se ha enviado correctamente</strong>
+    </div>
+    <div class="btn_enviar_letter"><a href="" onclick="self.close()">Finalizar</a></div>
+</div>
+<!--end  div border-->
+{% endblock left_content %}

@@ -98,14 +98,14 @@ class BrandController extends Controller
     public function createAction()
     {
         $entity = $this->get('mqm_brand.brand_manager')->createBrand();
-        $request = $this->getRequest();
         $form    = $this->createForm(new BrandType(), $entity);
+        $request = $this->getRequest();
         $form->bindRequest($request);
 
         if ($form->isValid()) {
             $this->get('mqm_brand.brand_manager')->saveBrand($entity);
 
-            return $this->redirect($this->generateUrl('TKShopBackendBrandsShowAll'));            
+            return $this->redirect($this->generateUrl('TKShopBackendBrandsShowAll'));
         }
 
         return array(

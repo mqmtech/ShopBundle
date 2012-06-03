@@ -1,0 +1,15 @@
+<!--titulo-->
+<div class="div_titulo_letter">
+    <div class="legend"><span class="text_bold">Titulo:</span></div>
+    {{ form_errors(form.title) }}
+    {{ form_widget(form.title, {'attr' : {'class' : 'input_titulo'}} ) }}
+</div>
+
+<div class="div_newsletter">
+    <div class="legend">
+        <span class="text_bold">Contenido del mail:</span>
+    </div>
+
+    {{ form_errors(form.title) }}
+    {{ form_widget(form.body, {'attr' : {'class' : 'input_textedit'}} ) }}
+</div>

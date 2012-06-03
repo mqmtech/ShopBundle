@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\Request;
 class RegisterClientController extends Controller {
 
     /**
-     *
      * @Route("/new.{_format}", defaults={"_format"="html"}, name="TKShopBackendUserNew")
      * @Template()
      */
@@ -32,17 +31,6 @@ class RegisterClientController extends Controller {
             'entity' => $entity,
             'form' => $form->createView()
         );
-    }
-
-    /**
-     * Creates a new Shop\User entity.
-     *
-     * @Route("/test", name="TKShopBackendUserTest")
-     * @Method("get")
-     * @Template("MQMShopBundle:Backend\User\Register:successMessageOnCreate.html.twig")
-     */
-    public function testAction() {
-        return array();
     }
 
     /**
@@ -86,6 +74,21 @@ class RegisterClientController extends Controller {
             'form' => $form->createView()
         );
     }
+
+    /**
+     * @Route("/{id}/validar.{_format}", defaults={"_format"="html"}, name="TKShopBackendUserValidate")
+     * @Template()
+     */
+    public function validateAction($id, $_format)
+    {
+        $userManager = $this->get('mqm_user.user_manager');
+        $entity = $userManager->findUserBy(array('id' => $id));
+        $entity->setIsEnabled(true);
+        $userManager->saveUser($entity);
+
+        return $this->redirect($this->generateUrl('TKShopBackendUserClientIndex'));
+    }
+
 
     private function postProcessUserCreation(UserInterface $user)
     {
