@@ -22,8 +22,11 @@
     {{ parent() }}
     <script type="text/javascript">
         $(function() {
+            var content = $('#mqm_shop_form_type_user_body').html();
+            if (content == '') {
+                $('#mqm_shop_form_type_user_body').html('Contenido...');
+            }
             $('#mqm_shop_form_type_user_body').wysiwyg();
-            $('#mqm_shop_form_type_user_body').wysiwyg('clear');
         });
     </script>
 {% endblock jsfunctions %}
@@ -39,7 +42,7 @@
 {% endfor %}
 
 <div class="div_border">
-    <form action="{{ path('TKShopBackendNewsLetterPreview') }}" method="post" {{ form_enctype(form) }} target="_blank">
+    <form action="{{ path('TKShopBackendNewsLetterPreview') }}" method="post" {{ form_enctype(form) }}>
         {% include 'MQMShopBundle:Backend/NewsLetter:formBody.partialhtml.twig' %}
         <br/>
         <div class="btn_container_form">

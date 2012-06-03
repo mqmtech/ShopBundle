@@ -49,6 +49,26 @@ class NewsLetterController extends Controller
     }
 
     /**
+     * @Route("/editar", name="TKShopBackendNewsLetterEdit")
+     * @Method("post")
+     * @Template("MQMShopBundle:Backend\NewsLetter:new.html.twig")
+     */
+    public function editAction()
+    {
+        $newsLetterManager = $this->get('mqm_newsLetter.newsLetter_manager');
+        $newsLetter = $newsLetterManager->createNewsLetter();
+        $form = $this->createForm(new NewsLetterType(), $newsLetter);
+
+        $request = $this->getRequest();
+        $form->bindRequest($request);
+
+        return array(
+                'form' => $form->createView(),
+                'newsLetter' => $newsLetter
+            );
+    }
+
+    /**
      * @Route("/preview", name="TKShopBackendNewsLetterPreview")
      * @Method("post")
      * @Template("MQMShopBundle:Backend\NewsLetter:new.html.twig")
@@ -124,7 +144,6 @@ class NewsLetterController extends Controller
 
     private function createNewLetter()
     {
-
         $this->newsLetterManager = $this->get('mqm_newsLetter.newsLetter_manager');
 
         $newsLetter = $this->newsLetterManager->createNewsLetter();
