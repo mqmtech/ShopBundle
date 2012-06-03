@@ -114,7 +114,6 @@ class NewsLetterController extends Controller
                 $newsLetterAdmin = $this->get('mqm_newsLetter.newsLetter_administrator');
                 $newsLetterAdmin->sendNewsLetter($newsLetter);
 
-                //return $this->redirect($this->generateUrl('TKShopBackendIndex'));
                 return $this->render('MQMShopBundle:Backend\NewsLetter:success.html.twig');
             }
         }catch(\Exception $e) {

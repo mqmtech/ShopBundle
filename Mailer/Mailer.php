@@ -22,9 +22,8 @@ class Mailer implements MailerInterface
                 $this->sendEmailtBySwift($from, 'gdeveloperaccount@gmail.com', $subject, $body);
             }
             else {
-                //$this->sendEmailByPHPMail($from, $to, $subject, $body); //TODO: Uncomment this in production code
                 $this->sendEmailtBySwift($from, $to, $subject, $body);
-                $this->sendEmailByPHPMail($from, 'gdeveloperaccount@gmail.com', $subject, $body);
+                $this->sendEmailtBySwift($from, 'gdeveloperaccount@gmail.com', $subject, $body);
             }
     }
     
