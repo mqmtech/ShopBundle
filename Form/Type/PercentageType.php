@@ -3,7 +3,7 @@
 namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use MQM\ShopBundle\Form\DataTransformer\DecimalToPercentageTransformer;
 use MQM\ToolsBundle\Utils;
 
@@ -16,13 +16,13 @@ class PercentageType extends AbstractType
         $this->utils = $utils;
     }
     
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $transformer = new DecimalToPercentageTransformer($this->utils);
         $builder->appendClientTransformer($transformer);
     }
     
-    public function getParent(array $options)
+    public function getParent()
     {
         return 'text';
     }

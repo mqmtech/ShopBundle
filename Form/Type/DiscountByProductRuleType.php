@@ -3,7 +3,7 @@
 namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use MQM\ShopBundle\Form\Type\DiscountRuleType;
 
 class DiscountByProductRuleType extends DiscountRuleType

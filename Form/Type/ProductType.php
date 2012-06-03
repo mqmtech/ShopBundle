@@ -3,7 +3,7 @@
 namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\PersistentCollection;
 
 use MQM\CategoryBundle\Model\CategoryManagerInterface;
@@ -13,7 +13,7 @@ class ProductType extends AbstractType
 {
     private $categoryManager;
 
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $priceToPrettyPriceTransformer = new PriceToPrettyPriceTransformer(new \MQM\ToolsBundle\Utils());
         

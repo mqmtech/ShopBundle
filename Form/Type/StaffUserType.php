@@ -3,12 +3,12 @@
 namespace MQM\ShopBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use MQM\UserBundle\Model\UserInterface;
 
 class StaffUserType extends AbstractType
 {
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $builder->getData();
         $permissionType = $user->getPermissionType();
