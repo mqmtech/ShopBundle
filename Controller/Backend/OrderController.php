@@ -57,6 +57,25 @@ class OrderController extends Controller
 
         throw new \Exception('Form is not valid');
     }
+
+
+    /**
+     * @Route("/{id}/delete", name="TKShopFrontendOrderDelete")
+     */
+    public function deleteAction($id)
+    {
+        $order = $this->get('mqm_order.order_manager')->findOrderBy(array(
+            'id' => $id
+        ));
+
+        if (!$order) {
+            throw $this->createNotFoundException('Unable to find Shop\Order entity.');
+        }
+
+        $this->get('mqm_order.order_manager')->deleteOrder($order);
+
+        return $this->redirect($this->generateUrl('TKShopBackendOrdersShowAll'));
+    }
     
     private function createSortManager()
     {

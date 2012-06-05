@@ -158,8 +158,7 @@ class OrderController extends Controller
             $order = $checkoutManager->shoppingCartToOrder($sc);
             $user = $this->getCurrentUser();
             $order->setUser($user);
-            $this->get('mqm_order.order_manager')->saveOrder($order);
-            $this->get('mqm_order.order_manager')->flush();
+            $this->get('mqm_order.order_manager')->saveOrder($order, true);
             $this->get('mqm_cart.cart_manager')->removeAllItemsFromCart($sc);
 
             $this->postOrderProcess($order);
