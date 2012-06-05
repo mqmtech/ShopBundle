@@ -44,7 +44,7 @@
     {% for client in validatedClients %}
         <div class="descuento_container">
             <div class="legend_container">
-                <div class="usuario_nombre_legend"><a href="#"><span>{{ client.username }}</span></a></div>
+                <div class="usuario_nombre_legend"><a href="{{ path('TKShopBackendUserProfile', {'id': client.id})}}"><span>{{ client.username }}</span></a></div>
                 <div class="usuario_nombre_fecha ">{{ client.createdAt | date('d/m/y') }}</div>
                 <div class="editar_desc_categ_legend"><a href="{{path('TKShopBackendUserEdit', {'id' : client.id})}}">Editar</a></div>
             </div>
