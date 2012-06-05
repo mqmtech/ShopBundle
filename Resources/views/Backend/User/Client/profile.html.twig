@@ -1,0 +1,32 @@
+{% extends 'MQMShopBundle:Backend:layout.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('bundles/mqmshop/css/user.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/mqmshop/css/admin.css') }}" rel="stylesheet" type="text/css" />
+<link type="text/css" href="{{ asset('bundles/mqmshop/js/jqueryui/css/ui-lightness/jquery-ui-1.8.16.custom.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block contextualThree %}<a href="{{ path('TKShopBackendPanelControlIndex') }}">Panel de control</a> \ <a href="{{ path('TKShopBackendUserClientIndex') }}">Gestion de Clientes</a> \ Perfil{% endblock %}
+
+{% block left_content %}
+<div class="right_cuerpo_user">
+    <div class="titulo_current">Perfil de {{user.firstName}}</div>
+    <div class="form_new_cliente_container">
+        <p><strong>Nombre:</strong> <span>{{ user.firstname }}</span></p>
+        <p><strong>Apellidos:</strong>  <span>{{ user.lastname }}</span></p>
+        <!--p><strong>Nombre de usuario:</strong> {{ user.username }} </p-->
+        <p><strong>e-mail:</strong>  <span>{{ user.email }}</span></p>
+        <p><strong>Razón social:</strong>{{ user.firmName }}</p>
+        <p><strong>CIF:</strong>{{ user.vatin }}</p>
+        <p><strong>Dirección:</strong> <span>{{ user.address }}</span></p>
+        <p><strong>CP:</strong> {{ user.zipCode }}</p>
+        <p><strong>Población:</strong>{{ user.city }}</p>
+        <p><strong>Provincia:</strong>{{ user.province }}</p>
+        <p><strong>Teléfono:</strong>{{ user.phone }}</p>
+        <p><strong>Fax:</strong>{{ user.fax }}</p>
+    </div>
+</div>
+
+{% endblock %}
+

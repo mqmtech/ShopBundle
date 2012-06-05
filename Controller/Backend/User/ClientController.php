@@ -38,7 +38,7 @@ class ClientController extends Controller
             'clients' => $clients,
             'sortManager' => $sortManager,
         );
-    }    
+    }
     
     /**
      * @Route("/recientes.{_format}", defaults={"_format"="partialhtml"}, name="TKShopBackendUserClientRecent")
@@ -87,6 +87,25 @@ class ClientController extends Controller
         $this->getUserManager()->deleteUser($user);
 
         return $this->redirect($this->generateUrl('TKShopBackendUserClientValidation'));
+    }
+
+    /**
+     * @Route("/{id}/perfil.{_format}", defaults={"_format"="html"}, name="TKShopBackendUserProfile")
+     * @Template()
+     */
+    public function profileAction($id)
+    {
+        $user = $this->getUserManager()->findUserBy(array(
+                'id' => $id
+            )
+        );
+        if ($user == null) {
+            throw $this->createNotFoundException('No user was found');
+        }
+
+        return array(
+            'user' => $user
+        );
     }
 
     private function createValidationFormsFromClients($clients)
