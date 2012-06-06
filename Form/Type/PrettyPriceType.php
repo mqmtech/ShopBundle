@@ -35,7 +35,6 @@ class PrettyPriceType extends AbstractType
     public function getDefaultOptions()
     {
         return array(
-            'data_class' => 'string',
             'invalid_message'=>'The value is not a valid price'
         );
     }

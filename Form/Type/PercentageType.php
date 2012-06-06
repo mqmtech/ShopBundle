@@ -24,7 +24,7 @@ class PercentageType extends AbstractType
     
     public function getParent()
     {
-        return 'text';
+        return 'field';
     }
 
     public function getName()
@@ -35,7 +35,6 @@ class PercentageType extends AbstractType
     public function getDefaultOptions()
     {
         return array(
-            'data_class' => 'text',
             'invalid_message'=>'The value is not a valid number'
         );
     }
