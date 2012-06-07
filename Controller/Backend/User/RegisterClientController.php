@@ -131,7 +131,6 @@ class RegisterClientController extends Controller {
             throw $this->createNotFoundException('Unable to find Shop\User entity.');
         }
         $editForm = $this->createClientUserForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
         $password = $entity->getPassword();
@@ -151,7 +150,6 @@ class RegisterClientController extends Controller {
         return array(
             'entity' => $entity,
             'form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
     
