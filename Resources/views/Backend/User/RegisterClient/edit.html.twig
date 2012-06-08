@@ -2,8 +2,8 @@
 
 {% block left_content %}
 
-<form action="{{ path('TKShopBackendUserUpdate', {'id' : entity.id}) }}" method="post" {{ form_enctype(form) }}>
-    {% include 'MQMShopBundle:Backend/User/RegisterClient:editFormBody.partialhtml.twig' %}
+<form action="{{ path('TKShopBackendUserEdit', {'id' : entity.id}) }}" method="post" {{ form_enctype(form) }}>
+    {% include 'MQMShopBundle:Backend/User/RegisterClient:formBody.partialhtml.twig' %}
 </form>
 
 {% endblock left_content %}

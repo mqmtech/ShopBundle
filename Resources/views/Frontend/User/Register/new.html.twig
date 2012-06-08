@@ -20,7 +20,7 @@
 
 {% block right_content %}
 
-<form action="{{ path('TKShopFrontendUserCreate') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('TKShopFrontendUserNew') }}" method="post" {{ form_enctype(form) }}>
     {% include 'MQMShopBundle:Frontend/User/Register:formBody.partialhtml.twig' %}
 </form>
 

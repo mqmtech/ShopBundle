@@ -130,7 +130,7 @@ class OrderController extends Controller
      */
     protected function getOrderFromCurrentUser(){
         $user = $this->getCurrentUser();
-        if ($this->get('mqm_user.user_manager')->isDBUser($user)) {
+        if ($this->get('mqm_user.user_manager')->isLoggedIn($user)) {
             return $user->getOrders();            
         }
         else {
@@ -186,7 +186,7 @@ class OrderController extends Controller
         $user = $this->getCurrentUser();
         
         $shoppingCart = null;
-        if ($this->get('mqm_user.user_manager')->isDBUser($user)) {
+        if ($this->get('mqm_user.user_manager')->isLoggedIn($user)) {
             $shoppingCart = $user->getShoppingCart();
             if ($shoppingCart == null) {
                 $shoppingCart = new ShoppingCart();

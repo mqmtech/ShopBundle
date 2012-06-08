@@ -44,7 +44,7 @@
     {% for user in users %}
         <div class="descuento_container">
             <div class="legend_container">
-                <div class="usuario_nombre_legend"><a href="#"><span>{{ user.username }}</span></a></div>
+                <div class="usuario_nombre_legend"><a href="#"><span>{{ user }}</span></a></div>
                 <div class="usuario_nombre_fecha ">{{ user.createdAt | date('d/m/y') }}</div>
                 <div class="editar_desc_categ_legend"><a href="{{path('TKShopBackendStaffUserEdit', {'id' : user.id})}}">Editar</a></div>
             </div>

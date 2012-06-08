@@ -249,7 +249,7 @@ class ShoppingCartController extends Controller
         $user = $this->getCurrentUser();
         
         $shoppingCart = null;
-        if ($this->get('mqm_user.user_manager')->isDBUser($user)) {
+        if ($this->get('mqm_user.user_manager')->isLoggedIn($user)) {
             $shoppingCart = $user->getShoppingCart();
             $shoppingCart = $this->get('mqm_cart.cart_manager')->refreshCart($shoppingCart);
             if ($shoppingCart == null) {

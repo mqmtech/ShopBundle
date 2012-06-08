@@ -3,7 +3,7 @@
 
 {% block left_content %}
 
-<form action="{{ path('TKShopBackendStaffUserCreate') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('TKShopBackendStaffUserNew') }}" method="post" {{ form_enctype(form) }}>
     {% include 'MQMShopBundle:Backend/User/RegisterStaff:formBody.partialhtml.twig' %}
 </form>
 

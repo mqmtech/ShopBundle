@@ -1,55 +1,25 @@
-<script>
+<script type="text/javascript" src="{{asset('bundles/mqmshop/js/error_display.js')}}"></script>
+<script type="text/javascript">
     jQuery(document).ready(function () {
+        jQuery(".btn_solicitar_alta").click(function(event){
+            event.preventDefault(); // now js will take full control of the brand delection
+            var form = $( this ).parents("form");
 
-        var $dialog = $('<div></div>')
-                .html("Se han econtrado errores")
-                .dialog({
-                    autoOpen:false,
-                    title:'Se han encontrado errores',
-                    resizable:false,
-                    height:240,
-                    width:540,
-                    modal:true,
-                    buttons:{
-                        "Aceptar":function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                });
-
-        var errorsDescription = "";
-        var errors = jQuery(".field_inline_error");
-        for (i = 0; i < errors.length; i++) {
-            var error = errors[i];
-
-            var errorHtml = jQuery(error).html();
-            if (errorHtml.trim() != "") {
-                var errorField = jQuery(error).attr('name');
-                errorsDescription += errorField + ": " + errorHtml + "<br/>";
+            if (jQuery("[name=checkbox]").is(':checked')) {
+                form.submit();
             }
-
-        }
-
-        if (errorsDescription != "") {
-            event.preventDefault(); // now js will take full control of the product delection
-            delform = $(this).parents("form");
-
-            $dialog.bind("dialogbeforeclose", function (e, ui) {
-                //alert( $(e.target)[0].tittle );
-            });
-
-            $dialog.html(errorsDescription);
-            $dialog.dialog("open");
-        }
-    })
+            else {
+                alert ('Debe aceptar la Política de uso');
+            }
+        });
+    });
 </script>
 
 <!--start formulario de alta-->
 <div class="formulario_alta_new_cliente">
     <div class="field_inline_error" name="Email"> {{ form_errors(form) }}</div>
     <div class="form_new_cliente_container">
-        <p><strong>Para darse de alta como nuevo cliente de Tecnokey, por favor rellene el siguiente
-            formulario:</strong> <span class=" text_general"><span class="red">*</span> Campos obligatorios</span></p>
+        <p><span class=" text_general"><span class="red">*</span> Campos obligatorios</span></p>
         <br/>
 
 
@@ -60,13 +30,9 @@
 
                 <div class="field_inline_error" name="Nombre"> {{ form_errors(form.firstName) }}</div>
                 {{ form_widget(form.firstName, {'attr' : { 'class' : 'input_new_cliente_nombre_appellido' } }) }}
-                {#<input name="Empresa" type="Empresa" class="input_new_cliente_nombre_appellido" />#}
-                                
-                                </div>
+                </div>
 
             <div class="input_right"><p><span class="red">*</span> Apellidos:</p>
-                {#<input name="Empresa" type="Empresa" class="input_new_cliente_nombre_appellido" />#}
-
                 <div class="field_inline_error" name="Apellidos"> {{ form_errors(form.lastName) }}</div>
                 {{ form_widget(form.lastName, {'attr' : { 'class' : 'input_new_cliente_nombre_appellido' } }) }}
             </div>
@@ -79,26 +45,35 @@
         <div class="linea_horizontal"></div>
 
         <div class="input_container_new_cliente">
-            <div class="input_left"><p><span class="red">*</span> e-mail:</p>
-
-                <div class="field_inline_error" name="Email">{{ form_errors(form.email) }} </div>
-                {{ form_widget(form.email, {'attr' : { 'class' : 'input_new_cliente' } }) }}
-            </div>
-            <div class="input_right">
-                <p><span class="red">*</span> Confirmar e-mail:</p>
-                <input name="emailConfirmation" type="Empresa" class="input_new_cliente"/>
-            </div>
+            {% for emailField in form.email %}
+                {% if loop.index0 == 0%}
+                    <div class="input_left"><p><span class="red">*</span> e-mail:</p>
+                        <div class="field_inline_error" name="Email"> {{ form_errors(emailField) }} </div>
+                        {{ form_widget(emailField, { 'attr': {'class': 'input_new_cliente'} }) }}
+                    </div>
+                {% else %}
+                    <div class="input_right"><p><span class="red">*</span> Confirmar e-mail:</p>
+                        <div class="field_inline_error" name="Email"> {{ form_errors(emailField) }} </div>
+                        {{ form_widget(emailField, { 'attr': {'class': 'input_new_cliente'} }) }}
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
 
         <div class="input_container_new_cliente">
-            <div class="input_left"><p><span class="red">*</span> Contraseña:</p>
-
-                <div class="field_inline_error" name="Contraseña"> {{ form_errors(form.password) }}</div>
-                {{ form_widget(form.password, {'attr' : { 'class' : 'input_new_cliente' } }) }}
-            </div>
-            <div class="input_right"><p><span class="red">*</span> Confirmar contraseña:</p>
-                <input name="passwordConfirmation" type="password" class="input_new_cliente"/>
-            </div>
+            {% for passwordField in form.password %}
+                {% if loop.index0 == 0%}
+                    <div class="input_left"><p><span class="red">*</span> Contraseña:</p>
+                        <div class="field_inline_error" name="Password"> {{ form_errors(passwordField) }} </div>
+                        {{ form_widget(passwordField, { 'attr': {'class': 'input_new_cliente'} }) }}
+                    </div>
+                    {% else %}
+                    <div class="input_right"><p><span class="red">*</span> Confirmar contraseña:</p>
+                        <div class="field_inline_error" name="Password"> {{ form_errors(passwordField) }} </div>
+                        {{ form_widget(passwordField, { 'attr': {'class': 'input_new_cliente'} }) }}
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
 
         <br/>
@@ -172,12 +147,10 @@
                     class="blue">Política de uso</strong> de Tecnokey.com</span></span>
 
             <div class="btn_solicitar_alta">
-                <button class="btn_solicitar_alta" type="submit">Enviar</button>
+                <button type="submit"">Enviar</button>
             </div>
-
         </div>
 
     </div>
-
 </div>
 <!--end formulario-->

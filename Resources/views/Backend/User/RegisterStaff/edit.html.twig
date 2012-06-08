@@ -1,9 +1,8 @@
 {% extends 'MQMShopBundle:Backend/User:layout.html.twig' %}
 
 {% block left_content %}
-
-<form action="{{ path('TKShopBackendStaffUserUpdate', {'id' : entity.id}) }}" method="post" {{ form_enctype(form) }}>
-    {% include 'MQMShopBundle:Backend/User/RegisterStaff:editFormBody.partialhtml.twig' %}
+<form action="{{ path('TKShopBackendStaffUserEdit', {'id' : entity.id}) }}" method="post" {{ form_enctype(form) }}>
+    {% include 'MQMShopBundle:Backend/User/RegisterStaff:formBody.partialhtml.twig' %}
 </form>
 
 {% endblock left_content %}

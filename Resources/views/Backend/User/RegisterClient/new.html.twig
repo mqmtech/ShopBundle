@@ -1,7 +1,7 @@
 {% extends 'MQMShopBundle:Backend/User:layout.html.twig' %}
 
 {% block left_content %}
-<form action="{{ path('TKShopBackendUserCreate') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('TKShopBackendUserNew') }}" method="post" {{ form_enctype(form) }}>
     {% include 'MQMShopBundle:Backend/User/RegisterClient:formBody.partialhtml.twig' %}
 </form>
 

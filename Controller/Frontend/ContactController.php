@@ -9,57 +9,45 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Frontend\Default controller.
- *
  * @Route("/tienda/contacto")
  */
 class ContactController extends Controller
 {
     /**
-     *
-     * @Route("/", name="TKShopFrontendContactIndex")
-     * @Template("MQMShopBundle:Default:contacto.html.twig")
-     */
-    public function indexAction()
-    {        
-        $form = $this->createContactForm();
-        
-        return array(
-            'form' => $form->createView(),
-        );
-    }
-    
-    /**
-     *
      * @Route("/enviar_consulta", name="TKShopFrontendContactSendEmail")
-     * @Method("post")
+     * @Method({"get", "post"})
      * @template("MQMShopBundle:Default:contacto.html.twig")
      */
     public function sendEmailAction()
     {
         $form = $this->createContactForm();        
-        $request = Request::createFromGlobals();        
-        $form->bindRequest($request);
-        $feedback = null;
-        if ($form->isValid()) {
-            $data = $form->getData();        
-            $company = $data["company"];
-            $email = $data["email"];
-            $message = $data["message"];            
-            $mailer = $this->get('mqm_shop.mailer');
-            $mailer->sendEmail($email, 'amaestramientos@tecno-key.com', "[Tecnokey Online] Consulta de $company", $message);            
-            $feedback = $this->getFormvalidationFeedback(true);
-        }
-        else {
-            $feedback = $this->getFormvalidationFeedback(false);
-        }
+        $request = Request::createFromGlobals();
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            $feedback = null;
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $company = $data["company"];
+                $email = $data["email"];
+                $message = $data["message"];
+                $mailer = $this->get('mqm_shop.mailer');
+                $mailer->sendEmail($email, 'amaestramientos@tecno-key.com', "[Tecnokey Online] Consulta de $company", $message);
+                $feedback = $this->getFormvalidationFeedback(true);
+            }
+            else {
+                $feedback = $this->getFormValidationFeedback(false);
+            }
+
             $this->get('session')->getFlashBag()->set('form_feedback', $feedback);
             $this->get('session')->save();
+        }
         
-        return array('form' => $form->createView());
+        return array(
+            'form' => $form->createView()
+        );
     }
     
-    public function createContactForm($data = null, $options = array())
+    private function createContactForm($data = null, $options = array())
     {
         $form = $this->createFormBuilder($data, $options)
                 ->add('company', 'text', array(
@@ -77,11 +65,10 @@ class ContactController extends Controller
     }
     
     /**
-     *
      * @param boolean $isSuccess
-     * @return type 
+     * @return array
      */
-    public function getFormvalidationFeedback($isSuccess)
+    private function getFormValidationFeedback($isSuccess)
     {
         if (!$isSuccess) {
             return array(

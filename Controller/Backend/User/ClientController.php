@@ -75,21 +75,6 @@ class ClientController extends Controller
     }
 
     /**
-     * @Route("/eliminar_cliente{id}.{_format}", defaults={"_format"="html"}, name="TKShopBackendUserClientDelete")
-     * @Template()
-     */
-    public function deleteUserAction($id)
-    {
-        $user = $this->getUserManager()->findUserBy(array(
-            'id' => $id
-            )
-        );
-        $this->getUserManager()->deleteUser($user);
-
-        return $this->redirect($this->generateUrl('TKShopBackendUserClientValidation'));
-    }
-
-    /**
      * @Route("/{id}/perfil.{_format}", defaults={"_format"="html"}, name="TKShopBackendUserProfile")
      * @Template()
      */
@@ -106,19 +91,6 @@ class ClientController extends Controller
         return array(
             'user' => $user
         );
-    }
-
-    private function createValidationFormsFromClients($clients)
-    {
-        $forms = array();
-        if ($clients != null) {
-            foreach ($clients as $client) {
-                $form = $this->createForm(new UserValidationType(), $client);
-                $forms[] = $form->createView();
-            }
-        }
-
-        return $forms;
     }
 
     /**
@@ -138,12 +110,5 @@ class ClientController extends Controller
             ->init();
 
         return $sortManager;
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm();
     }
 }
