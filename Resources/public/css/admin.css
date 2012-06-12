@@ -1582,9 +1582,9 @@ input.acceder_admin_btn{
     cursor: pointer;
     text-decoration: underline;
 }
-
+/*
 .input_new_cliente_descuento{
-    width: 154px;
+    width: 150px;
     float: left;
     border: 1px solid #ccc;
     font: bold 0.750em/19px "Lucida Grande", Lucida, Verdana, sans-serif;
@@ -1594,5 +1594,47 @@ input.acceder_admin_btn{
     margin-bottom: 4px;
     padding: 5px;
     margin-top: 10px;
-}
+    margin-right: 10px;
+}*/
 /** end Mario mods **/
+
+.input_new_cliente_descuento{
+	width: 148px;
+	border: 1px solid #a0a3fd;
+	font: bold 0.750em/19px "Lucida Grande", Lucida, Verdana, sans-serif;
+	color: #179108;
+	background: #fff url(../images/fondo_arbol.png) repeat-x left top;
+	height: 30px;
+	padding: 5px;
+	margin-left: 5px;
+        margin-top: 10px;
+}
+
+.div_new_cliente_descuento_container{
+	width: 705px;
+	height: 70px;
+	float: left;
+	border: 1px solid #258cdb;
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+.div_new_cliente_descuento_titulo{
+	background: #999 url(../images/fondo_franja_azul.png);
+	border-bottom: 1px solid #ccc ;
+	width: auto;
+	height: 20px;
+	font-size: 12px;
+	line-height: 20px;
+	padding-left: 10px;
+	font-weight: bold;
+	color: #fffeff;
+	text-shadow: #1e5b91 1px 1px 0;
+}
+
+.user_promo_container{
+        width: 166px;
+        height: auto;
+        float: right;
+        margin: 0 17px 5px 5px;
+}
