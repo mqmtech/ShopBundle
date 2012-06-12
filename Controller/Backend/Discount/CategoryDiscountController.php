@@ -56,27 +56,16 @@ class CategoryDiscountController extends Controller
     public function updateDiscountAction($id)
     {
         $discountRule = $this->getDiscountRuleByCategoryId($id);
-        $editForm   = $this->createForm(new DiscountByCategoryRuleType(), $discountRule);
+        $form   = $this->createForm(new DiscountByCategoryRuleType(), $discountRule);
         $request = $this->getRequest();
-        $editForm->bindRequest($request);
-        if ($editForm->isValid()) {
+        $form->bindRequest($request);
+        if ($form->isValid()) {
             $this->getDiscountManager()->saveDiscountRule($discountRule);
 
             return $this->redirect($this->generateUrl('TKShopBackendCategoryDiscountEditAll'));
         }
         
         throw new \Exception('Invalid Category DiscountRule');
-    }
-
-    private function getDiscountRuleBy(array $criteria)
-    {
-        $discountManager = $this->getDiscountManager();
-        $discountRule = $discountManager->findDiscountRuleBy($criteria);
-        if ($discountRule == null) {
-            $discountRule = $discountManager->createDiscountRule();
-        }
-
-        return $discountRule;
     }
 
     private function createDiscountFormsByCategories($categories)
@@ -104,6 +93,17 @@ class CategoryDiscountController extends Controller
 
        return $discountRule;
    }
+   
+    private function getDiscountRuleBy(array $criteria)
+    {
+        $discountManager = $this->getDiscountManager();
+        $discountRule = $discountManager->findDiscountRuleBy($criteria);
+        if ($discountRule == null) {
+            $discountRule = $discountManager->createDiscountRule();
+        }
+
+        return $discountRule;
+    }
 
     private function getAllFamilies()
     {

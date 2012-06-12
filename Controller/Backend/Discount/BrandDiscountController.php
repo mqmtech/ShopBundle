@@ -36,10 +36,10 @@ class BrandDiscountController extends Controller
     public function updateDiscountAction($id)
     {
         $discountRule = $this->getDiscountRuleByBrandId($id);
-        $editForm   = $this->createForm(new DiscountByBrandRuleType(), $discountRule);
+        $form   = $this->createForm(new DiscountByBrandRuleType(), $discountRule);
         $request = $this->getRequest();
-        $editForm->bindRequest($request);
-        if ($editForm->isValid()) {
+        $form->bindRequest($request);
+        if ($form->isValid()) {
             $this->getDiscountManager()->saveDiscountRule($discountRule);
 
             return $this->redirect($this->generateUrl('TKShopBackendBrandDiscountEditAll'));

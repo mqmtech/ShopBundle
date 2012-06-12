@@ -90,12 +90,12 @@ class ProductController extends Controller {
          }
                 
         $productType = $this->get('mqm_shop.form.product');
-        $editForm   = $this->createForm($productType, $entity);
+        $form   = $this->createForm($productType, $entity);
         $deleteForm = $this->createDeleteForm($productId);
 
         return array(
             'entity'      => $entity,
-            'form'   => $editForm->createView(),
+            'form'   => $form->createView(),
             'delete_form' => $deleteForm->createView()
         );        
     }
@@ -114,11 +114,11 @@ class ProductController extends Controller {
         }
         $entityCloned = clone ($entity);
         $productType = $this->get('mqm_shop.form.product');
-        $editForm   = $this->createForm($productType, $entityCloned);
+        $form   = $this->createForm($productType, $entityCloned);
 
         return array(
             'entity'      => $entityCloned,
-            'form'   => $editForm->createView(),
+            'form'   => $form->createView(),
         );
         
     }
@@ -165,10 +165,10 @@ class ProductController extends Controller {
         }        
 
         $productType = $this->get('mqm_shop.form.product');
-        $editForm   = $this->createForm($productType, $entity);
+        $form   = $this->createForm($productType, $entity);
         $request = $this->getRequest();
-        $editForm->bindRequest($request);
-        if ($editForm->isValid()) {
+        $form->bindRequest($request);
+        if ($form->isValid()) {
             //FIX VIRTUAL file update in Image
             $image = $entity->getImage();
             if ($image != null) {
@@ -226,7 +226,7 @@ class ProductController extends Controller {
 
         return array(
             'entity'      => $entity,
-            'form'   => $editForm->createView(),
+            'form'   => $form->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }

@@ -93,12 +93,12 @@ class CategoryController extends Controller
             throw $this->createNotFoundException('Unable to find Shop\Category entity.');
         }
         $categoryType = $this->get('mqm_shop.form.category');
-        $editForm = $this->createForm($categoryType, $entity);
+        $form = $this->createForm($categoryType, $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $form->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -115,11 +115,11 @@ class CategoryController extends Controller
         }        
         $entityCloned = clone ($entity);
         $categoryType = $this->get('mqm_shop.form.category');
-        $editForm = $this->createForm($categoryType, $entityCloned);
+        $form = $this->createForm($categoryType, $entityCloned);
 
         return array(
             'entity'      => $entityCloned,
-            'form'   => $editForm->createView(),
+            'form'   => $form->createView(),
         );
         
     }
@@ -137,11 +137,11 @@ class CategoryController extends Controller
             throw $this->createNotFoundException('Unable to find Shop\Category entity.');
         }
         $categoryType = $this->get('mqm_shop.form.category');
-        $editForm   = $this->createForm($categoryType, $entity);
+        $form   = $this->createForm($categoryType, $entity);
         $deleteForm = $this->createDeleteForm($id);
         $request = $this->getRequest();
-        $editForm->bindRequest($request);
-        if ($editForm->isValid()) {            
+        $form->bindRequest($request);
+        if ($form->isValid()) {            
             //FIX VIRTUAL file update in Image
             $image = $entity->getImage();
             if ($image != null) {
@@ -163,7 +163,7 @@ class CategoryController extends Controller
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $form->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }

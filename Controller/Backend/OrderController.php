@@ -46,10 +46,10 @@ class OrderController extends Controller
         if (!$order) {
             throw $this->createNotFoundException('Unable to find the order');
         }
-        $editForm   = $this->createForm(new OrderType(), $order);
+        $form   = $this->createForm(new OrderType(), $order);
         $request = $this->getRequest();
-        $editForm->bindRequest($request);
-        if ($editForm->isValid()) {
+        $form->bindRequest($request);
+        if ($form->isValid()) {
             $orderManager->saveOrder($order);
 
             return $this->redirect($this->generateUrl('TKShopBackendOrdersShowAll'));

@@ -5,9 +5,7 @@ namespace MQM\ShopBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\PersistentCollection;
-
 use MQM\CategoryBundle\Model\CategoryManagerInterface;
-use MQM\ShopBundle\Form\DataTransformer\PriceToPrettyPriceTransformer;
 
 class ProductType extends AbstractType
 {
@@ -15,8 +13,6 @@ class ProductType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $priceToPrettyPriceTransformer = new PriceToPrettyPriceTransformer(new \MQM\ToolsBundle\Utils());
-        
         $builder
             ->add('id', 'hidden')
             ->add('name', null, array(
@@ -27,10 +23,6 @@ class ProductType extends AbstractType
             ->add('sku', null, array(
                 'label' => 'add_ref'
             ))
-            /*->add('basePrice', null, array(
-            //->add('basePrice', 'mqm_shop.form.pretty_price', array(
-                'label' => 'add_precio'
-            ))*/
             ->add('priceRule', new PriceRuleType())
             ->add('discountRule', new DiscountByProductRuleType())
             ->add('category', 'entity', array(

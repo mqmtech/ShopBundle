@@ -1425,7 +1425,7 @@ body {
 
 
 .titulo_prods_relacionados{
-       width: 273px;
+       width: 260px;
        height: auto;
        float: left;
        color: #333;
@@ -1447,7 +1447,7 @@ body {
 
 .dto_relacionados_ficha {
 	float: right;
-	width: 30px;
+	width: 35px;
 	height: auto;
 	line-height: 20px;
 	color: #090;
@@ -1456,7 +1456,7 @@ body {
 	direction: rtl;
 	text-align: right;
 	border-left: 1px solid #ccc;
-	padding-left: 9px;
+	padding-left: 10px;
 }
 .precio_relacionados_ficha {
 	float: right;
@@ -1670,7 +1670,18 @@ input.buscarbtn{
     font-weight: bold;
 }
 
-.social_buttons{
+/*.social_buttons{
     height: auto;
     margin-top: 50px;
+}*/
+
+.social_buttons{
+    height: auto;
+    width: 60px;
+    right: 250px;
+    position: absolute;
+}
+
+.social_button{
+    padding: 5px;
 }

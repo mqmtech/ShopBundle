@@ -68,7 +68,7 @@
                         {% if(productPrice.hasDiscounts is defined and productPrice.hasDiscounts) %}
                             <div class="precio">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price | default("n/a")}} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
                             <div class="iva">Sin IVA</div>
-                            <div class="descuento">{{ productPrice.totalDiscountsPercentageValue | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ "%" }}</div>
+                            <div class="descuento">{{ mqm_pricing_discount_names(productPrice) ~ '%' }}</div>
                         {% else %} {# else discountRule #}
                             <div class="precio">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price | default("n/a")}} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
                             <div class="iva">Sin IVA</div>

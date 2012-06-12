@@ -41,10 +41,10 @@ class PortalDiscountAndIvaController extends Controller
     public function updateDiscountAction($id)
     {
         $discountRule = $this->getDefaultDiscountRule();
-        $editForm   = $this->createForm(new DiscountByPortalRuleType(), $discountRule);
+        $form   = $this->createForm(new DiscountByPortalRuleType(), $discountRule);
         $request = $this->getRequest();
-        $editForm->bindRequest($request);
-        if ($editForm->isValid()) {
+        $form->bindRequest($request);
+        if ($form->isValid()) {
             $this->getDiscountManager()->saveDiscountRule($discountRule);
 
             return $this->redirect($this->generateUrl('TKShopBackendPortalDiscountAndIvaEdit'));
@@ -61,13 +61,13 @@ class PortalDiscountAndIvaController extends Controller
     public function updateTaxAction()
     {
         $taxValue = $this->getTaxationManager()->getTax();
-        $editForm = $taxForm = $taxForm = $this->createFormBuilder(array('tax' => $taxValue))
+        $form = $taxForm = $taxForm = $this->createFormBuilder(array('tax' => $taxValue))
                 ->add('tax', 'mqm_shop.form.percentage')
                 ->getForm();
         $request = $this->getRequest();
-        $editForm->bindRequest($request);
-        if ($editForm->isValid()) {            
-            $taxObject = $editForm->getData(); 
+        $form->bindRequest($request);
+        if ($form->isValid()) {            
+            $taxObject = $form->getData(); 
             $this->getTaxationManager()->saveTax($taxObject['tax']);
 
             return $this->redirect($this->generateUrl('TKShopBackendPortalDiscountAndIvaEdit'));

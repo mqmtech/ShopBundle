@@ -77,8 +77,7 @@ jQuery(document).ready(function(){
             });
 
     
-    jQuery(".confirmar_pedido").click(function(event){
-        
+    jQuery(".confirmar_pedido").click(function(event) {        
         if(cartOptions['isEnabled'] == false){
             event.preventDefault(); // now js will take full control of the product delection
 
@@ -99,6 +98,12 @@ jQuery(document).ready(function(){
             //alert( $(e.target)[0].tittle );
             });
             dialogEmptyCart.dialog("open");
+        }        
+        else {
+            event.preventDefault(); // now js will take full control of the product delection
+            var form = jQuery("[name=form]");
+            jQuery(form).attr("action", "{{ path('TKShopFrontendUserShoppingCartPreview') }}");
+            form.submit();
         }
 
     });
@@ -139,21 +144,20 @@ jQuery(document).ready(function(){
 
             <div class="lista_pedidos_container">
                 {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item_fields.partialhtml.twig'%}                
-                <form name="edit_form" action="{{ path('TKShopFrontendUserShoppingCartUpdate') }}" method="post" {{ form_enctype(edit_form) }}>
-                    {%if edit_form.items | length > 0%}
-                        {% for item in edit_form.items %}
+                <form name="form" action="{{ path('TKShopFrontendUserShoppingCartUpdate') }}" method="post" {{ form_enctype(form) }}>
+                    {%if form.items | length > 0%}
+                        {% for item in form.items %}
                             {% if (entity.items[loop.index0] is defined ) %}
                                 {% set dataItem = entity.items[loop.index0] %}
                                 {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_item.partialhtml.twig' with {'isEditable' : true} %}
                             {% endif %}
                         {% endfor %}
-                        {{ form_rest(edit_form) }}
+                        {{ form_rest(form) }}
                     {%endif%}
                     {% include 'MQMShopBundle:Frontend/User/ShoppingCart:cart_summary.partialhtml.twig' with {'entity' : entity} %}
                     <div class="btn_accion_container">
-                        <input type="hidden" id="{{ order_field }}" name="{{ order_field }}" value="{{ update_value }}"/>
-                        <input class="btn_guardar_pedido" onclick="edit_form.{{ order_field }}.value='{{ update_value }}'; return true;" type="submit" name="Actualizar Pedido" value="Actualizar Pedido"/>
-                        <input class="confirmar_pedido" onclick="edit_form.{{ order_field }}.value='{{ comfirm_value }}'; return true;" type="submit" name="Previsualizar Pedido" value="Previsualizar Pedido"/>
+                        <input class="btn_guardar_pedido" type="submit" name="Actualizar Pedido" value="Actualizar Pedido"/>
+                        <input class="confirmar_pedido" type="submit" name="Previsualizar Pedido" value="Previsualizar Pedido"/>
                     </div>                
                 </form>
             </div>

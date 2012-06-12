@@ -2,30 +2,32 @@
 
 namespace MQM\ShopBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
+use MQM\UserBundle\Form\Type\UserRegistrationType;
+use MQM\ShopBundle\Form\Type\DiscountByUserRuleType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UserValidationType extends AbstractType
+class UserRegistrationBackendType extends UserRegistrationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $discountByUserRuleType = new DiscountByUserRuleType();
+        parent::buildForm($builder, $options);
         $builder
-            ->add('isEnabled', null, array(
+            ->add('discountRule', $discountByUserRuleType, array(
                 'required' => false,
             ))
-        ;
+            ;
     }
 
     public function getName()
     {
-        return 'mqm_shop_form_type_user_validation';
+        return 'mqm_user_form_type_registration_client';
     }
     
     public function getDefaultOptions()
     {
         return array(
             'data_class' => 'MQM\UserBundle\Entity\User',
-            //'validation_groups' => 'Validation',
         );
     }
 }

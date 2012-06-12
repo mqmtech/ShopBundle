@@ -127,12 +127,12 @@ class BrandController extends Controller
             throw $this->createNotFoundException('Unable to find Shop\Brand entity.');
         }
 
-        $editForm = $this->createForm(new BrandType(), $entity);
+        $form = $this->createForm(new BrandType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $form->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -152,11 +152,11 @@ class BrandController extends Controller
             throw $this->createNotFoundException('Unable to find Shop\Brand entity.');
         }
 
-        $editForm   = $this->createForm(new BrandType(), $entity);
+        $form   = $this->createForm(new BrandType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
         $request = $this->getRequest();
-        $editForm->bindRequest($request);
-        if ($editForm->isValid()) {
+        $form->bindRequest($request);
+        if ($form->isValid()) {
             //FIX VIRTUAL file update in Image
             $image = $entity->getImage();
             if ($image != null) {
@@ -175,7 +175,7 @@ class BrandController extends Controller
         
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $form->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -193,11 +193,11 @@ class BrandController extends Controller
             throw $this->createNotFoundException('Unable to find Shop\Brand entity.');
         }        
         $entityCloned = clone ($entity);
-        $editForm = $this->createForm(new BrandType(), $entityCloned);
+        $form = $this->createForm(new BrandType(), $entityCloned);
         
         return array(
             'entity'      => $entityCloned,
-            'form'   => $editForm->createView(),
+            'form'   => $form->createView(),
         );
     }
 

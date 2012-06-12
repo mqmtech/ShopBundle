@@ -131,13 +131,13 @@ jQuery(window).load(function(){
                         <div class="text_bold">REF: {{product.sku}}</div>
                         <div class="descuento_container_ficha">
                             <div class="precio_tachado_ficha">{{ productPrice.originalValue | mqm_monetary_roundoff | mqm_monetary_pretty_price | default(mqm_monetary_price_access_denied()) }} {% if(productPrice.value) %} {{ mqm_monetary_currency_symbol() }} {% endif %}</div>
-                            <div class="descuento_ficha">{{ productPrice.totalDiscountsPercentageValue | mqm_monetary_roundoff | mqm_monetary_pretty_price ~ "%"}}</div>
+                            <div class="descuento_ficha">{{ mqm_pricing_discount_names(productPrice) ~ '%' }}</div>
                             <div class="ahorro_ficha">Ahorra {{ ( productPrice.totalDiscountsValue )| mqm_monetary_roundoff | mqm_monetary_pretty_price ~ mqm_monetary_currency_symbol() }}</div>
                         </div>
                         <div class="add_cesta_ficha"><a href="{{ path('TKShopFrontendUserShoppingAddProduct', {'id' : product.id }) }}"><img src="{{ asset('bundles/mqmshop/images/btn_add_cesta_ficha.png') }}" alt="add_cesta" /></a></div>
                         <div class="oferta">
                             <p class="text_bold">Oferta valida hasta:</p>
-                            <p class="validez">{{ productPrice.discounts[0].get('deadline') | date("d/m/Y") }}</p>
+                            <p class="validez">{{ mqm_pricing_discount_deadline(productPrice) }}</p>
                     	</div> 
                         {% else %} {# else discountRule #}
                         <div class="precio_ficha">{{ productPrice.value | mqm_monetary_roundoff | mqm_monetary_pretty_price | default(mqm_monetary_price_access_denied())}} {% if(productPrice.value) %} {{mqm_monetary_currency_symbol()}} {% endif %}</div>
@@ -150,6 +150,14 @@ jQuery(window).load(function(){
                     <div class="add_cesta_ficha"><a href="{{ path('TKShopFrontendUserShoppingAddProduct', {'id' : product.id }) }}"><img src="{{ asset('bundles/mqmshop/images/btn_add_cesta_ficha.png') }}" alt="add_cesta" /></a></div>
                 {% endif %} {# endif is_granted #}
             </div>
+                <div class="social_buttons">
+                    <div class='social_button'>
+                    {{ twitter_anywhere_tweet_button({'data_hashtags': 'tecnokey'}) }}
+                    </div>
+                    <div class='social_button'>
+                    {{ facebook_likeit_button() }}
+                    </div>
+                </div>
             <!--productos relaciodos-->
             {% render path('TKShopBundleFrontendProductRelatedProducts', {'productId' : product.id}) | mqm_shop_to_app_path %}
             <!--end productos relaciodos-->
@@ -160,10 +168,12 @@ jQuery(window).load(function(){
     <div class="description_ficha">
         <h5>{{ product.description }}</h5>
     </div>
+    {#
     <div class="social_buttons">
         {{ twitter_anywhere_tweet_button({'data_hashtags': 'tecnokey'}) }}
         {{ facebook_likeit_button() }}
     </div>
+    #}
     <!--end info producto-->
     <!--end ficha-->
 </div>

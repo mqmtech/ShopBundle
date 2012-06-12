@@ -109,15 +109,36 @@
 
         <div class="input_container_new_cliente">
             <div class="input_left"><p><span class="red">*</span> Teléfono:</p>
-
                 <div class="field_inline_error" name="Teléfono">{{ form_errors(form.phone) }} </div>
-                {{ form_widget(form.phone, {'attr' : { 'class' : 'input_new_cliente' } }) }}
-            </div>
+                    {{ form_widget(form.phone, {'attr' : { 'class' : 'input_new_cliente' } }) }}
+                </div>
             <div class="input_right"><p>Fax:</p>
-
                 <div class="field_inline_error" name="Fax">{{ form_errors(form.fax) }}</div>
                 {{ form_widget(form.fax, {'attr' : { 'class' : 'input_new_cliente' } }) }}
             </div>
+        </div>
+        
+        <div class="div_new_cliente_descuento_container">
+                <div class="div_new_cliente_descuento_titulo">Descuento (%):</div>
+                <div class="field_inline_error" name="Fax">{{ form_errors(form.discountRule.discount) }}</div>
+                {{ form_widget(form.discountRule.discount, {'attr' : { 'class' : 'input_new_cliente_descuento' } }) }}
+                
+                <div class="field_inline_error" name="Fax">{{ form_errors(form.discountRule.extraDiscount) }}</div>
+                {{ form_widget(form.discountRule.extraDiscount, {'attr' : { 'class' : 'input_new_cliente_descuento' } }) }}
+                
+                <div class="promo_container">
+                  <div class="legend"><span class="text_bold">Fecha: Alta promoción</span></div>
+                  <!--input name="Empresa" onclick="this.value='';" type="Empresa" class="add_fecha" value="DD/MM/AAAA"/-->
+                  {{ form_errors(form.discountRule.startDate) }}
+                  {{ form_widget(form.discountRule.startDate) }}
+                </div>
+
+              <div class="promo_container">
+                  <div class="legend"><span class="text_bold">Fecha: Baja promoción</span></div>
+                  <!--input name="Empresa" onclick="this.value='';" type="Empresa" class="add_fecha" value="DD/MM/AAAA"/-->
+                  {{ form_errors(form.discountRule.deadline) }}
+                  {{ form_widget(form.discountRule.deadline) }}
+              </div>
         </div>
 
         {% for key, messages in app.session.flashbag.all %}

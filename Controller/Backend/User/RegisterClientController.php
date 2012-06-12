@@ -3,15 +3,15 @@
 namespace MQM\ShopBundle\Controller\Backend\User;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use MQM\ShopBundle\Form\Type\UserType;
+use Exception;
 use MQM\UserBundle\Entity\User;
 use MQM\UserBundle\Model\UserInterface;
-use Exception;
-use Symfony\Component\HttpFoundation\Request;
-use MQM\UserBundle\Form\Type\UserRegistrationType;
+use MQM\PricingBundle\Model\DiscountRule\DiscountRuleManagerInterface;
+use MQM\ShopBundle\Form\Type\UserRegistrationBackendType;
 
 /**
  * @Route("/admin/registro_clientes")
@@ -26,12 +26,12 @@ class RegisterClientController extends Controller
     public function newAction($_format)
     {
         $staffRegistrationFormHandler = $this->get('mqm_user.form.handler.user_registration');
-        $form = $this->createForm(new UserRegistrationType(), null, array('validation_groups' => 'Registration'));
+        $form = $this->createForm(new UserRegistrationBackendType(), null, array('validation_groups' => 'Registration'));
         $isValid = $staffRegistrationFormHandler->process($form);
         if ($isValid) {
             $user = $form->getData();
             $user->setIsEnabled(true);
-            $this->get('mqm_user.user_manager')->saveUser($user);
+            $this->saveUserRegistration($user);
 
             return $this->redirect($this->generateUrl('TKShopBackendUserClientShowAll'));
         }
@@ -48,15 +48,12 @@ class RegisterClientController extends Controller
      */
     public function editAction($id)
     {
-        $user = $this->get('mqm_user.user_manager')->findUserBy(array('id' => $id));
-        if (!$user) {
-            throw $this->createNotFoundException('Unable to find Shop\User entity.');
-        }
-        $form = $this->createForm(new UserRegistrationType(), $user, array('validation_groups' => 'Edition'));
+        $user = $this->getUserRegistrationByUserId($id);
+        $form = $this->createForm(new UserRegistrationBackendType(), $user, array('validation_groups' => 'Edition'));
         $staffRegistrationFormHandler = $this->get('mqm_user.form.handler.user_registration');
         $isValid = $staffRegistrationFormHandler->process($form);
         if ($isValid) {
-            $this->get('mqm_user.user_manager')->saveUser($user);
+            $this->saveUserRegistration($user);
 
             return $this->redirect($this->generateUrl('TKShopBackendUserClientShowAll'));
         }
@@ -65,6 +62,28 @@ class RegisterClientController extends Controller
             'entity' => $user,
             'form' => $form->createView(),
         );
+    }
+    
+    private function saveUserRegistration(UserInterface $user)
+    {
+        $this->get('mqm_user.user_manager')->saveUser($user);
+        
+        $userDiscountRule = $user->getDiscountRule();
+        $this->getDiscountManager()->saveDiscountRule($userDiscountRule);
+    }
+    
+    private function getUserRegistrationByUserId($id)
+    {
+        $user = $this->get('mqm_user.user_manager')->findUserBy(array('id' => $id));
+        if (!$user) {
+            throw $this->createNotFoundException('Unable to find Shop\User entity.');
+        }
+        
+        $email = $user->getEmail();
+        $userDiscount = $this->getDiscountRuleByEmail($email);
+        $user->setDiscountRule($userDiscount);
+        
+        return $user;
     }
 
     /**
@@ -80,5 +99,39 @@ class RegisterClientController extends Controller
 
         return $this->redirect($this->generateUrl('TKShopBackendUserClientIndex'));
     }
+    
+    private function getDiscountRuleByEmail($email)
+    {
+       $discountRule = $this->getDiscountRuleBy(array(
+           'email' => $email,
+       ));
+       if ($discountRule->getEmail() == null) {
+           $discountRule->setEmail($email);
+       }
 
+       return $discountRule;
+    }
+    
+    private function getDiscountRuleBy(array $criteria)
+    {
+        $discountManager = $this->getDiscountManager();
+        $discountRule = $discountManager->findDiscountRuleBy($criteria);
+        if ($discountRule == null) {
+            $discountRule = $discountManager->createDiscountRule();
+        }
+
+        return $discountRule;
+    }
+    
+    /**
+     * @return \MQM\PricingBundle\Model\DiscountRule\DiscountRuleManagerInterface
+     */
+    private function getDiscountManager()
+    {
+        $discountRegistry = $this->get('mqm_pricing.type_manager_registry');
+        $discountManager = $discountRegistry->getDiscountRuleManager('MQM\PricingBundle\Entity\DiscountRule\DiscountByUserRule');
+
+        return $discountManager;
+    }
+   
 }

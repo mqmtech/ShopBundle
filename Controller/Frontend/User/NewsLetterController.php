@@ -5,6 +5,7 @@ namespace MQM\ShopBundle\Controller\Frontend\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 /**
  * @Route("/tienda/newsletter")
  */
@@ -89,6 +90,6 @@ class NewsLetterController extends Controller {
 
     public function getCurrentUser()
     {
-        return $this->get('mqm_user.user_manager')->getCurrentUser();
+        return $this->get('mqm_user.user_resolver')->getCurrentUser();
     }
 }

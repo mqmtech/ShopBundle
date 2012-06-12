@@ -3,39 +3,16 @@
 namespace MQM\ShopBundle\Controller\Frontend\User;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use MQM\OrderBundle\Model\OrderInterface;
 
-
 /**
- * Shop\Order controller.
- *
  * @Route("/tienda/usuario/pedidos")
  */
 class OrderController extends Controller
 {
-    /**
-     * Lists all Shop\Order entities.
-     *
-     * @Route("/", name="TKShopFrontendOrderIndex")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $sortManager = $this->createSortManager();     
-        $entities = $this->get('mqm_order.order_manager')->findOrders();
-
-        return array(
-            'entities' => $entities,
-            'sortManager' => $sortManager->switchMode(),
-            );
-    }
-    
      /**
-     * 
-     *
      * @Route("/realizados", name="TKShopFrontendOrdersShowDelivered")
      * @Template()
      */
@@ -52,15 +29,13 @@ class OrderController extends Controller
     }
     
     /**
-     * 
-     *
      * @Route("/en_proceso", name="TKShopFrontendOrdersShowInProcess")
      * @Template()
      */
     public function showInProcessAction()
     {
         $sortManager = $this->createSortManager();        
-        $user = $this->get('mqm_user.user_manager')->getCurrentUser();
+        $user = $this->getCurrentUser();
         $entities = $this->get('mqm_order.order_manager')->findInProcessOrdersByUserId($user->getId(), $sortManager);
 
         return array(
@@ -70,34 +45,28 @@ class OrderController extends Controller
     }
 
     /**
-     * Finds and displays a Shop\Order entity.
-     *
      * @Route("/{publicId}/show", name="TKShopFrontendOrderShow")
      * @Template()
      */
     public function showAction($publicId)
     {
-        $entity = $this->get('mqm_order.order_manager')->findOrderByPublicId($publicId);
-
-        if (!$entity) {
+        $order = $this->get('mqm_order.order_manager')->findOrderByPublicId($publicId);
+        if (!$order) {
             throw $this->createNotFoundException('Unable to find Shop\Order entity.');
         }
 
         return array(
-            'order'      => $entity,
+            'order'      => $order,
         );
     }
     
     /**
-     * Finds and displays a Shop\Order entity.
-     *
      * @Route("/confirmar", name="TKShopFrontendOrderCreateFromShoppingCart")
      * @Template()
      */
     public function createFromShoppingCartAction()
     {
-        $confirmed = $this->confirmOrder();
-        
+        $confirmed = $this->placeOrder();        
         if ($confirmed == true) {
             return $this->redirect($this->generateUrl('TKShopFrontendOrdersShowInProcess'));
         }
@@ -106,48 +75,10 @@ class OrderController extends Controller
             return $this->redirect($this->generateUrl('TKShopFrontendUserShoppingCartEdit'));
         }
     }
-  
-    //  HELPER FUNCTIONS  //
     
-    /**
-     * Redirects to home page if there is a problem with Oder
-     *
-     * @param type $msg
-     * @param type $redirect
-     * @return type 
-     */
-    protected function orderErrorHandler($msg = null, $redirect=null){
-        //TODO: Redirect to index
-        $this->get('session')->getFlashBag()->set('order_error',"Atencion: El usuario no puede tener pedidos, cree un usuario de tipo cliente");
-        $this->get('session')->save();
-        return $this->redirect($this->generateUrl("TKShopFrontendIndex"));
-    }
-    
-    /**
-     * Get the Order from the logged user
-     * 
-     * @return Order 
-     */
-    protected function getOrderFromCurrentUser(){
-        $user = $this->getCurrentUser();
-        if ($this->get('mqm_user.user_manager')->isLoggedIn($user)) {
-            return $user->getOrders();            
-        }
-        else {
-            return null;
-        }
-    }
-    
-    
-    /**
-     *
-     * @param ShoppingCart $shoppingCart
-     * @return boolean 
-     */
-    public function confirmOrder() {
-        
+    private function placeOrder()
+    {        
         $sc = $this->getUserShoppingCart();
-
         $items = $sc->getItems();
         if (count($items) < 1) {
             return false;
@@ -160,7 +91,6 @@ class OrderController extends Controller
             $order->setUser($user);
             $this->get('mqm_order.order_manager')->saveOrder($order, true);
             $this->get('mqm_cart.cart_manager')->removeAllItemsFromCart($sc);
-
             $this->postOrderProcess($order);
 
             return true;
@@ -183,13 +113,12 @@ class OrderController extends Controller
      * @return ShoppingCart 
      */
     protected function getUserShoppingCart() {
-        $user = $this->getCurrentUser();
-        
+        $user = $this->getCurrentUser();        
         $shoppingCart = null;
-        if ($this->get('mqm_user.user_manager')->isLoggedIn($user)) {
+        if ($this->get('mqm_user.user_resolver')->isLoggedIn($user)) {
             $shoppingCart = $user->getShoppingCart();
             if ($shoppingCart == null) {
-                $shoppingCart = new ShoppingCart();
+                $shoppingCart = $this->get('mqm_cart.cart_manager')->createCart();
                 $user->setShoppingCart($shoppingCart);
             }
         } 
@@ -198,7 +127,7 @@ class OrderController extends Controller
     }
     
     public function getCurrentUser(){
-        return $this->get('mqm_user.user_manager')->getCurrentUser();
+        return $this->get('mqm_user.user_resolver')->getCurrentUser();
     }
     
     private function createSortManager()

@@ -6,8 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * Frontend\Default controller.
- *
  * @Route("/tienda/marcas")
  */
 class BrandController extends Controller

@@ -26,5 +26,6 @@ class MQMShopExtension extends Extension
         $loader->load('services.xml');
         $loader->load('form.xml');
         $loader->load('listeners.xml');
+        $loader->load('purchase.xml');        
     }
 }

@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use MQM\UserBundle\Model\UserManagerInterface;
 use MQM\UserBundle\Model\UserInterface;
-use MQM\ShopBundle\Form\Type\UserValidationType;
 
 /**
  * @Route("/admin/usuarios/clientes")
