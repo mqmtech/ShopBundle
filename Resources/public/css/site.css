@@ -1678,8 +1678,8 @@ input.buscarbtn{
 .social_buttons{
     height: auto;
     width: 60px;
-    right: 250px;
-    position: absolute;
+    float: left;
+
 }
 
 .social_button{
