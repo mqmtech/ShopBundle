@@ -6,24 +6,39 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class DiscountRuleType extends AbstractType
-{
+{    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('startDate', 'date', array(
-                'label' => 'add_fecha',
-                'input' => 'datetime',
-                'widget' => 'choice'
-            ))
-            ->add('deadline', 'date', array(
-                'label' => 'add_fecha',
-                'input' => 'datetime',
-                'widget' => 'choice'
-            ))
+        $defaultStartDate = new \DateTime('now');
+        $defaultDeadline = new \DateTime('now + 4 year');        
+        $this->buildDate($builder, 'startDate', $defaultStartDate);
+        $this->buildDate($builder, 'deadline', $defaultDeadline)
             ->add('discount', 'mqm_shop.form.percentage', array(
                 'label' => 'add_descuento'
             ))
         ;
+    }
+    
+    private function buildDate($builder, $fieldName, $defaultDate = null)
+    {
+        if (!$defaultDate) {
+            $defaultDate = new \DateTime('now');
+        }
+        
+        $builder->add($fieldName, 'date', array(
+                'label' => 'add_fecha',
+                'input' => 'datetime',
+                'widget' => 'choice',
+                'empty_value' => array(
+                    'day' =>$defaultDate->format('d'), 
+                    'month' => $defaultDate->format('m'),
+                    'year' => $defaultDate->format('Y'),
+                ),
+                'format' => 'dd-MM-yyyy'
+            ))
+        
+                ;
+        return $builder;
     }
 
     public function getName()

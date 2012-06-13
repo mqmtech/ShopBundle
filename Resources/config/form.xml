@@ -9,7 +9,6 @@
         <parameter key="mqm_shop.form.category.class">MQM\ShopBundle\Form\Type\CategoryType</parameter>
         <parameter key="mqm_shop.form.pretty_price.class">MQM\ShopBundle\Form\Type\PrettyPriceType</parameter>
         <parameter key="mqm_shop.form.percentage.class">MQM\ShopBundle\Form\Type\PercentageType</parameter>
-        <parameter key="mqm_shop.form.time_discountRule.class">MQM\ShopBundle\Form\Type\TimeDiscountRuleType</parameter>
     </parameters>
 
     <services>
@@ -32,10 +31,7 @@
             <argument type="service" id="mqm_tools.utils" />
             <tag name="form.type" alias="mqm_shop.form.percentage" />
         </service>
-        
-        <service id="mqm_shop.form.time_discountRule" class="%mqm_shop.form.time_discountRule.class%" public="true">
-            <tag name="form.type" alias="mqm_shop.form.time_discountRule" />
-        </service>        
+     
     </services>
 
 </container>
