@@ -65,7 +65,7 @@ class ProductType extends AbstractType
               ));
     }    
 
-    public function buildOrdenedCategoriesChoice(PersistentCollection $categories=null, array &$categoriesChoice = null)
+    public function buildOrdenedCategoriesChoice(PersistentCollection $categories = null, array &$categoriesChoice = null)
     {        
         if ($categoriesChoice == null) {
             $categoriesChoice = array();

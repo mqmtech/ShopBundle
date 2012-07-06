@@ -65,7 +65,11 @@ jQuery(window).load(function(){
 </script>
 {% endblock jsfunctions %}
 
-{% block title %}| Tecnokey | Productos |{% endblock %}
+{% set title = '| Tecnokey | Productos |' %}
+{% if product is defined and product.name is defined %}
+    {% set title = product.name %}
+{% endif %}
+{% block title %} {{ title }}{% endblock %}
 
 {% block menu %}<!--start header-->
         {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'productos'} %}
