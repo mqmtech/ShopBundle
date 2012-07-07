@@ -1,6 +1,10 @@
 {% extends 'MQMShopBundle:Frontend:layout.html.twig' %}
 
-{% block title %}| Tecnokey | Productos |{% endblock %}
+{% set title = '| Tecnokey | Productos |' %}
+{% if parentCategory is defined and parentCategory.name is defined %}
+{% set title = parentCategory.name %}
+{% endif %}
+{% block title %} {{ title }}{% endblock %}
 
 {% block menu %}
         {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'productos'} %}
