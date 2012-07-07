@@ -1,6 +1,10 @@
 {% extends 'MQMShopBundle:Frontend:layout.html.twig' %}
 
-{% block title %}| Tecnokey | Productos |{% endblock %}
+{% set title = '| Tecnokey | Busqueda |' %}
+{% if search is defined and search.name is defined %}
+{% set title = '| Busqueda | ' ~ search.name ~ ' |'%}
+{% endif %}
+{% block title %} {{ title }}{% endblock %}
 
 {% block menu %}<!--start header-->
         {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'productos'} %}
