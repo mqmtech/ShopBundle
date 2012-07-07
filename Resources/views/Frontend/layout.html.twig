@@ -2,6 +2,10 @@
 
 {% block title %}| Tecnokey |{% endblock %}
 
+{% block analytics %}
+    {% include "GoogleBundle:Analytics:async.html.twig" %}
+{% endblock analytics %}
+
 {% block stylesheets %}
 {{ parent() }}
 <link href="{{ asset('bundles/mqmshop/css/site.css') }}" rel="stylesheet" type="text/css" />
