@@ -15,6 +15,7 @@
 
 {% block body %} <!--start page-->
 {{ facebook_initialize({'domain': 'www.tecnokey.com', 'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+{% include 'MQMShopBundle:GooglePlus:initialize.partialhtml.twig' %}
 <div class="container">
     {% block header %}<!--start header-->
     <div class="headercontainer">

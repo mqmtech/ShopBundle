@@ -155,6 +155,9 @@ jQuery(window).load(function(){
                 {% endif %} {# endif is_granted #}
             </div>
                 <div class="social_buttons">
+                    <div class="social_button">
+                        {% include 'MQMShopBundle:GooglePlus:button.partialhtml.twig' %}
+                    </div>
                     <div class='social_button'>
                     {{ twitter_anywhere_tweet_button({'data_hashtags': 'tecnokey'}) }}
                     </div>
