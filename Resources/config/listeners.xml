@@ -12,6 +12,25 @@
     </parameters>
 
     <services>
+        <service id="mqm_shop.contract_validation.listener" class="MQM\ShopBundle\EventListener\ContractValidation">
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+            <argument type="collection">
+                  <argument type="string" key="year">2012</argument>
+                  <argument type="string" key="month">8</argument>
+                  <argument type="string" key="day">1</argument>
+            </argument>
+            <argument type="collection">
+                <argument type="collection">
+                    <argument type="string" key="startHour">10</argument>
+                    <argument type="string" key="endHour">12</argument>
+                </argument>
+                <argument type="collection">
+                    <argument type="string" key="startHour">18</argument>
+                    <argument type="string" key="endHour">20</argument>
+                </argument>
+            </argument>
+        </service>
+
         <service id="mqm_shop.save_previous_state.listener" class="MQM\ShopBundle\EventListener\SavePreviousPage">
               <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
               <argument type="service" id="router" />
