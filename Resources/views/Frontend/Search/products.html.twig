@@ -2,7 +2,7 @@
 
 {% set title = '| Tecnokey | Busqueda |' %}
 {% if search is defined and search.name is defined %}
-{% set title = '| Busqueda | ' ~ search.name ~ ' |'%}
+{% set title = '| Tecnokey | ' ~ search.name ~ ' |'%}
 {% endif %}
 {% block title %} {{ title }}{% endblock %}
 

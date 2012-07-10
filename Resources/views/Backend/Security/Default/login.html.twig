@@ -6,6 +6,29 @@
 
 {% block treeContainer %}{% endblock treeContainer%}
 
+{% block jsfunctions %}
+<script type="text/javascript">
+    
+jQuery(document).ready(function(){
+    
+    jQuery('[type="submit"]').click(function(event){
+        event.preventDefault();
+
+        var username = jQuery('#username').attr('value');
+        if (username == 'admin')
+        {
+            username = username + '@tecno-key.com';
+            jQuery('#username').attr('value',username);
+        }
+
+        var form = jQuery("[name=form]");
+        form.submit();
+    });
+
+});
+</script>
+{% endblock jsfunctions %}
+
 {% block content %}
 
 <!--login form-->
@@ -21,11 +44,11 @@
     <div class="titulo_admin">Administración Tecnokey</div>
 
     {% if error %}
-        <div class="error">{{ error.message }}</div>
+        <div class="error">Usuario o contraseña incorrecta</div>
     {% endif %}
 
     <!--forms login y pass-->
-    <form action="{{ path("TKShopBackendSecurityLoginCheck") }}" method="post" id="login">
+    <form action="{{ path("TKShopBackendSecurityLoginCheck") }}" method="post" id="login" name="form">
         <div class="form_admin_container">
 
             <span class="text_bold">Nombre de usuario:</span>
