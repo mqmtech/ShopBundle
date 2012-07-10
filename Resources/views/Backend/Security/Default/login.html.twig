@@ -7,26 +7,6 @@
 {% block treeContainer %}{% endblock treeContainer%}
 
 {% block jsfunctions %}
-<script type="text/javascript">
-    
-jQuery(document).ready(function(){
-    
-    jQuery('[type="submit"]').click(function(event){
-        event.preventDefault();
-
-        var username = jQuery('#username').attr('value');
-        if (username == 'admin')
-        {
-            username = username + '@tecno-key.com';
-            jQuery('#username').attr('value',username);
-        }
-
-        var form = jQuery("[name=form]");
-        form.submit();
-    });
-
-});
-</script>
 {% endblock jsfunctions %}
 
 {% block content %}
