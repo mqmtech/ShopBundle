@@ -11,7 +11,7 @@
         {% include 'MQMShopBundle:Frontend:menu.partialhtml.twig' with {'menu' : 'productos'} %}
 {% endblock %}
 
-{% block contextualThree %}<a href="{{ path('TKShopFrontendIndex') }}">Inicio</a> \ Lista de la compra \
+{% block contextualThree %}<a href="{{ path('TKShopFrontendIndex') }}">Inicio</a>
 {% endblock %}
 
 {% block left %}
@@ -57,7 +57,15 @@
         </div>
 
     </div>
-    <!--start area privada-->   
+    <!--start area privada-->
+    
+    {% if last_username != '' %}
+        {% if error %}
+        <div class="error">Error en usuario o contraseña</div>
+        <div class="error">Si ya se ha registrado puede ser debido a que la cuenta de {{last_username}} esté pendiente de validar</div>
+        {% endif %}
+    {% endif %}
+    
 
 </div><!--end right-->
 {% endblock right %}

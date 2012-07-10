@@ -62,6 +62,14 @@ class DefaultController extends Controller
     public function securityCheckAction()
     {
         // The security layer will intercept this request
+        // get the login error if there is one
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $session->getBag('security_error')->set('security_error',array(
+            'label' => 'Error en usuario o contraseña',
+            'description' => 'Si ya se ha registrado puede ser debido a que su cuenta esté pendiente de validar'
+        ));
+        $this->get('session')->save();
     }
     
     /**
