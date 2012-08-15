@@ -16,16 +16,16 @@
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
             <argument type="collection">
                   <argument type="string" key="year">2012</argument>
-                  <argument type="string" key="month">8</argument>
+                  <argument type="string" key="month">9</argument>
                   <argument type="string" key="day">15</argument>
             </argument>
             <argument type="collection">
                 <argument type="collection">
-                    <argument type="string" key="startHour">10</argument>
+                    <argument type="string" key="startHour">9</argument>
                     <argument type="string" key="endHour">12</argument>
                 </argument>
                 <argument type="collection">
-                    <argument type="string" key="startHour">18</argument>
+                    <argument type="string" key="startHour">17</argument>
                     <argument type="string" key="endHour">20</argument>
                 </argument>
             </argument>
