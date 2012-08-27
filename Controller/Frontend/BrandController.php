@@ -34,5 +34,4 @@ class BrandController extends Controller
             'brands' => $brands)
         );
     }
-    
 }
