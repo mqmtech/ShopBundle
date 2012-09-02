@@ -29,7 +29,7 @@ class PrettyPriceType extends AbstractType
 
     public function getName()
     {
-        return 'mqm_shop_form_type_pretty_price';
+        return 'mqm_shop_type_pretty_price';
     }
     
     public function getDefaultOptions(array $options)

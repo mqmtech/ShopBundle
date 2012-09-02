@@ -34,6 +34,6 @@ class DecimalToPercentageTransformer implements DataTransformerInterface
             throw new TransformationFailedException(sprintf('An issue with number %s does not exist!', $val));
         }
 
-        return $decimal . '';
+        return $decimal;
     }
 }

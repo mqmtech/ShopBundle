@@ -13,7 +13,7 @@ class DiscountRuleType extends AbstractType
         $defaultDeadline = new \DateTime('now + 4 year');        
         $this->buildDate($builder, 'startDate', $defaultStartDate);
         $this->buildDate($builder, 'deadline', $defaultDeadline)
-            ->add('discount', 'mqm_shop.form.percentage', array(
+            ->add('discount', 'mqm_shop_type_percentage', array(
                 'label' => 'add_descuento'
             ))
         ;

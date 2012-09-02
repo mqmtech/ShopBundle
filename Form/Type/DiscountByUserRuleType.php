@@ -12,7 +12,7 @@ class DiscountByUserRuleType extends DiscountRuleType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('extraDiscount', 'mqm_shop.form.percentage', array(
+        $builder->add('extraDiscount', 'mqm_shop_type_percentage', array(
             'label' => 'add_descuento'
         ))
         ;

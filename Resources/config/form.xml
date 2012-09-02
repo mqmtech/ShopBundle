@@ -24,14 +24,13 @@
         
         <service id="mqm_shop.form.pretty_price" class="%mqm_shop.form.pretty_price.class%" public="true">
             <argument type="service" id="mqm_tools.utils" />
-            <tag name="form.type" alias="mqm_shop.form.pretty_price" />
+            <tag name="form.type" alias="mqm_shop_type_pretty_price" />
         </service>
 
-        <service id="mqm_shop.form.percentage" class="%mqm_shop.form.percentage.class%" public="true">
+        <service id="mqm_shop.form.percentage" class="%mqm_shop.form.percentage.class%" public="true" scope="prototype">
             <argument type="service" id="mqm_tools.utils" />
-            <tag name="form.type" alias="mqm_shop.form.percentage" />
+            <tag name="form.type" alias="mqm_shop_type_percentage"/>
         </service>
-     
     </services>
 
 </container>

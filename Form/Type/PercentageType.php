@@ -29,9 +29,9 @@ class PercentageType extends AbstractType
 
     public function getName()
     {
-        return 'mqm_shop_form_type_percentage';
+        return 'mqm_shop_type_percentage';
     }
-    
+
     public function getDefaultOptions(array $options)
     {
         return array(

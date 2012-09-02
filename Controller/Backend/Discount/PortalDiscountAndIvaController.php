@@ -21,11 +21,7 @@ class PortalDiscountAndIvaController extends Controller
     {
         $discountRule = $this->getDefaultDiscountRule();
         $discountForm = $this->createForm(new DiscountByPortalRuleType(), $discountRule);
-        
-        $taxValue = $this->getTaxationManager()->getTax();
-        $taxForm = $this->createFormBuilder(array('tax' => $taxValue))
-                ->add('tax', 'mqm_shop.form.percentage')
-                ->getForm();
+        $taxForm = $this->createTaxForm();
         
         return array(
             'discountForm' => $discountForm->createView(),
@@ -43,7 +39,7 @@ class PortalDiscountAndIvaController extends Controller
         $discountRule = $this->getDefaultDiscountRule();
         $form   = $this->createForm(new DiscountByPortalRuleType(), $discountRule);
         $request = $this->getRequest();
-        $form->bindRequest($request);
+        $form->bind($request);
         if ($form->isValid()) {
             $this->getDiscountManager()->saveDiscountRule($discountRule);
 
@@ -60,19 +56,15 @@ class PortalDiscountAndIvaController extends Controller
      */
     public function updateTaxAction()
     {
-        $taxValue = $this->getTaxationManager()->getTax();
-        $form = $taxForm = $taxForm = $this->createFormBuilder(array('tax' => $taxValue))
-                ->add('tax', 'mqm_shop.form.percentage')
-                ->getForm();
+        $form = $this->createTaxForm();
         $request = $this->getRequest();
-        $form->bindRequest($request);
+        $form->bind($request);
         if ($form->isValid()) {            
-            $taxObject = $form->getData(); 
-            $this->getTaxationManager()->saveTax($taxObject['tax']);
+            $this->getTaxationManager()->saveTax($form->getData()->getTax());
 
             return $this->redirect($this->generateUrl('TKShopBackendPortalDiscountAndIvaEdit'));
         }
-        
+
         throw new \Exception('Invalid Portal DiscountRule');
     }
     
@@ -104,5 +96,35 @@ class PortalDiscountAndIvaController extends Controller
     private function getTaxationManager()
     {
         return $this->get('mqm_taxation.taxation_manager');
+    }
+
+    private function createTaxForm()
+    {
+        $taxObject = new Tax($this->getTaxationManager()->getTax());
+        $taxForm = $this->createFormBuilder($taxObject)
+            ->add('tax')
+            ->getForm();
+
+        return $taxForm;
+    }
+}
+
+class Tax
+{
+    var $tax = 0;
+
+    function __construct($p_tax)
+    {
+        $this->tax = $p_tax;
+    }
+
+    public function setTax($tax)
+    {
+        $this->tax = $tax;
+    }
+
+    public function getTax()
+    {
+        return $this->tax;
     }
 }
