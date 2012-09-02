@@ -23,7 +23,7 @@ class ImageType extends AbstractType
         return 'mqm_shop_form_type_image';
     }
     
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'data_class' => 'MQM\ImageBundle\Entity\Image',

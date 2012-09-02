@@ -24,7 +24,7 @@ class NewsLetterType extends AbstractType
         return 'mqm_shop_form_type_user';
     }
     
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'data_class' => 'MQM\NewsLetterBundle\Entity\NewsLetter',

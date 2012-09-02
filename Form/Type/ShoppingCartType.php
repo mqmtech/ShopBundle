@@ -22,7 +22,7 @@ class ShoppingCartType extends AbstractType
         return 'mqm_shop_form_type_cart';
     }
     
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'data_class' => 'MQM\ShoppingCartBundle\Entity\ShoppingCart',

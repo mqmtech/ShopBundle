@@ -13,7 +13,7 @@ class DiscountByBrandRuleType extends DiscountRuleType
         return 'mqm_pricing_form_type_discount_by_brand';
     }
     
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'data_class' => 'MQM\PricingBundle\Entity\DiscountRule\DiscountByBrandRule',

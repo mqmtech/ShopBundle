@@ -13,7 +13,7 @@ class DiscountByPortalRuleType extends DiscountRuleType
         return 'mqm_pricing_form_type_discount_by_portal';
     }
 
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'data_class' => 'MQM\PricingBundle\FileSystem\DiscountRule\DiscountByPortalRule',

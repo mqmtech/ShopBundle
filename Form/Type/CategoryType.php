@@ -58,7 +58,7 @@ class CategoryType extends AbstractType
         return $categoriesChoice;
     }
     
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'data_class' => 'MQM\CategoryBundle\Entity\Category',

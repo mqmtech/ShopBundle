@@ -32,7 +32,7 @@ class PercentageType extends AbstractType
         return 'mqm_shop_form_type_percentage';
     }
     
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'invalid_message'=>'The value is not a valid number'

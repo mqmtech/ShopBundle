@@ -46,7 +46,7 @@ class DiscountRuleType extends AbstractType
         return 'mqm_pricing_form_type_discount';
     }
 
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'data_class' => 'MQM\PricingBundle\Model\DiscountRule\DiscountRuleInterface',

@@ -27,7 +27,7 @@ class BrandType extends AbstractType
         return 'mqm_shop_form_type_brand';
     }
     
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'data_class' => 'MQM\BrandBundle\Entity\Brand',
